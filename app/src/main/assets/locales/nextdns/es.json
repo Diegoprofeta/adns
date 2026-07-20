@@ -125,7 +125,7 @@
                 "info": "NextDNS seguirá resolviendo consultas de DNS, pero todas las funciones están temporalmente deshabilitadas hasta el próximo mes."
             },
             "subscribe": {
-                "ios": "To subscribe to the service, go to my.nextdns.io in your browser.",
+                "ios": "Para suscribirse al servicio, vaya a mis anexos. my.nextdns.io en su navegador.",
                 "upsell": "Obtén consultas ilimitadas, a partir de {{amount, price}}/mes."
             }
         },
@@ -145,16 +145,18 @@
                 "year": "al año"
             },
             "units": {
-                "business": "{{count, number}} empleado",
-                "business_plural": "{{count, number}} empleados",
-                "education": "{{count, number}} estudiante",
-                "education_plural": "{{count, number}} estudiantes"
+                "business_0": "{{count, number}} empleado",
+                "business_1": "{{count, number}} empleados",
+                "business_2": "{{count, number}} empleados",
+                "education_0": "{{count, number}} estudiante",
+                "education_1": "{{count, number}} estudiantes",
+                "education_2": "{{count, number}} estudiantes"
             },
             "planFull": "{{plan}} ({{interval}})",
             "planFullWithUnits": "{{plan}} ({{units}}, {{interval}})",
             "expires": "Tu suscripción expirará el {{date, date}}.",
-            "managedByApple": "Your subscription is managed through your Apple ID. To change or cancel it, please use Apple's subscription settings.",
-            "manageOnApple": "Manage subscription on Apple",
+            "managedByApple": "Su suscripción se gestiona a través de su Apple ID. Para cambiarlo o cancelarlo, utilice los ajustes de suscripción de Apple.",
+            "manageOnApple": "Gestionar suscripción en Apple",
             "restart": {
                 "button": "Reiniciar suscripción"
             },
@@ -362,17 +364,17 @@
             },
             "apr": {
                 "ok": {
-                    "primary": "This device is using NextDNS with iCloud Private Relay",
-                    "secondary": "Features like SafeSearch, Youtube Restricted Mode and Rewrites are not compatible with iCloud Private Relay."
+                    "primary": "Este dispositivo está usando NextDNS con iCloud Private Relay",
+                    "secondary": "Características como SafeSearch, Youtube Restricted Mode y Rewrites no son compatibles con iCloud Private Relay."
                 },
                 "blockpage": {
-                    "primary": "This device is using NextDNS with iCloud Private Relay.",
-                    "secondary": "Enabling the Block Page setting while using iCloud Private Relay interferes with blocking."
+                    "primary": "Este dispositivo está usando NextDNS con iCloud Private Relay.",
+                    "secondary": "Habilitando los ajustes de Página del Bloque mientras utiliza iCloud Private Relay interfiere con bloqueo."
                 }
             }
         },
         "endpoints": {
-            "name": "Endpoints",
+            "name": "Puntos finales",
             "description": "Configura NextDNS con esta configuración utilizando uno de los endpoints a continuación.",
             "help": "¿No estás seguro de cómo usarlos? Sigue el <1>manual de instalación</1>."
         },
@@ -447,7 +449,7 @@
                             "title": "NextDNS para Android",
                             "steps": {
                                 "1": "1. Instala nuestra aplicación oficial desde la Play Store.",
-                                "2": "2. En la aplicación NextDNS, introduce <1>{{id}}</1> en Configuración → ID de configuración, luego conéctete."
+                                "2": "2. En la aplicación NextDNS, introduce <1>{{id}}</1> en Configuración → ID de configuración, posteriormente conéctese."
                             }
                         },
                         "ip": {
@@ -469,7 +471,7 @@
                             "title": "NextDNS para iOS",
                             "steps": {
                                 "1": "1. Instala nuestra aplicación oficial desde la App Store.",
-                                "2": "2. Abre la aplicación, luego ve a Ajustes y activa \"Usar configuración personalizada\". Introduce <1>{{id}}</1> como ID de configuración.",
+                                "2": "2. Abre la aplicación, posteriormente vaya a Ajustes y active \"Usar configuración personalizada\". Introduce <1>{{id}}</1> como ID de configuración.",
                                 "3": "3. Habilita NextDNS."
                             }
                         }
@@ -498,21 +500,21 @@
                             "title": "NextDNS para Windows",
                             "steps": {
                                 "1": "1. Descarga el instalador <1>aquí</1>.",
-                                "2": "2. Después de la instalación, haz clic derecho en el icono NextDNS en la bandeja del sistema y luego abre Ajustes. Introduce <1>{{id}}</1> como ID de configuración.",
-                                "3": "3. Haz clic derecho en el icono NextDNS en la bandeja del sistema, luego haz clic en Habilitar."
+                                "2": "2. Después de la instalación, pulse el botón secundario del ratón sobre el icono NextDNS en la bandeja del sistema y luego abra Ajustes. Introduzca <1>{{id}}</1> como ID de Configuración.",
+                                "3": "3. Pulsa el botón secundario del ratón sobre en el icono NextDNS en la bandeja del sistema, luego pulsa sobre Habilitar."
                             }
                         },
                         "ip": {
                             "steps": {
-                                "1": "1. Haz clic en el menú Inicio y luego en Panel de control.",
-                                "2": "2. Haz clic en Redes e Internet, luego en Centro de redes y recursos compartidos.",
+                                "1": "1. Pulsa sobre el menú Inicio y luego en Panel de Control.",
+                                "2": "2. Pulsa en Redes e Internet, luego en Centro de redes y recursos compartidos.",
                                 "3": "3. Haz clic en Cambiar configuración del adaptador.",
-                                "4": "4. Haz clic derecho en la red Wi-Fi a la que está conectado, luego haz clic en Propiedades.",
-                                "5": "5. Selecciona Protocolo de Internet versión {{version}} (TCP/IPv{{version}}).",
+                                "4": "4. Pulsa con el botón secundario en la red Wi-Fi a la que está conectado, luego pulsa sobre Propiedades.",
+                                "5": "5. Selecciona el Protocolo de Internet versión {{version}}.",
                                 "6": "6. Haz clic en Propiedades.",
                                 "7": "7. Haz clic en Usar las siguientes direcciones de servidor DNS.",
                                 "8": "8. Reemplaza las direcciones actuales (si las hay) con <1>{{dns1}}</1> y <3>{{dns2}}</3>.",
-                                "9": "9. Haz clic en Aceptar y luego en Cerrar. Es posible que tengas que reiniciar el navegador."
+                                "9": "9. Pulsa en Aceptar y luego en Cerrar. Es posible que tengas que reiniciar el navegador."
                             }
                         },
                         "yoga": {
@@ -540,11 +542,11 @@
                         },
                         "ip": {
                             "steps": {
-                                "1": "1. Abra las Preferencias del sistema, luego haz clic en Red.",
-                                "2": "2. Selecciona la red a la que estás conectado, luego haz clic en el botón Avanzado.",
+                                "1": "1. Abre las Preferencias del sistema, luego pulsa sobre Red.",
+                                "2": "2. Selecciona la red a la que estás conectado, luego pulsa encima del botón Avanzado.",
                                 "3": "3. Ve a la sección DNS.",
-                                "4": "4. En la lista de servidores DNS, elimina todas las direcciones (si las hay) y luego añade <1>{{dns1}}</1> y <3>{{dns2}}</3>.",
-                                "5": "5. Haz clic en Aceptar y luego en Aplicar."
+                                "4": "4. En la lista de servidores DNS, retira todas las direcciones (si las hay) y luego añade <1>{{dns1}}</1> y <3>{{dns2}}</3>.",
+                                "5": "5. Pulsa sobre Aceptar y luego pulsa sobre Aplicar."
                             }
                         },
                         "cli": {
@@ -726,7 +728,7 @@
         "homograph": {
             "name": "Protección contra ataques de homógrafos IDN",
             "description": "Bloquea los dominios que se hacen pasar por otros dominios abusando del gran conjunto de caracteres disponible con la llegada de los nombres de dominio internacionalizados (IDN) — por ejemplo, reemplazando la letra latina \"e\" por la letra cirílica \"е\".",
-            "enable": "Habilitar la protección contra ataques de homógrafos IDN"
+            "enable": "Habilitar Protección contra Ataques de Homógrafos"
         },
         "typosquatting": {
             "name": "Protección contra typosquatting",
@@ -774,8 +776,9 @@
             "name": "Listas de bloqueo",
             "description": "Bloquea anuncios y rastreadores utilizando las listas de bloqueo más populares disponibles — todas actualizadas en tiempo real.",
             "add": "Añadir una lista de bloqueo",
-            "entries": "{{count, number}} entrada",
-            "entries_plural": "{{count, number}} entradas",
+            "entries_0": "{{count, number}} apunte",
+            "entries_1": "{{count, number}} apuntes",
+            "entries_2": "{{count, number}} apuntes",
             "updated": "Actualizado <1>{{ago}}</1>",
             "blocklists": {
                 "nextdns-recommended": {
@@ -972,20 +975,24 @@
     },
     "analytics": {
         "counters": {
-            "all": "<0>{{count, number}}</0><1>consulta</1>",
-            "all_plural": "<0>{{count, number}}</0><1>consultas</1>",
-            "blocked": "<0>{{count, number}}</0><1>consulta bloqueada</1>",
-            "blocked_plural": "<0>{{count, number}}</0><1>consultas bloqueadas</1>",
+            "all_0": "<0>{{count, number}}</0><1>consulta</1>",
+            "all_1": "<0>{{count, number}}</0><1>consultas</1>",
+            "all_2": "<0>{{count, number}}</0><1>consultas</1>",
+            "blocked_0": "<0>{{count, number}}</0><1>consulta bloqueada</1>",
+            "blocked_1": "<0>{{count, number}}</0><1>consultas bloqueadas</1>",
+            "blocked_2": "<0>{{count, number}}</0><1>consultas bloqueadas</1>",
             "percentBlocked": "<0>{{percent, percentage}}</0><1><0> </0><1>de consultas bloqueadas</1></1>"
         },
         "queries": {
             "name": "Consultas",
             "description": "Evolución de las consultas en el tiempo.",
             "queries": {
-                "all": "<0>{{count, number}}</0><1> consulta</1>",
-                "all_plural": "<0>{{count, number}}</0><1> consultas</1>",
-                "blocked": "<0>{{count, number}}</0><1> consulta bloqueada</1>",
-                "blocked_plural": "<0>{{count, number}}</0><1> consultas bloqueadas</1>"
+                "all_0": "<0>{{count, number}}</0><1> consulta</1>",
+                "all_1": "<0>{{count, number}}</0><1> consultas</1>",
+                "all_2": "<0>{{count, number}}</0><1> consultas</1>",
+                "blocked_0": "<0>{{count, number}}</0><1> consulta bloqueada</1>",
+                "blocked_1": "<0>{{count, number}}</0><1> consultas bloqueadas</1>",
+                "blocked_2": "<0>{{count, number}}</0><1> consultas bloqueadas</1>"
             }
         },
         "domains": {
@@ -1024,8 +1031,9 @@
         "gafam": {
             "name": "Dominio GAFAM",
             "description": "\"GAFAM\" (Google, Amazon, Facebook, Apple y Microsoft) son las 5 empresas de Internet dominantes que poseen muchos servicios populares, que a menudo operan con un nombre diferente, por ejemplo, WhatsApp e Instagram para Facebook.",
-            "queries": "{{count, number}} consulta",
-            "queries_plural": "{{count, number}} consultas",
+            "queries_0": "{{count, number}} consulta",
+            "queries_1": "{{count, number}} consultas",
+            "queries_2": "{{count, number}} consultas",
             "companies": {
                 "google": {
                     "name": "Google"
@@ -1061,8 +1069,9 @@
             "name": "Destino del tráfico",
             "description": "Países a los que se dirige tu tráfico de Internet.",
             "empty": "Aún no hay consultas.",
-            "queries": "{{count, number}} consulta",
-            "queries_plural": "{{count, number}} consultas",
+            "queries_0": "{{count, number}} consulta",
+            "queries_1": "{{count, number}} consultas",
+            "queries_2": "{{count, number}} consultas",
             "topDomains": "Dominios principales"
         }
     },
@@ -1211,7 +1220,7 @@
                     },
                     "gb": {
                         "name": "United Kingdom",
-                        "description": "Logs will be stored in London, United Kingdom."
+                        "description": "Las bitácoras serán almacenadas en Londres, Reino Unido."
                     },
                     "ch": {
                         "name": "Suiza",
