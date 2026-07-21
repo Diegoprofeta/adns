@@ -1,3 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="a_dnsbased_ad_blocker_for_android">DNS blokator reklama za Android</string>
+    <string name="activation">Aktivacija</string>
+    <string name="adb_shell">ADB Shell</string>
+    <string name="add_item">Dodaj stavku</string>
+    <string name="add_specific_domains_to_the_allowlist">Dodaj određene domene na listu dozvoljenih domena</string>
+    <string name="add_specific_domains_to_the_denylist">Dodaj određene domene na listu odbijenih domena</string>
+    <string name="add_the_quick_settings_tile">Dodaj pločicu za brza podešavanja</string>
+    <string name="add_the_quick_settings_tile_to_your_device">Dodaj pločicu za brza podešavanja</string>
+    <string name="adguard_dns">AdGuard</string>
 </resources>

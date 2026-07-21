@@ -145,10 +145,8 @@
                 "year": "每年"
             },
             "units": {
-                "business": "{{count, number}} 名员工",
-                "business_plural": "{{count, number}} 名员工",
-                "education": "{{count, number}} 名学生",
-                "education_plural": "{{count, number}} 名学生"
+                "business_0": "{{count, number}} 名员工",
+                "education_0": "{{count, number}} 名学生"
             },
             "planFull": "{{plan}}（{{interval}}）",
             "planFullWithUnits": "{{plan}}（{{units}}，{{interval}}）",
@@ -774,8 +772,7 @@
             "name": "拦截列表",
             "description": "使用一些受欢迎的拦截列表（均实时刷新）来摆脱广告和跟踪。",
             "add": "添加拦截列表",
-            "entries": "{{count, number}} 条目",
-            "entries_plural": "{{count, number}} 条目",
+            "entries_0": "{{count, number}} 条目",
             "updated": "<1>{{ago}}</1>已更新",
             "blocklists": {
                 "nextdns-recommended": {
@@ -972,20 +969,16 @@
     },
     "analytics": {
         "counters": {
-            "all": "<0>{{count, number}}</0><1>次查询</1>",
-            "all_plural": "<0>{{count, number}}</0><1>次查询</1>",
-            "blocked": "<0>{{count, number}}</0><1>被拦截的查询</1>",
-            "blocked_plural": "<0>{{count, number}}</0><1>被拦截的查询</1>",
+            "all_0": "<0>{{count, number}}</0><1>次查询</1>",
+            "blocked_0": "<0>{{count, number}}</0><1>被拦截的查询</1>",
             "percentBlocked": "<0>{{percent, percentage}}</0><1><0> </0><1>被拦截的查询</1></1>"
         },
         "queries": {
             "name": "查询",
             "description": "与时间关联的查询统计图。",
             "queries": {
-                "all": "<0>{{count, number}}</0><1> 次查询</1>",
-                "all_plural": "<0>{{count, number}}</0><1> 次查询</1>",
-                "blocked": "<0>{{count, number}}</0><1> 次被拦截的查询</1>",
-                "blocked_plural": "<0>{{count, number}}</0><1> 次被拦截的查询</1>"
+                "all_0": "<0>{{count, number}}</0><1> 次查询</1>",
+                "blocked_0": "<0>{{count, number}}</0><1> 次被拦截的查询</1>"
             }
         },
         "domains": {
@@ -1024,8 +1017,7 @@
         "gafam": {
             "name": "大型科技公司的主导地位",
             "description": "“GAFAM”（Google、Amazon、Facebook、Apple 和 Microsoft）是拥有许多热门服务的5家占主导地位的互联网公司，也会以不同的名称运营，例如 Facebook 的 WhatsApp 和 Instagram。",
-            "queries": "{{count, number}} 次查询",
-            "queries_plural": "{{count, number}} 次查询",
+            "queries_0": "{{count, number}} 次查询",
             "companies": {
                 "google": {
                     "name": "Google"
@@ -1061,8 +1053,7 @@
             "name": "互联网流量目的地",
             "description": "你的互联网流量所去的国家。",
             "empty": "暂无查询。",
-            "queries": "{{count, number}} 次查询",
-            "queries_plural": "{{count, number}} 次查询",
+            "queries_0": "{{count, number}} 次查询",
             "topDomains": "查询最多次的域名"
         }
     },
@@ -1072,7 +1063,7 @@
         "empty": "暂无日志。",
         "log": {
             "actionBlock": "阻止",
-            "actionAllow": "允许",
+            "actionAllow": "放行",
             "dnssec": "已通过 DNSSEC 验证。",
             "clients": {
                 "nextdns-ios": "NextDNS iOS 应用程序",
@@ -1091,7 +1082,7 @@
                 "apple-profile": "Apple 描述文件"
             },
             "blockedBy": "被 <1>{{lists}}</1> 拦截。",
-            "allowedBy": "被 <1>{{lists}}</1> 允许。",
+            "allowedBy": "被 <1>{{lists}}</1> 放行。",
             "manual": {
                 "deny": "手动拦截了。",
                 "allow": "手动允许了。"
