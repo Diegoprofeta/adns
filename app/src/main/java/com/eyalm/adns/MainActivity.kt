@@ -225,7 +225,7 @@ fun Greeting(
     capabilities: AppCapabilities,
 ) {
 
-    var selectedItem by remember(capabilities.defaultTab) {
+    var selectedItem by rememberSaveable(inputs = arrayOf(capabilities.defaultTab)) {
         mutableStateOf(capabilities.defaultTab)
     }
     val homeTab = stringResource(R.string.home)
