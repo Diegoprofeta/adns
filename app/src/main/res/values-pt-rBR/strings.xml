@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="a_dnsbased_ad_blocker_for_android">&lt;a href=\"https://hosted.weblate.org/engage/adns/\"&gt;&lt;img src=\"https://hosted.weblate.org/widget/adns/-/pt_BR/language-badge.svg?threshold=0\" alt=\"Status da tradução\"&gt;&lt;/a&gt;</string>
+    <string name="a_dnsbased_ad_blocker_for_android">Um bloqueador de anúncios baseado em DNS para Android</string>
     <string name="activation">Ativação</string>
     <string name="adb_shell">ADB Shell</string>
     <string name="add_item">Adicionar item</string>
