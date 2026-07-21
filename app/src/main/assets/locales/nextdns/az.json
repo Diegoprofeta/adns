@@ -374,7 +374,7 @@
             },
             "showAdvanced": "Qabaqcıl seçimləri göstər",
             "ddns": {
-                "explanation": "Bağlantılı IP ünvanınızı avtomatik olaraq yeniləmək üçün Dinamik DNS (DDNS) istifadə edə bilərsiniz.",
+                "explanation": "Bağladığınız IP ünvanının avtomatik yenilənməsi üçün Dinamik DNS (DDNS)-dən istifadə edə bilərsiniz.",
                 "set": "DDNS-i konfiqurasiya edin",
                 "status": "Hazırda DDNS host adı olaraq <1>{{hostname}}</1> istifadə edirsiniz, IP ünvanınız hər dəqiqə avtomatik olaraq yenilənəcək.",
                 "unset": "Çıxarın",
