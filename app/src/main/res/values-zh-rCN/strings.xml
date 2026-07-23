@@ -95,7 +95,7 @@
     <string name="invalid_domain">无效域名</string>
     <string name="lets_set_up_blocking_for_your_browser_and_apps">让我们为您的浏览器和应用设置广告拦截。</string>
     <string name="loading">加载中…</string>
-    <string name="log_in_with_an_api_key_instead">改用 API 密钥登录…</string>
+    <string name="log_in_with_an_api_key_instead">改用 API 密钥登录</string>
     <string name="login">登录</string>
     <string name="logout">退出登录</string>
     <string name="logs">日志</string>
@@ -169,7 +169,7 @@
     <string name="enable_blocker">开启拦截器</string>
     <string name="enable_or_disable_blocker_state_notifications">开启或关闭状态通知</string>
     <string name="enhanced">" （增强）"</string>
-    <string name="log_in_with_credentials_instead">改用登录凭证登录…</string>
+    <string name="log_in_with_credentials_instead">改用登录凭证登录</string>
     <string name="mynextdnsioaccount">my.nextdns.io/account</string>
     <string name="new_update">有新版本</string>
     <string name="goooodbyenads">再见，\n广告！</string>
