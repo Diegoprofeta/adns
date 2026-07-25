@@ -16,7 +16,12 @@ fun canonicalLocaleTag(input: String): String {
     ) {
         return "he"
     }
-    return Locale.forLanguageTag(normalized).toLanguageTag()
+    val tag = Locale.forLanguageTag(normalized).toLanguageTag()
+    return when {
+        tag.startsWith("zh-Hans", ignoreCase = true) || tag.equals("zh-CN", ignoreCase = true) || tag.equals("zh", ignoreCase = true) -> "zh-Hans"
+        tag.startsWith("zh-Hant", ignoreCase = true) || tag.equals("zh-TW", ignoreCase = true) || tag.equals("zh-HK", ignoreCase = true) -> "zh-Hant"
+        else -> tag
+    }
 }
 
 fun normalizeSupportedLocaleTags(tags: Iterable<String>): Set<String> =

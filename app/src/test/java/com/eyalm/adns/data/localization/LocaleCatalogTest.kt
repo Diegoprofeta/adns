@@ -88,4 +88,25 @@ class LocaleCatalogTest {
 
         assertEquals(listOf("en"), visible.map { it.tag })
     }
+
+    @Test
+    fun `test chinese simplified locale resolution`() {
+        val discovered = buildLocaleDescriptors(
+            androidLocaleTags = setOf("en", "zh-CN"),
+            nextDnsAssetNames = listOf("en.json", "zh-CN.json"),
+        )
+        val visible = releaseReadyLocaleDescriptors(
+            discovered = discovered,
+            releasedTags = setOf("en", "zh-CN"),
+        )
+        println("Discovered: ${discovered.map { "${it.tag} (hasAndroid=${it.hasAndroidResources}, hasNextDns=${it.hasNextDnsCatalog})" }}")
+        println("Visible: ${visible.map { it.tag }}")
+        
+        // Assert that zh-Hans is visible (due to canonicalization of zh-CN)
+        assertTrue("zh-Hans should be visible", visible.any { it.tag == "zh-Hans" })
+        assertEquals("zh-Hans", canonicalLocaleTag("zh-CN"))
+        assertEquals("zh-Hans", canonicalLocaleTag("zh-Hans-CN"))
+        assertEquals("zh-Hant", canonicalLocaleTag("zh-TW"))
+        assertEquals("zh-Hant", canonicalLocaleTag("zh-Hant-TW"))
+    }
 }
