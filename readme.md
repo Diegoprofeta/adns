@@ -3,7 +3,7 @@
 
 ## Overview
 
-ADNS combines a feature-rich Private DNS client with a native NextDNS integration, giving you full control over your device's DNS settings and your NextDNS account.
+ADNS combines a feature-rich Private DNS client for Android with a native NextDNS integration, giving you full control over your device's DNS settings and your NextDNS account.
 
 Currently in Beta. Download it from [GitHub Releases](https://github.com/eyalm2000/adns/releases) or [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/com.eyalm.adns).
 
