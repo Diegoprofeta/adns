@@ -1,3 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="a_dnsbased_ad_blocker_for_android">แอปบล็อกโฆษณาแบบ DNS สำหรับ Android</string>
+    <string name="activation">เปิดใช้งาน</string>
+    <string name="add_item">เพิ่มรายการ</string>
+    <string name="add_specific_domains_to_the_allowlist">เพิ่มโดเมนที่ต้องการลงในรายการที่อนุญาต (Allowlist)</string>
+    <string name="add_specific_domains_to_the_denylist">เพิ่มโดเมนที่ต้องการลงในรายการห้ามเข้าถึง</string>
+    <string name="add_the_quick_settings_tile">เพิ่มไอคอนตั้งค่าด่วน</string>
+    <string name="add_the_quick_settings_tile_to_your_device">เพิ่มไอคอนตั้งค่าด่วน</string>
+    <string name="adguard_dns">AdGuard</string>
+    <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS จะใช้ข้อมูลประจำตัวของคุณเพื่อสร้างคีย์ API ของ NextDNS โดยอัตโนมัติเท่านั้น ซึ่งจะถูกจัดเก็บในรูปแบบเข้ารหัส อีเมลและรหัสผ่านของคุณจะไม่ถูกบันทึกไว้แต่อย่างใด</string>
+    <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS ใช้คีย์ API ของ NextDNS เพื่อดึงและกำหนดค่าโปรไฟล์ของคุณ คีย์ API ของคุณจะถูกจัดเก็บอย่างปลอดภัยในรูปแบบเข้ารหัสบนอุปกรณ์ของคุณ</string>
 </resources>
