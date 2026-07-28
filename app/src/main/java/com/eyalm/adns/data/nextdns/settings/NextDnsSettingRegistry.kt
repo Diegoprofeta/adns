@@ -7,7 +7,7 @@ object NextDnsSettingRegistry {
         page = "security",
         settings = listOf(
             booleanSetting("security", "threatIntelligenceFeeds", "security", "feeds"),
-            booleanSetting("security", "aiThreatDetection", "security", "ai"),
+            booleanSetting("security", "aiThreatDetection", "security", "ai", true),
             booleanSetting("security", "googleSafeBrowsing", "security", "googleSafeBrowsing"),
             booleanSetting("security", "cryptojacking", "security", "cryptojacking"),
             booleanSetting("security", "dnsRebinding", "security", "dnsRebinding"),
@@ -15,7 +15,7 @@ object NextDnsSettingRegistry {
             booleanSetting("security", "typosquatting", "security", "typosquatting"),
             booleanSetting("security", "dga", "security", "dga"),
             booleanSetting("security", "nrd", "security", "nrd"),
-            booleanSetting("security", "ddns", "security", "ddns"),
+            booleanSetting("security", "ddns", "security", "ddns", true),
             booleanSetting("security", "parking", "security", "parked"),
             booleanSetting("security", "csam", "security", "csam"),
         ),
@@ -140,6 +140,7 @@ object NextDnsSettingRegistry {
                     titleRes = R.string.bypass_age_verification,
                     descriptionRes = R.string.automatically_bypass_age_verification_checks_used_by_certain_websites_such_as_adult_content_sites,
                 ),
+                isBeta = true
             ),
             BooleanSettingSpec(
                 id = SettingId("settings.web3"),
@@ -148,6 +149,7 @@ object NextDnsSettingRegistry {
                     titlePath = listOf("settings", "web3", "name"),
                     descriptionPath = listOf("settings", "web3", "description"),
                 ),
+                isBeta = true
             ),
         ),
     )
@@ -158,6 +160,7 @@ private fun booleanSetting(
     apiKey: String,
     localeCategory: String,
     localeKey: String,
+    isBeta: Boolean = false,
 ): BooleanSettingSpec = BooleanSettingSpec(
     id = SettingId("$page.$apiKey"),
     api = ApiBinding(page = page, path = listOf(apiKey)),
@@ -165,6 +168,7 @@ private fun booleanSetting(
         titlePath = listOf(localeCategory, localeKey, "name"),
         descriptionPath = listOf(localeCategory, localeKey, "description"),
     ),
+    isBeta = isBeta,
 )
 
 private fun retentionOption(value: Int, localeKey: String): SelectOption<Int> = SelectOption(

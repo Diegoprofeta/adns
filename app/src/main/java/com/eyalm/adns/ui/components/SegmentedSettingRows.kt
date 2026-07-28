@@ -4,25 +4,35 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedListItem
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import com.eyalm.adns.data.Locales
 
 enum class SegmentPosition {
     Single,
@@ -49,6 +59,28 @@ private fun SegmentPosition.shape() = RoundedCornerShape(
     bottomEnd = if (this == SegmentPosition.Single || this == SegmentPosition.Last) 12.dp else 2.dp,
 )
 
+@Composable
+fun BetaBadge(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    val formattedBeta = text.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(java.util.Locale.ROOT) else it.toString()
+    }
+    Surface(
+        color = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        shape = RoundedCornerShape(8.dp),
+        modifier = modifier,
+    ) {
+        Text(
+            text = formattedBeta,
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+        )
+    }
+}
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun SegmentedSettingRow(
@@ -58,6 +90,7 @@ fun SegmentedSettingRow(
     position: SegmentPosition = SegmentPosition.Single,
     enabled: Boolean = true,
     selected: Boolean = false,
+    isBeta: Boolean = false,
     leading: (@Composable () -> Unit)? = null,
     trailing: (@Composable () -> Unit)? = null,
     supporting: (@Composable () -> Unit)? = null,
@@ -108,12 +141,54 @@ fun SegmentedSettingRow(
             } else Modifier
         ),
         content = {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                fontWeight = FontWeight.Bold,
-            )
+            if (isBeta) {
+                val betaLabel = Locales.getString("beta")
+                    .takeIf { !it.startsWith("[missing:") && it.isNotBlank() }
+                    ?: "Beta"
+                val formattedBeta = betaLabel.replaceFirstChar {
+                    if (it.isLowerCase()) it.titlecase(java.util.Locale.ROOT) else it.toString()
+                }
+                val betaBadgeId = "betaBadge"
+                val annotatedTitle = remember(title) {
+                    buildAnnotatedString {
+                        append(title)
+                        append("  ")
+                        appendInlineContent(betaBadgeId, "[beta]")
+                    }
+                }
+                val inlineContentMap = remember(formattedBeta) {
+                    mapOf(
+                        betaBadgeId to InlineTextContent(
+                            Placeholder(
+                                width = (formattedBeta.length * 0.65 + 1.2).em,
+                                height = 1.3.em,
+                                placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
+                            )
+                        ) {
+                            Box(
+                                modifier = Modifier.fillMaxHeight(),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                BetaBadge(text = formattedBeta)
+                            }
+                        }
+                    )
+                }
+                Text(
+                    text = annotatedTitle,
+                    inlineContent = inlineContentMap,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Bold,
+                )
+            } else {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Bold,
+                )
+            }
         },
     )
 }
@@ -125,6 +200,7 @@ fun NavigationSettingRow(
     description: String? = null,
     position: SegmentPosition = SegmentPosition.Single,
     enabled: Boolean = true,
+    isBeta: Boolean = false,
     leading: (@Composable () -> Unit)? = null,
     trailing: (@Composable () -> Unit)? = null,
     onClick: () -> Unit,
@@ -133,6 +209,7 @@ fun NavigationSettingRow(
     description = description,
     position = position,
     enabled = enabled,
+    isBeta = isBeta,
     leading = leading?.let {
         {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -155,6 +232,7 @@ fun ToggleSettingRow(
     position: SegmentPosition = SegmentPosition.Single,
     enabled: Boolean = true,
     saving: Boolean = false,
+    isBeta: Boolean = false,
     leading: (@Composable () -> Unit)? = null,
     toggle: @Composable (Boolean, (Boolean) -> Unit) -> Unit,
     onCheckedChange: (Boolean) -> Unit,
@@ -166,6 +244,7 @@ fun ToggleSettingRow(
         position = position,
         enabled = enabled,
         selected = checked,
+        isBeta = isBeta,
         leading = leading,
         alignment = Alignment.CenterVertically,
         trailing = { toggle(checked) { if (canChange) onCheckedChange(it) } },
@@ -181,6 +260,7 @@ fun RadioSettingRow(
     selected: Boolean, // or to enable second color
     position: SegmentPosition = SegmentPosition.Single,
     enabled: Boolean = true,
+    isBeta: Boolean = false,
     radio: @Composable (Boolean, () -> Unit) -> Unit,
     onClick: () -> Unit,
 ) = SegmentedSettingRow(
@@ -189,6 +269,7 @@ fun RadioSettingRow(
     position = position,
     enabled = enabled,
     selected = selected,
+    isBeta = isBeta,
     trailing = { // prev leading
         radio(selected) { if (enabled) onClick() }
     },
@@ -202,6 +283,7 @@ fun ActionSettingRow(
     description: String? = null,
     position: SegmentPosition = SegmentPosition.Single,
     enabled: Boolean = true,
+    isBeta: Boolean = false,
     leading: (@Composable () -> Unit)? = null,
     trailing: (@Composable () -> Unit)? = null,
     onClick: () -> Unit,
@@ -210,6 +292,7 @@ fun ActionSettingRow(
     description = description,
     position = position,
     enabled = enabled,
+    isBeta = isBeta,
     leading = leading,
     trailing = trailing,
     onClick = onClick,
@@ -225,6 +308,7 @@ fun ResourceSettingRow(
     position: SegmentPosition = SegmentPosition.Single,
     enabled: Boolean = true,
     selected: Boolean = false,
+    isBeta: Boolean = false,
     leading: (@Composable () -> Unit)? = null,
     trailing: (@Composable () -> Unit)? = null,
     supporting: (@Composable () -> Unit)? = null,
@@ -237,6 +321,7 @@ fun ResourceSettingRow(
     position = position,
     enabled = enabled,
     selected = selected,
+    isBeta = isBeta,
     leading = leading,
     trailing = trailing,
     alignment = alignment,

@@ -59,10 +59,11 @@ fun AccessSection(
         ExpressiveCardHeader(
             title = Locales.getString("settings", "access", "name"),
             description = Locales.getString("settings", "access", "description"),
+            isBeta = true,
             trailing = {
-            IconButton(onClick = viewModel::openInvite) {
-                Icon(imageVector = Icons.Filled.Add, contentDescription = Locales.getString("global", "add"))
-            }
+                IconButton(onClick = viewModel::openInvite) {
+                    Icon(imageVector = Icons.Filled.Add, contentDescription = Locales.getString("global", "add"))
+                }
             },
         )
         Spacer(Modifier.height(12.dp))

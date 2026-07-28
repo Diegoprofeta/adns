@@ -237,6 +237,7 @@ fun GenericCategoryScreen(
                                     title = listSetting.title(context),
                                     description = listSetting.description(context),
                                     onClick = { navigationViewModel.openListScreen(listSetting) },
+                                    isBeta = listSetting.isBeta,
                                     trailing = {
                                         Icon(
                                             Icons.AutoMirrored.Filled.KeyboardArrowRight,
@@ -395,6 +396,7 @@ private fun ScalarSettingRow(
                 checked = checked,
                 enabled = editable,
                 saving = saving,
+                isBeta = spec.isBeta,
                 toggle = { value, onChange ->
                     Switch(
                         checked = value,
@@ -419,6 +421,7 @@ private fun ScalarSettingRow(
                     Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
                 },
                 enabled = editable && !saving,
+                isBeta = spec.isBeta,
                 position = position,
             )
         }
@@ -435,6 +438,7 @@ private fun ScalarSettingRow(
                     Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
                 },
                 enabled = editable && !saving,
+                isBeta = spec.isBeta,
                 position = position,
             )
         }

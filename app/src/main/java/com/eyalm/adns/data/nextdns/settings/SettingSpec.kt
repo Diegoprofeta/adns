@@ -48,6 +48,8 @@ sealed interface ProfileSettingSpec<T : Any> {
     val locale: LocaleBinding
     val confirmation: ConfirmationSpec?
         get() = null
+    val isBeta: Boolean
+        get() = false
     val visibleWhen: ((Map<SettingId, JsonElement>) -> Boolean)?
         get() = null
 
@@ -60,8 +62,11 @@ data class BooleanSettingSpec(
     override val api: ApiBinding,
     override val locale: LocaleBinding,
     val inverted: Boolean = false,
+    override val isBeta: Boolean = false,
     override val visibleWhen: ((Map<SettingId, JsonElement>) -> Boolean)? = null,
 ) : ProfileSettingSpec<Boolean> {
+    val beta: Boolean get() = isBeta
+
     override fun decode(raw: JsonElement): Boolean? =
         raw.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isBoolean }
             ?.asBoolean

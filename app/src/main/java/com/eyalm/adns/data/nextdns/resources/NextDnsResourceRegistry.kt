@@ -34,8 +34,11 @@ data class NextDnsResourceSpec(
     val customDescriptionRes: Int? = null,
     val customDescription: String? = null,
     val allowsCustomInput: Boolean = false,
+    val isBeta: Boolean = false,
 ) {
     enum class ParentPage { SECURITY, PRIVACY, PARENTAL_CONTROL }
+
+    val beta: Boolean get() = isBeta
 
     fun title(context: Context): String =
         customTitleRes?.let(context::getString)
@@ -78,6 +81,7 @@ object NextDnsResourceRegistry {
             source = NextDnsResourceSource.LOCALE,
             localePath = listOf("privacy", "native", "systems"),
             parentPage = NextDnsResourceSpec.ParentPage.PRIVACY,
+            isBeta = true,
         ),
     )
 

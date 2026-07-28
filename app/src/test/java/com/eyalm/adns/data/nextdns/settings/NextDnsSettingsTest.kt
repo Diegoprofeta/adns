@@ -81,4 +81,24 @@ class NextDnsSettingsTest {
         assertTrue(visibility(mapOf(logsEnabled to JsonPrimitive(true))))
         assertFalse(visibility(emptyMap()))
     }
+
+    @Test
+    fun `boolean setting spec defaults to isBeta false and supports beta label parameter`() {
+        val standardSetting = BooleanSettingSpec(
+            id = SettingId("test.standard"),
+            api = ApiBinding("test", listOf("standard")),
+            locale = LocaleBinding(titlePath = listOf("test", "title")),
+        )
+        assertFalse(standardSetting.isBeta)
+        assertFalse(standardSetting.beta)
+
+        val betaSetting = BooleanSettingSpec(
+            id = SettingId("test.beta1"),
+            api = ApiBinding("test", listOf("beta1")),
+            locale = LocaleBinding(titlePath = listOf("test", "title")),
+            isBeta = true,
+        )
+        assertTrue(betaSetting.isBeta)
+        assertTrue(betaSetting.beta)
+    }
 }
