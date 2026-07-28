@@ -63,6 +63,7 @@
     <string name="hide_password">Hide password</string>
     <string name="hint_to_remove_items_from_the_list_swipe_to_the_left">To remove items from the list, swipe to the left.</string>
     <string name="invalid_domain">Invalid Domain</string>
+    <string name="domain_hidden">Domain hidden</string>
     <string name="lets_set_up_blocking_for_your_browser_and_apps">Let’s set up blocking for your browser and apps.</string>
     <string name="loading">Loading…</string>
     <string name="log_in_with_an_api_key_instead">Log in with an API key instead…</string>

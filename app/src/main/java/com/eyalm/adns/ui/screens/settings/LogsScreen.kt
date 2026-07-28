@@ -298,20 +298,22 @@ fun LogsScreen(
             } else {
                 items(items.size) { index ->
                     val log = items[index]
+                    val domain = log.domain?.trim()?.takeIf(String::isNotEmpty)
                     LaunchedEffect(state.query, index, items.size) {
                         if (index >= items.size - 5) {
                             viewModel.fetchNextPage()
                         }
                     }
                     ExpandableResourceSettingRow(
-                        title = log.domain,
+                        title = domain ?: stringResource(R.string.domain_hidden),
                         onClick = { expandedId = if (expandedId == index) null else index },
                         expanded = expandedId == index,
                         selected = false,
                         indicatorColor = if (log.status == "blocked") MaterialTheme.colorScheme.error else null,
                         leading = {
                             ListIconView(
-                                icon = nextDnsFaviconUrl(log.domain)
+                                icon = domain
+                                    ?.let(::nextDnsFaviconUrl)
                                     ?.let(ListIcon::Url)
                                     ?: ListIcon.None,
                                 modifier = Modifier.size(24.dp)
@@ -364,76 +366,78 @@ fun LogsScreen(
                                 Spacer(Modifier.height(8.dp))
 
 
-                                val canEdit = profileState.capabilities.canEditSettings
-                                val actionLabels = buildList {
-                                    if (canEdit) {
-                                        add(stringResource(R.string.allow))
-                                        add(stringResource(R.string.deny))
-                                    }
-                                    add(stringResource(R.string.copy))
-                                }
-                                val actionIcons = buildList {
-                                    if (canEdit) {
-                                        add(Icons.Filled.Check)
-                                        add(Icons.Filled.Block)
-                                    }
-                                    add(Icons.Filled.CopyAll)
-                                }
-                                val actionRules = buildList {
-                                    if (canEdit) {
-                                        add(DomainRuleList.Allow)
-                                        add(DomainRuleList.Deny)
-                                    }
-                                    add(null)
-                                }
-
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    verticalAlignment = CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(2.dp)
-                                ) {
-                                    actionLabels.forEachIndexed { index, label ->
-                                        val shapes = when (index) {
-                                            0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
-                                            actionLabels.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
-                                            else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
+                                domain?.let { availableDomain ->
+                                    val canEdit = profileState.capabilities.canEditSettings
+                                    val actionLabels = buildList {
+                                        if (canEdit) {
+                                            add(stringResource(R.string.allow))
+                                            add(stringResource(R.string.deny))
                                         }
-                                        val rule = actionRules[index]
-                                        val pending = rule?.let {
-                                            PendingLogAction(log.domain, it) in state.pendingActions
-                                        } ?: false
+                                        add(stringResource(R.string.copy))
+                                    }
+                                    val actionIcons = buildList {
+                                        if (canEdit) {
+                                            add(Icons.Filled.Check)
+                                            add(Icons.Filled.Block)
+                                        }
+                                        add(Icons.Filled.CopyAll)
+                                    }
+                                    val actionRules = buildList {
+                                        if (canEdit) {
+                                            add(DomainRuleList.Allow)
+                                            add(DomainRuleList.Deny)
+                                        }
+                                        add(null)
+                                    }
 
-                                        ToggleButton(
-                                            checked = true,
-                                            onCheckedChange = {
-                                                if (rule != null) {
-                                                    viewModel.applyRule(
-                                                        rule,
-                                                        log.domain,
-                                                        canEdit = true,
+                                    Row(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        verticalAlignment = CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(2.dp)
+                                    ) {
+                                        actionLabels.forEachIndexed { index, label ->
+                                            val shapes = when (index) {
+                                                0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
+                                                actionLabels.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
+                                                else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
+                                            }
+                                            val rule = actionRules[index]
+                                            val pending = rule?.let {
+                                                PendingLogAction(availableDomain, it) in state.pendingActions
+                                            } ?: false
+
+                                            ToggleButton(
+                                                checked = true,
+                                                onCheckedChange = {
+                                                    if (rule != null) {
+                                                        viewModel.applyRule(
+                                                            rule,
+                                                            availableDomain,
+                                                            canEdit = true,
+                                                        )
+                                                    } else {
+                                                        viewModel.copyDomain(availableDomain)
+                                                    }
+                                                },
+                                                enabled = !pending,
+                                                modifier = Modifier.weight(1f),
+                                                shapes = shapes.copy(checkedShape = shapes.shape),
+                                                colors = ToggleButtonDefaults.toggleButtonColors(
+                                                    checkedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
+                                                    checkedContentColor = MaterialTheme.colorScheme.onSurface
+                                                )
+                                            ) {
+                                                if (pending) {
+                                                    CircularProgressIndicator(
+                                                        modifier = Modifier.size(18.dp),
+                                                        strokeWidth = 2.dp,
                                                     )
                                                 } else {
-                                                    viewModel.copyDomain(log.domain)
+                                                    Icon(actionIcons[index], contentDescription = null)
                                                 }
-                                            },
-                                            enabled = !pending,
-                                            modifier = Modifier.weight(1f),
-                                            shapes = shapes.copy(checkedShape = shapes.shape),
-                                            colors = ToggleButtonDefaults.toggleButtonColors(
-                                                checkedContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.12f),
-                                                checkedContentColor = MaterialTheme.colorScheme.onSurface
-                                            )
-                                        ) {
-                                            if (pending) {
-                                                CircularProgressIndicator(
-                                                    modifier = Modifier.size(18.dp),
-                                                    strokeWidth = 2.dp,
-                                                )
-                                            } else {
-                                                Icon(actionIcons[index], contentDescription = null)
+                                                Spacer(Modifier.size(ToggleButtonDefaults.IconSpacing))
+                                                Text(label)
                                             }
-                                            Spacer(Modifier.size(ToggleButtonDefaults.IconSpacing))
-                                            Text(label)
                                         }
                                     }
                                 }

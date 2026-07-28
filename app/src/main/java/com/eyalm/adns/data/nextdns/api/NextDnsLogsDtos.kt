@@ -9,7 +9,7 @@ data class NextDnsLogsResponse(
 
 data class NextDnsLogEntry(
     @SerializedName("timestamp") val timestamp: String,
-    @SerializedName("domain") val domain: String,
+    @SerializedName("domain") val domain: String? = null,
     @SerializedName("root") val root: String? = null,
     @SerializedName("tracker") val tracker: String? = null,
     @SerializedName("encrypted") val encrypted: Boolean,
