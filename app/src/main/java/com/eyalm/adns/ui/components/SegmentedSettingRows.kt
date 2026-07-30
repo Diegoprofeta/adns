@@ -94,6 +94,7 @@ fun SegmentedSettingRow(
     leading: (@Composable () -> Unit)? = null,
     trailing: (@Composable () -> Unit)? = null,
     supporting: (@Composable () -> Unit)? = null,
+    titleContent: (@Composable () -> Unit)? = null,
     alignment: Alignment.Vertical = ListItemDefaults.verticalAlignment(),
     indicatorColor: Color? = null,
     selectedColor: Color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.65f),
@@ -141,7 +142,9 @@ fun SegmentedSettingRow(
             } else Modifier
         ),
         content = {
-            if (isBeta) {
+            if (titleContent != null) {
+                titleContent.invoke()
+            } else if (isBeta) {
                 val betaLabel = Locales.getString("beta")
                     .takeIf { !it.startsWith("[missing:") && it.isNotBlank() }
                     ?: "Beta"
@@ -312,6 +315,7 @@ fun ResourceSettingRow(
     leading: (@Composable () -> Unit)? = null,
     trailing: (@Composable () -> Unit)? = null,
     supporting: (@Composable () -> Unit)? = null,
+    titleContent: (@Composable () -> Unit)? = null,
     alignment: Alignment.Vertical = ListItemDefaults.verticalAlignment(),
     indicatorColor: Color? = null,
     onClick: () -> Unit = {},
@@ -326,6 +330,7 @@ fun ResourceSettingRow(
     trailing = trailing,
     alignment = alignment,
     supporting = supporting,
+    titleContent = titleContent,
     indicatorColor = indicatorColor,
     onClick = onClick,
 )

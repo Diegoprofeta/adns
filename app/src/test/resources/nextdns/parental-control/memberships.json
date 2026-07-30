@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "id": "roblox",
+      "website": "https://www.roblox.com",
+      "recreation": true,
+      "active": false
+    },
+    {
+      "id": "social-networks",
+      "recreation": false,
+      "active": true
+    }
+  ]
+}

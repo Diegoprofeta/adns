@@ -3,24 +3,26 @@ package com.eyalm.adns.data.nextdns.resources
 import com.eyalm.adns.data.network.ApiClient
 import com.eyalm.adns.data.nextdns.api.NextDnsApi
 import com.eyalm.adns.data.nextdns.api.nextDnsApiCall
+import com.eyalm.adns.data.nextdns.api.toEmptyApiResult
+import com.eyalm.adns.data.nextdns.api.toHexId
 import com.eyalm.adns.data.nextdns.api.toJsonApiResult
 import com.eyalm.adns.data.nextdns.model.ListIcon
 import com.eyalm.adns.data.nextdns.model.nextDnsFaviconUrl
 import com.eyalm.adns.domain.nextdns.ApiResult
 
 data class CustomResourceList(
-    val activeIds: Set<String>,
+    val memberships: Map<String, ResourceMembership>,
     val items: List<NextDnsResourceItem>,
 )
 
 class NextDnsResourceRepository(
     private val api: NextDnsApi = ApiClient.nextDnsApi,
 ) {
-    suspend fun getActiveIds(
+    suspend fun getMemberships(
         profileId: String,
         page: String,
         feature: String,
-    ): ApiResult<Set<String>> = nextDnsApiCall {
+    ): ApiResult<Map<String, ResourceMembership>> = nextDnsApiCall {
         when (
             val result = api.getActiveListItems(profileId, page, feature)
                 .toJsonApiResult()
@@ -31,13 +33,7 @@ class NextDnsResourceRepository(
                         IllegalStateException("Missing active resource data")
                     )
                 ApiResult.Success(
-                    data.mapNotNull { element ->
-                        element.takeIf { it.isJsonObject }
-                            ?.asJsonObject
-                            ?.get("id")
-                            ?.takeIf { it.isJsonPrimitive }
-                            ?.asString
-                    }.toSet(),
+                    parseResourceMemberships(data).associateBy(ResourceMembership::id),
                     result.status,
                 )
             }
@@ -46,6 +42,24 @@ class NextDnsResourceRepository(
             is ApiResult.NetworkFailure -> result
             is ApiResult.SerializationFailure -> result
         }
+    }
+
+    suspend fun updateParentalMembership(
+        profileId: String,
+        collection: String,
+        itemId: String,
+        active: Boolean? = null,
+        recreation: Boolean? = null,
+    ): ApiResult<Unit> = nextDnsApiCall {
+        api.updateParentalResource(
+            profileId = profileId,
+            collection = collection,
+            hexId = itemId.toHexId(),
+            request = UpdateParentalResourceRequest(
+                active = active,
+                recreation = recreation,
+            ),
+        ).toEmptyApiResult()
     }
 
     suspend fun getServerCatalog(
@@ -86,7 +100,7 @@ class NextDnsResourceRepository(
                     ?: return@nextDnsApiCall ApiResult.SerializationFailure(
                         IllegalStateException("Missing custom list data")
                     )
-                val activeIds = mutableSetOf<String>()
+                val memberships = mutableMapOf<String, ResourceMembership>()
                 val items = data.mapNotNull { element ->
                     val item = element.takeIf { it.isJsonObject }?.asJsonObject
                         ?: return@mapNotNull null
@@ -98,7 +112,7 @@ class NextDnsResourceRepository(
                         ?.takeIf { it.isJsonPrimitive }
                         ?.asBoolean
                         ?: true
-                    if (active) activeIds += id
+                    memberships[id] = ResourceMembership(id = id, active = active)
                     NextDnsResourceItem(
                         id = id,
                         name = "*.$id",
@@ -108,7 +122,7 @@ class NextDnsResourceRepository(
                     )
                 }
                 ApiResult.Success(
-                    CustomResourceList(activeIds, items),
+                    CustomResourceList(memberships, items),
                     result.status,
                 )
             }

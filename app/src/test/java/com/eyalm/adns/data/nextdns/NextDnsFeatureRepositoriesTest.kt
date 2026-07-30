@@ -6,6 +6,7 @@ import com.eyalm.adns.data.nextdns.api.NextDnsApi
 import com.eyalm.adns.data.nextdns.recreation.NextDnsRecreationRepository
 import com.eyalm.adns.data.nextdns.recreation.RecreationScheduleDto
 import com.eyalm.adns.data.nextdns.recreation.RecreationWindowDto
+import com.eyalm.adns.data.nextdns.resources.NextDnsResourceRepository
 import com.eyalm.adns.data.nextdns.rewrites.NextDnsRewritesRepository
 import com.eyalm.adns.data.nextdns.settings.AddCustomDomainResult
 import com.eyalm.adns.data.nextdns.settings.ApiBinding
@@ -167,5 +168,65 @@ class NextDnsFeatureRepositoriesTest {
         val request = server.takeRequest()
         assertEquals("/profiles/profile-id/parentalControl", request.requestUrl!!.encodedPath)
         assertTrue(request.body.readUtf8().contains("\"monday\""))
+    }
+
+    @Test
+    fun `parental active patch sends only active field to hex item path`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(204))
+        val repository = NextDnsResourceRepository(api)
+
+        val result = repository.updateParentalMembership(
+            profileId = "profile-id",
+            collection = "services",
+            itemId = "roblox",
+            active = false,
+        )
+
+        assertTrue(result is ApiResult.Success)
+        val request = server.takeRequest()
+        assertEquals(
+            "/profiles/profile-id/parentalControl/services/hex:726f626c6f78",
+            request.requestUrl!!.encodedPath,
+        )
+        assertEquals("PATCH", request.method)
+        assertEquals("{\"active\":false}", request.body.readUtf8())
+    }
+
+    @Test
+    fun `parental resume patch sends only active field`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(204))
+        val repository = NextDnsResourceRepository(api)
+
+        val result = repository.updateParentalMembership(
+            profileId = "profile-id",
+            collection = "categories",
+            itemId = "social-networks",
+            active = true,
+        )
+
+        assertTrue(result is ApiResult.Success)
+        val request = server.takeRequest()
+        assertEquals(
+            "/profiles/profile-id/parentalControl/categories/hex:736f6369616c2d6e6574776f726b73",
+            request.requestUrl!!.encodedPath,
+        )
+        assertEquals("{\"active\":true}", request.body.readUtf8())
+    }
+
+    @Test
+    fun `recreation patch omits unchanged active field`() = runTest {
+        server.enqueue(MockResponse().setResponseCode(204))
+        val repository = NextDnsRecreationRepository(api)
+
+        val result = repository.updateItem(
+            profileId = "profile-id",
+            collection = com.eyalm.adns.data.nextdns.recreation.RecreationItemCollection.Services,
+            itemId = "roblox",
+            recreation = true,
+        )
+
+        assertTrue(result is ApiResult.Success)
+        val request = server.takeRequest()
+        assertEquals("{\"recreation\":true}", request.body.readUtf8())
     }
 }

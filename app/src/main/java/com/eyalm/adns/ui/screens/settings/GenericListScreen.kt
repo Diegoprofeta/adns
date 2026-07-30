@@ -17,14 +17,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Block
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Block
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularWavyProgressIndicator
 import androidx.compose.material3.DropdownMenu
@@ -34,7 +41,10 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SwipeToDismissBox
@@ -43,6 +53,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,6 +68,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -65,6 +77,8 @@ import com.eyalm.adns.data.Locales
 import com.eyalm.adns.data.nextdns.model.ListIcon
 import com.eyalm.adns.data.nextdns.resources.BlocklistSort
 import com.eyalm.adns.data.nextdns.resources.NextDnsResourceItem
+import com.eyalm.adns.data.nextdns.resources.NextDnsResourceSpec
+import com.eyalm.adns.data.nextdns.resources.ResourceMembership
 import com.eyalm.adns.data.nextdns.resources.filterResourceItems
 import com.eyalm.adns.data.nextdns.resources.orderResourceItems
 import com.eyalm.adns.data.nextdns.resources.updatedInstantOrNull
@@ -100,7 +114,7 @@ fun GenericListScreen(
     val listViewModel: ResourceListViewModel = viewModel()
     val listState by listViewModel.state.collectAsState()
     val context = LocalContext.current
-    val activeIds = listState.activeIds
+    val memberships = listState.memberships
     val availableItems = listState.availableItems
     val isLoading =
         listState.profileId != profile.id ||
@@ -115,6 +129,7 @@ fun GenericListScreen(
     var searchQuery by remember(listSetting) { mutableStateOf("") }
     var addDialogVisible by remember { mutableStateOf(false) }
     var pendingRemoval by remember { mutableStateOf<String?>(null) }
+    var editingItem by remember { mutableStateOf<NextDnsResourceItem?>(null) }
     var blocklistSort by remember(listSetting) { mutableStateOf(BlocklistSort.Popularity) }
     var sortMenuVisible by remember(listSetting) { mutableStateOf(false) }
     var showConfig by remember(listSetting) { mutableStateOf(false) }
@@ -152,6 +167,18 @@ fun GenericListScreen(
                 listViewModel.deleteCustomDomain(domain)
             },
             onDismiss = { pendingRemoval = null },
+        )
+    }
+
+    editingItem?.let { item ->
+        ParentalControlItemBottomSheet(
+            item = item,
+            membership = memberships[item.id],
+            canEdit = canEdit,
+            onDismissRequest = { editingItem = null },
+            onToggleMembership = { listViewModel.toggleMembership(item.id) },
+            onActiveChange = { active -> listViewModel.setActive(item.id, active) },
+            onRecreationChange = { recreation -> listViewModel.setRecreation(item.id, recreation) },
         )
     }
 
@@ -193,13 +220,13 @@ fun GenericListScreen(
                 searchQuery,
                 orderedItems,
                 showEnabledOnly,
-                activeIds,
+                memberships,
             ) {
                 filterResourceItems(
                     items = orderedItems,
                     query = searchQuery,
                     enabledOnly = showEnabledOnly && availableItems.size > 10,
-                    activeIds = activeIds,
+                    memberships = memberships,
                 )
             }
             val rows = remember(filteredItems, listSetting) {
@@ -396,9 +423,16 @@ fun GenericListScreen(
                             val nextIsHeader = index == rows.lastIndex || rows[index + 1] is ResourceRow.Header
                             ResourceItemRow(
                                 item = row.value,
-                                selected = row.value.id in activeIds,
+                                membership = memberships[row.value.id],
+                                selected = if (listSetting.allowsCustomInput) {
+                                    memberships[row.value.id]?.active == true
+                                } else {
+                                    row.value.id in memberships
+                                },
                                 canEdit = canEdit,
                                 allowsRemoval = listSetting.allowsCustomInput,
+                                parental = listSetting.parentPage ==
+                                    NextDnsResourceSpec.ParentPage.PARENTAL_CONTROL,
                                 showWebsite = listSetting.apiFeature != "blocklists",
                                 position = when {
                                     previousIsHeader && nextIsHeader -> SegmentPosition.Single
@@ -406,7 +440,10 @@ fun GenericListScreen(
                                     nextIsHeader -> SegmentPosition.Last
                                     else -> SegmentPosition.Middle
                                 },
-                                onToggle = { listViewModel.toggle(row.value.id) },
+                                onToggleMembership = {
+                                    listViewModel.toggleMembership(row.value.id)
+                                },
+                                onEditItem = { editingItem = row.value },
                                 onRemove = { pendingRemoval = row.value.id },
                             )
                             if (!nextIsHeader) Spacer(modifier = Modifier.height(4.dp))
@@ -423,37 +460,105 @@ fun GenericListScreen(
 @Composable
 private fun ResourceItemRow(
     item: NextDnsResourceItem,
+    membership: ResourceMembership?,
     selected: Boolean,
     canEdit: Boolean,
     allowsRemoval: Boolean,
+    parental: Boolean,
     showWebsite: Boolean,
     position: SegmentPosition,
-    onToggle: () -> Unit,
+    onToggleMembership: () -> Unit,
+    onEditItem: () -> Unit,
     onRemove: () -> Unit,
 ) {
     val dismissState = rememberSwipeToDismissBoxState()
     val content: @Composable () -> Unit = {
-        ResourceSettingRow(
-            title = item.name,
-            description = item.description,
-            selected = selected,
-            onClick = { if (canEdit) onToggle() },
-            leading = if (item.icon !is ListIcon.None) {
-                { ListIconView(item.icon, modifier = Modifier.size(36.dp)) } // todo Same story here with 4dp - cortical
-            } else null,
-            trailing = {
-                Checkbox(
-                    checked = selected,
-                    enabled = canEdit,
-                    onCheckedChange = { if (canEdit) onToggle() },
-                )
-            },
-            supporting = {
-                ResourceMetadata(item, showWebsite)
-            },
-            position = position,
-            alignment = Alignment.CenterVertically
-        )
+        if (parental) {
+            ResourceSettingRow(
+                title = item.name,
+                description = item.description,
+                selected = selected,
+                onClick = { if (canEdit) onEditItem() },
+                leading = if (item.icon !is ListIcon.None) {
+                    { ListIconView(item.icon, modifier = Modifier.size(36.dp)) }
+                } else null,
+                trailing = {
+                    IconButton(
+                        onClick = { if (canEdit) onEditItem() },
+                        enabled = canEdit,
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = Locales.getString("global", "edit"),
+                            tint = if (canEdit) {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.38f)
+                            },
+                        )
+                    }
+                },
+                titleContent = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        Text(
+                            text = item.name,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontWeight = FontWeight.Bold,
+                        )
+                        val blockingOn = membership?.active == true
+                        val recreationOn = membership?.recreation == true
+
+                        if (blockingOn) {
+                            Icon(
+                                imageVector = Icons.Filled.Block,
+                                contentDescription = stringResource(R.string.blocking_enabled),
+                                modifier = Modifier.size(18.dp),
+                                tint = MaterialTheme.colorScheme.primary,
+                            )
+                        }
+                        if (recreationOn) {
+                            Icon(
+                                imageVector = Icons.Filled.Schedule,
+                                contentDescription = Locales.getString("parentalControl", "recreation", "name"),
+                                modifier = Modifier.size(18.dp),
+                                tint = MaterialTheme.colorScheme.primary,
+                            )
+                        }
+                    }
+                },
+                supporting = {
+                    ResourceMetadata(item, showWebsite)
+                },
+                position = position,
+                alignment = Alignment.CenterVertically,
+            )
+        } else {
+            ResourceSettingRow(
+                title = item.name,
+                description = item.description,
+                selected = selected,
+                onClick = { if (canEdit) onToggleMembership() },
+                leading = if (item.icon !is ListIcon.None) {
+                    { ListIconView(item.icon, modifier = Modifier.size(36.dp)) }
+                } else null,
+                trailing = {
+                    Checkbox(
+                        checked = selected,
+                        enabled = canEdit,
+                        onCheckedChange = { if (canEdit) onToggleMembership() },
+                    )
+                },
+                supporting = {
+                    ResourceMetadata(item, showWebsite)
+                },
+                position = position,
+                alignment = Alignment.CenterVertically,
+            )
+        }
     }
 
     LaunchedEffect(dismissState.currentValue) {
@@ -487,6 +592,113 @@ private fun ResourceItemRow(
         )
     } else {
         content()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ParentalControlItemBottomSheet(
+    item: NextDnsResourceItem,
+    membership: ResourceMembership?,
+    canEdit: Boolean,
+    onDismissRequest: () -> Unit,
+    onToggleMembership: () -> Unit,
+    onActiveChange: (Boolean) -> Unit,
+    onRecreationChange: (Boolean) -> Unit,
+) {
+    val sheetState = rememberModalBottomSheetState()
+    ModalBottomSheet(
+        onDismissRequest = onDismissRequest,
+        sheetState = sheetState,
+        containerColor = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp)
+                .padding(bottom = 32.dp),
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(bottom = 16.dp),
+            ) {
+                if (item.icon !is ListIcon.None) {
+                    ListIconView(item.icon, modifier = Modifier.size(40.dp))
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+                Column {
+                    Text(
+                        text = item.name,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    item.description?.let { desc ->
+                        Text(
+                            text = desc,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            val isAdded = membership != null
+            ToggleSettingRow(
+                title = Locales.getString("global", "enable"),
+                checked = isAdded,
+                enabled = canEdit,
+                toggle = { checked, onCheckedChange ->
+                    Switch(
+                        checked = checked,
+                        enabled = canEdit,
+                        onCheckedChange = onCheckedChange,
+                    )
+                },
+                onCheckedChange = { onToggleMembership() },
+                position = if (isAdded) SegmentPosition.First else SegmentPosition.Single,
+            )
+
+            if (isAdded) {
+                Spacer(modifier = Modifier.height(4.dp))
+                ToggleSettingRow(
+                    title = stringResource(R.string.block),
+                    description = if (membership.active) {
+                        stringResource(R.string.blocking_enabled_description)
+                    } else {
+                        stringResource(R.string.paused)
+                    },
+                    checked = membership.active,
+                    enabled = canEdit,
+                    toggle = { checked, onCheckedChange ->
+                        Switch(
+                            checked = checked,
+                            enabled = canEdit,
+                            onCheckedChange = onCheckedChange,
+                        )
+                    },
+                    onCheckedChange = onActiveChange,
+                    position = SegmentPosition.Middle,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                ToggleSettingRow(
+                    title = Locales.getString("parentalControl", "recreation", "name"),
+                    description = stringResource(R.string.recreation_time_membership_description),
+                    checked = membership.recreation == true,
+                    enabled = canEdit,
+                    toggle = { checked, onCheckedChange ->
+                        Switch(
+                            checked = checked,
+                            enabled = canEdit,
+                            onCheckedChange = onCheckedChange,
+                        )
+                    },
+                    onCheckedChange = onRecreationChange,
+                    position = SegmentPosition.Last,
+                )
+            }
+        }
     }
 }
 

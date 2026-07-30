@@ -29,10 +29,6 @@ data class UpdateRecreationScheduleRequest(
     @SerializedName("recreation") val recreation: RecreationScheduleDto,
 )
 
-data class UpdateRecreationItemRequest(
-    @SerializedName("recreation") val recreation: Boolean,
-)
-
 enum class RecreationItemCollection(val wireName: String) {
     Services("services"),
     Categories("categories"),

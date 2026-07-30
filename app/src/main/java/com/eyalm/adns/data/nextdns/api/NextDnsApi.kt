@@ -2,8 +2,8 @@ package com.eyalm.adns.data.nextdns.api
 
 import com.eyalm.adns.data.nextdns.access.InviteAccessRequest
 import com.eyalm.adns.data.nextdns.access.UpdateAccessRoleRequest
-import com.eyalm.adns.data.nextdns.recreation.UpdateRecreationItemRequest
 import com.eyalm.adns.data.nextdns.recreation.UpdateRecreationScheduleRequest
+import com.eyalm.adns.data.nextdns.resources.UpdateParentalResourceRequest
 import com.eyalm.adns.data.nextdns.rewrites.CreateRewriteRequest
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
@@ -211,12 +211,12 @@ interface NextDnsApi {
     ): Response<JsonObject>
 
     @PATCH("profiles/{profileId}/parentalControl/{collection}/{hexId}")
-    suspend fun updateRecreationItem(
+    suspend fun updateParentalResource(
         @Path("profileId") profileId: String,
         @Path("collection") collection: String,
         @Path("hexId") hexId: String,
-        @Body request: UpdateRecreationItemRequest,
-    ): Response<JsonObject>
+        @Body request: UpdateParentalResourceRequest,
+    ): Response<Unit>
 
     @GET("profiles/{profileId}/setup")
     suspend fun getSetup(

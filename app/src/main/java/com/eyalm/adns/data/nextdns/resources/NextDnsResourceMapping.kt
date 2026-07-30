@@ -118,9 +118,9 @@ fun filterResourceItems(
     items: List<NextDnsResourceItem>,
     query: String,
     enabledOnly: Boolean,
-    activeIds: Set<String>,
+    memberships: Map<String, ResourceMembership>,
 ): List<NextDnsResourceItem> = items.filter { item ->
-    (!enabledOnly || item.id in activeIds) &&
+    (!enabledOnly || memberships[item.id]?.active == true) &&
         (
             item.name.contains(query, ignoreCase = true) ||
                 item.id.contains(query, ignoreCase = true) ||

@@ -1,6 +1,5 @@
 package com.eyalm.adns.ui.screens.settings
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -37,25 +34,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eyalm.adns.R
 import com.eyalm.adns.data.Locales
-import com.eyalm.adns.data.nextdns.recreation.ParentalRecreationItem
-import com.eyalm.adns.data.nextdns.recreation.RecreationItemCollection
 import com.eyalm.adns.data.nextdns.recreation.RecreationScheduleError
 import com.eyalm.adns.data.nextdns.recreation.RecreationScheduleValidation
 import com.eyalm.adns.data.nextdns.recreation.RecreationTimeDraft
 import com.eyalm.adns.ui.components.ExpandableResourceSettingRow
 import com.eyalm.adns.ui.components.ExpressiveCard
 import com.eyalm.adns.ui.components.ExpressiveCardHeader
-import com.eyalm.adns.ui.components.NavigationSettingRow
 import com.eyalm.adns.ui.components.ResourceSettingRow
-import com.eyalm.adns.ui.components.SegmentPosition
-import com.eyalm.adns.ui.components.ToggleSettingRow
 import com.eyalm.adns.ui.components.dialogs.FormDialog
 import com.eyalm.adns.ui.components.segmentPosition
 import com.eyalm.adns.viewmodel.nextdns.RecreationUiState
@@ -142,24 +133,6 @@ fun RecreationSection(
                     }
                 }
 
-                RecreationItemGroup(
-                    title = Locales.getString("parentalControl", "services", "name"),
-                    items = state.services,
-                    collection = RecreationItemCollection.Services,
-                    saving = viewModel::isSavingItem,
-                    onToggle = viewModel::toggleItem,
-                    canEdit = canEdit,
-                )
-
-                RecreationItemGroup(
-                    title = Locales.getString("parentalControl", "categories", "name"),
-                    items = state.categories,
-                    collection = RecreationItemCollection.Categories,
-                    saving = viewModel::isSavingItem,
-                    onToggle = viewModel::toggleItem,
-                    canEdit = canEdit,
-                )
-
             }
         }
     }
@@ -173,69 +146,6 @@ fun RecreationSection(
             onSave = viewModel::saveSchedule,
             onDismiss = viewModel::dismissEditor,
         )
-    }
-}
-
-@Composable
-private fun RecreationItemGroup(
-    title: String,
-    items: List<ParentalRecreationItem>,
-    collection: RecreationItemCollection,
-    saving: (RecreationItemCollection, String) -> Boolean,
-    onToggle: (RecreationItemCollection, ParentalRecreationItem) -> Unit,
-    canEdit: Boolean,
-) {
-    if (items.isEmpty()) return
-
-    var expanded by remember { mutableStateOf(false) }
-    val enabledCount = items.count { it.recreation }
-
-    NavigationSettingRow( // TODO replace this, should use "selected" color
-        title = title,
-        description = if (expanded) {
-            null
-        } else {
-            pluralStringResource(
-                R.plurals.recreation_time_active_count,
-                enabledCount,
-                enabledCount,
-            )
-        },
-        onClick = { expanded = !expanded },
-        trailing = {
-            Icon(
-                if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                contentDescription = null,
-            )
-        },
-        position = if (expanded) SegmentPosition.First else SegmentPosition.Single,
-    )
-
-    AnimatedVisibility(visible = expanded) {
-        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            items.forEachIndexed { index, item ->
-                val pending = saving(collection, item.id)
-                ToggleSettingRow( // TODO should be always with the "selected color"!
-                    title = item.displayName(collection),
-                    checked = item.recreation,
-                    enabled = canEdit && item.active,
-                    saving = pending,
-                    toggle = { checked, onCheckedChange ->
-                        Switch(
-                            checked = checked,
-                            enabled = canEdit && item.active,
-                            onCheckedChange = onCheckedChange,
-                        )
-                    },
-                    onCheckedChange = { onToggle(collection, item) },
-                    position = if (index == items.lastIndex) {
-                        SegmentPosition.Last
-                    } else {
-                        SegmentPosition.Middle
-                    },
-                )
-            }
-        }
     }
 }
 
@@ -468,13 +378,6 @@ private fun parseTime(time: String): Pair<Int, Int> {
         return hour to minute
     }
     return 0 to 0
-}
-
-private fun ParentalRecreationItem.displayName(collection: RecreationItemCollection): String = when (collection) {
-    RecreationItemCollection.Services ->
-        Locales.getString("parentalControl", "services", "services", id)
-    RecreationItemCollection.Categories ->
-        Locales.getString("parentalControl", "categories", "categories", id, "name")
 }
 
 @Composable

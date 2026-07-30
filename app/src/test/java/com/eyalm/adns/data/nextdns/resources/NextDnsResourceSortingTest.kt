@@ -113,7 +113,10 @@ class NextDnsResourceSortingTest {
                 items = items,
                 query = "tracking",
                 enabledOnly = true,
-                activeIds = setOf("alpha", "beta"),
+                memberships = mapOf(
+                    "alpha" to ResourceMembership("alpha", active = true),
+                    "beta" to ResourceMembership("beta", active = false),
+                ),
             ).map { it.id },
         )
         assertEquals(
@@ -122,7 +125,7 @@ class NextDnsResourceSortingTest {
                 items = items,
                 query = "beta",
                 enabledOnly = false,
-                activeIds = emptySet(),
+                memberships = emptyMap(),
             ).map { it.id },
         )
     }

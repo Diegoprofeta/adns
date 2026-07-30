@@ -12,6 +12,10 @@ import com.eyalm.adns.data.nextdns.resources.NextDnsResourceItem
 import com.eyalm.adns.data.nextdns.resources.NextDnsResourceRepository
 import com.eyalm.adns.data.nextdns.resources.NextDnsResourceSource
 import com.eyalm.adns.data.nextdns.resources.NextDnsResourceSpec
+import com.eyalm.adns.data.nextdns.resources.ResourceMembership
+import com.eyalm.adns.data.nextdns.resources.withActive
+import com.eyalm.adns.data.nextdns.resources.withMembership
+import com.eyalm.adns.data.nextdns.resources.withRecreation
 import com.eyalm.adns.data.nextdns.settings.AddCustomDomainResult
 import com.eyalm.adns.data.nextdns.settings.NextDnsSettingsRepository
 import com.eyalm.adns.domain.nextdns.ApiResult
@@ -29,7 +33,7 @@ data class ResourceListUiState(
     val loading: Boolean = false,
     val refreshing: Boolean = false,
     val loaded: Boolean = false,
-    val activeIds: Set<String> = emptySet(),
+    val memberships: Map<String, ResourceMembership> = emptyMap(),
     val availableItems: List<NextDnsResourceItem> = emptyList(),
     val error: ApiResult<*>? = null,
 )
@@ -75,7 +79,7 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
                         loading = false,
                         refreshing = false,
                         loaded = true,
-                        activeIds = result.value.first,
+                        memberships = result.value.first,
                         availableItems = result.value.second,
                         error = null,
                     )
@@ -113,17 +117,27 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
         load(profileId, spec, editable, force = true)
     }
 
-    fun toggle(itemId: String) {
+    fun toggleMembership(itemId: String) {
         if (!editable) return
         val current = _state.value
         val profileId = current.profileId ?: return
         val spec = current.spec ?: return
         if (current.loading || current.refreshing || !savingItems.add(itemId)) return
 
-        val wasActive = itemId in current.activeIds
-        val active = !wasActive
+        val previousMembership = current.memberships[itemId]
+        val wasSelected = if (spec.allowsCustomInput) {
+            previousMembership?.active == true
+        } else {
+            previousMembership != null
+        }
+        val selected = !wasSelected
         _state.value = current.copy(
-            activeIds = if (active) current.activeIds + itemId else current.activeIds - itemId
+            memberships = when {
+                spec.allowsCustomInput && previousMembership != null ->
+                    current.memberships.withActive(itemId, selected)
+                selected -> current.memberships.withMembership(ResourceMembership(itemId))
+                else -> current.memberships - itemId
+            }
         )
 
         viewModelScope.launch {
@@ -133,9 +147,9 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
                         profileId,
                         spec.apiPage,
                         itemId,
-                        active,
+                        selected,
                     )
-                } else if (wasActive) {
+                } else if (wasSelected) {
                     settingsRepository.removeListItem(
                         profileId,
                         spec.apiPage,
@@ -154,11 +168,76 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
                 if (result !is ApiResult.Success && isCurrent(profileId, spec)) {
                     val latest = _state.value
                     _state.value = latest.copy(
-                        activeIds = if (wasActive) {
-                            latest.activeIds + itemId
+                        memberships = if (previousMembership != null) {
+                            latest.memberships.withMembership(previousMembership)
                         } else {
-                            latest.activeIds - itemId
+                            latest.memberships - itemId
                         }
+                    )
+                    _messages.emit(
+                        getApplication<Application>().getString(R.string.failed_to_update, itemId)
+                    )
+                }
+            } finally {
+                savingItems -= itemId
+            }
+        }
+    }
+
+    fun setActive(itemId: String, active: Boolean) {
+        mutateParentalMembership(itemId) { profileId, spec, previous ->
+            _state.value = _state.value.copy(
+                memberships = _state.value.memberships.withActive(itemId, active)
+            )
+            resourceRepository.updateParentalMembership(
+                profileId = profileId,
+                collection = spec.apiFeature,
+                itemId = itemId,
+                active = active,
+            ) to previous
+        }
+    }
+
+    fun setRecreation(itemId: String, recreation: Boolean) {
+        mutateParentalMembership(itemId) { profileId, spec, previous ->
+            _state.value = _state.value.copy(
+                memberships = _state.value.memberships.withRecreation(itemId, recreation)
+            )
+            resourceRepository.updateParentalMembership(
+                profileId = profileId,
+                collection = spec.apiFeature,
+                itemId = itemId,
+                recreation = recreation,
+            ) to previous
+        }
+    }
+
+    private fun mutateParentalMembership(
+        itemId: String,
+        mutation: suspend (
+            profileId: String,
+            spec: NextDnsResourceSpec,
+            previous: ResourceMembership,
+        ) -> Pair<ApiResult<Unit>, ResourceMembership>,
+    ) {
+        if (!editable) return
+        val current = _state.value
+        val profileId = current.profileId ?: return
+        val spec = current.spec?.takeIf {
+            it.parentPage == NextDnsResourceSpec.ParentPage.PARENTAL_CONTROL
+        } ?: return
+        val previous = current.memberships[itemId] ?: return
+        if (current.loading || current.refreshing || !savingItems.add(itemId)) return
+
+        viewModelScope.launch {
+            try {
+                val (result, prior) = mutation(profileId, spec, previous)
+                if (result is ApiResult.Success) {
+                    if (isCurrent(profileId, spec)) load(profileId, spec, editable, force = true)
+                } else if (isCurrent(profileId, spec)) {
+                    val latest = _state.value
+                    _state.value = latest.copy(
+                        memberships = latest.memberships.withMembership(prior)
                     )
                     _messages.emit(
                         getApplication<Application>().getString(R.string.failed_to_update, itemId)
@@ -177,7 +256,8 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
         val spec = current.spec?.takeIf(NextDnsResourceSpec::allowsCustomInput) ?: return
         val cleanDomain = domain.trim().lowercase(Locale.ROOT)
         val itemWasPresent = current.availableItems.any { it.id == cleanDomain }
-        val wasActive = cleanDomain in current.activeIds
+        val previousMembership = current.memberships[cleanDomain]
+        val wasActive = previousMembership?.active == true
         if (itemWasPresent && wasActive) return
         if (current.loading || current.refreshing || !savingItems.add(cleanDomain)) return
 
@@ -192,7 +272,9 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
             } else {
                 listOf(newItem) + current.availableItems
             },
-            activeIds = current.activeIds + cleanDomain,
+            memberships = current.memberships.withMembership(
+                ResourceMembership(cleanDomain, active = true)
+            ),
         )
 
         viewModelScope.launch {
@@ -226,10 +308,10 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
                         } else {
                             latest.availableItems.filterNot { it.id == cleanDomain }
                         },
-                        activeIds = if (wasActive) {
-                            latest.activeIds + cleanDomain
+                        memberships = if (previousMembership != null) {
+                            latest.memberships.withMembership(previousMembership)
                         } else {
-                            latest.activeIds - cleanDomain
+                            latest.memberships - cleanDomain
                         },
                     )
                     _messages.emit(
@@ -252,11 +334,11 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
         val spec = current.spec?.takeIf(NextDnsResourceSpec::allowsCustomInput) ?: return
         val removedItem = current.availableItems.firstOrNull { it.id == domain } ?: return
         if (current.loading || current.refreshing || !savingItems.add(domain)) return
-        val wasActive = domain in current.activeIds
+        val previousMembership = current.memberships[domain]
 
         _state.value = current.copy(
             availableItems = current.availableItems.filterNot { it.id == domain },
-            activeIds = current.activeIds - domain,
+            memberships = current.memberships - domain,
         )
 
         viewModelScope.launch {
@@ -270,7 +352,8 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
                     val latest = _state.value
                     _state.value = latest.copy(
                         availableItems = listOf(removedItem) + latest.availableItems,
-                        activeIds = if (wasActive) latest.activeIds + domain else latest.activeIds,
+                        memberships = previousMembership?.let(latest.memberships::withMembership)
+                            ?: latest.memberships,
                     )
                     _messages.emit(
                         getApplication<Application>().getString(R.string.failed_to_delete, domain)
@@ -285,13 +368,13 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
     private suspend fun loadItems(
         profileId: String,
         spec: NextDnsResourceSpec,
-    ): ApiResult<Pair<Set<String>, List<NextDnsResourceItem>>> {
+    ): ApiResult<Pair<Map<String, ResourceMembership>, List<NextDnsResourceItem>>> {
         if (spec.allowsCustomInput) {
             return when (
                 val custom = resourceRepository.getCustomList(profileId, spec.apiPage)
             ) {
                 is ApiResult.Success -> ApiResult.Success(
-                    custom.value.activeIds to custom.value.items,
+                    custom.value.memberships to custom.value.items,
                     custom.status,
                 )
                 is ApiResult.ServerFailure -> custom
@@ -301,7 +384,7 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
         }
 
         return when (
-            val active = resourceRepository.getActiveIds(
+            val active = resourceRepository.getMemberships(
                 profileId,
                 spec.apiPage,
                 spec.apiFeature,
@@ -354,23 +437,10 @@ class ResourceListViewModel(application: Application) : AndroidViewModel(applica
                 "categories" -> {
                     val name = (value as? Map<*, *>)?.get("name") as? String
                     val description = (value as? Map<*, *>)?.get("description") as? String
-                    val icon = when (key.lowercase(Locale.ROOT)) {
-                        "porn" -> BuiltInListIcon.Block
-                        "dating" -> BuiltInListIcon.Favorite
-                        "social" -> BuiltInListIcon.People
-                        "video" -> BuiltInListIcon.PlayCircle
-                        "games" -> BuiltInListIcon.SportsEsports
-                        "gambling" -> BuiltInListIcon.Casino
-                        "shopping" -> BuiltInListIcon.ShoppingBag
-                        "chat" -> BuiltInListIcon.Chat
-                        "music" -> BuiltInListIcon.MusicNote
-                        else -> BuiltInListIcon.Folder
-                    }
                     NextDnsResourceItem(
                         id = key,
                         name = name ?: key,
                         description = description,
-                        icon = ListIcon.BuiltIn(icon),
                     )
                 }
 

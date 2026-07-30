@@ -196,6 +196,10 @@
     <string name="remove">Remove %1$s?</string>
     <string name="configure_the_time_window_for_each_day">Configure the time window for each day.</string>
     <string name="recreation_time_disabled">Not used</string>
+    <string name="paused">Paused</string>
+    <string name="blocking_enabled">Blocking enabled</string>
+    <string name="blocking_enabled_description">Temporarily pause blocking without removing this item.</string>
+    <string name="recreation_time_membership_description">Allow this item during the Recreation Time schedule.</string>
     <plurals name="recreation_time_active_count">
         <item quantity="one">%1$d active</item>
         <item quantity="other">%1$d active</item>
@@ -371,4 +375,5 @@
     <string name="color_scheme_system">System colors</string>
     <string name="save">Save</string>
     <string name="adb_grant_command" translatable="false">adb shell pm grant com.eyalm.adns android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="block">Block</string>
 </resources>
