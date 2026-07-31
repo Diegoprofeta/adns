@@ -66,7 +66,9 @@ import com.eyalm.adns.data.nextdns.setup.segments
 import com.eyalm.adns.domain.nextdns.ApiResult
 import com.eyalm.adns.ui.components.dialogs.FormDialog
 import com.eyalm.adns.ui.components.settings.LoadingError
+import com.eyalm.adns.viewmodel.SettingsViewModel
 import com.eyalm.adns.viewmodel.nextdns.DdnsDialogState
+import com.eyalm.adns.viewmodel.nextdns.NextDnsConnectionStatusViewModel
 import com.eyalm.adns.viewmodel.nextdns.SetupEffect
 import com.eyalm.adns.viewmodel.nextdns.SetupUiState
 import com.eyalm.adns.viewmodel.nextdns.SetupViewModel
@@ -88,7 +90,12 @@ fun SetupScreen(
     }
 
     val viewModel: SetupViewModel = viewModel(key = "setup-$profileId")
+    val connectionViewModel: NextDnsConnectionStatusViewModel = viewModel(key = "connection-$profileId")
+    val settingsViewModel: SettingsViewModel = viewModel()
     val state by viewModel.state.collectAsState()
+    val connectionState by connectionViewModel.state.collectAsState()
+    val profileSession by settingsViewModel.profileSessionState.collectAsState()
+    val selectedProfile = profileSession.selected
     val clipboard = LocalClipboardManager.current
     val context = LocalContext.current
     val uriHandler = LocalUriHandler.current
@@ -96,6 +103,9 @@ fun SetupScreen(
 
     LaunchedEffect(profileId) {
         viewModel.load(profileId)
+    }
+    LaunchedEffect(selectedProfile) {
+        connectionViewModel.refresh(selectedProfile, force = true)
     }
     LaunchedEffect(canManageLinkedIp) {
         viewModel.setCanManageLinkedIp(canManageLinkedIp)
@@ -123,7 +133,9 @@ fun SetupScreen(
         onBack = onBack,
         title = Locales.getString("pages", "setup"),
         refreshing = state.loading && state.content != null,
-        onRefresh = { viewModel.load(profileId, force = true) },
+        onRefresh = {
+            viewModel.load(profileId, force = true)
+        },
     ) {
         state.error?.let { error ->
             item {
@@ -149,6 +161,17 @@ fun SetupScreen(
         }
 
         state.content?.let { content ->
+            item {
+                NextDnsConnectionStatusSection(
+                    status = connectionState.connection,
+                    profiles = profileSession.profiles,
+                    refreshing = connectionState.refreshing,
+                    onRefresh = {
+                        connectionViewModel.refresh(selectedProfile, force = true)
+                    },
+                )
+                Spacer(Modifier.height(20.dp))
+            }
             item {
                 EndpointsCard(
                     content = content,

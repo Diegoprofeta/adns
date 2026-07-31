@@ -23,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,11 +39,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.eyalm.adns.R
 import com.eyalm.adns.ui.components.ProfilesList
 import com.eyalm.adns.ui.screens.providerLogin.CreateProfileDialog
 import com.eyalm.adns.ui.theme.pageTitle
 import com.eyalm.adns.viewmodel.SettingsViewModel
+import com.eyalm.adns.viewmodel.nextdns.NextDnsConnectionStatusViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
@@ -51,9 +56,12 @@ fun AccountSettingsScreen(
     canControlPrivateDns: Boolean = true,
 ) {
     val viewModel: SettingsViewModel = viewModel()
+    val connectionViewModel: NextDnsConnectionStatusViewModel = viewModel()
     val email = viewModel.email
     val profileSession by viewModel.profileSessionState.collectAsState()
+    val connectionState by connectionViewModel.state.collectAsState()
     val selectedProfile = profileSession.selected
+    val lifecycleOwner = LocalLifecycleOwner.current
     var openCreateProfileDialog by remember { mutableStateOf(false) }
     var deviceName by remember { mutableStateOf(viewModel.nextDnsDeviceName) }
     val isDeviceNameValid = remember(deviceName) {
@@ -62,6 +70,20 @@ fun AccountSettingsScreen(
 
     LaunchedEffect(viewModel.nextDnsDeviceName) {
         deviceName = viewModel.nextDnsDeviceName
+    }
+
+    LaunchedEffect(selectedProfile) {
+        connectionViewModel.refresh(selectedProfile, force = true)
+    }
+
+    DisposableEffect(lifecycleOwner, selectedProfile) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                connectionViewModel.refresh(selectedProfile)
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
     when {
@@ -87,7 +109,14 @@ fun AccountSettingsScreen(
         showAppBarTitle = false,
         modifier = Modifier,
         refreshing = profileSession.refreshing,
-        onRefresh = { viewModel.refreshProfileSession(force = true) },
+        onRefresh = {
+            refreshAccountSettings(
+                refreshProfiles = { viewModel.refreshProfileSession(force = true) },
+                refreshConnection = {
+                    connectionViewModel.refresh(selectedProfile, force = true)
+                },
+            )
+        },
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
@@ -187,6 +216,16 @@ fun AccountSettingsScreen(
                     }
                 }
                 item {
+                    NextDnsConnectionStatusSection(
+                        status = connectionState.connection,
+                        profiles = profileSession.profiles,
+                        refreshing = connectionState.refreshing,
+                        onRefresh = {
+                            connectionViewModel.refresh(selectedProfile, force = true)
+                        },
+                    )
+                }
+                item {
                     ProfilesList(
                         profiles = profileSession.profiles,
                         selectedProfile = selectedProfile,
@@ -204,6 +243,14 @@ fun AccountSettingsScreen(
 
 fun shouldShowDeviceNameEditor(canControlPrivateDns: Boolean): Boolean =
     canControlPrivateDns
+
+internal fun refreshAccountSettings(
+    refreshProfiles: () -> Unit,
+    refreshConnection: () -> Unit,
+) {
+    refreshProfiles()
+    refreshConnection()
+}
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable

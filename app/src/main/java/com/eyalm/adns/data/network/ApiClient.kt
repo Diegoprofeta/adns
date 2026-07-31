@@ -10,6 +10,7 @@ import com.eyalm.adns.data.nextdns.api.NextDnsIpv4Api
 import com.eyalm.adns.data.nextdns.api.NextDnsLinkIpApi
 import com.eyalm.adns.data.nextdns.api.NextDnsSessionExpiryInterceptor
 import com.eyalm.adns.data.nextdns.auth.NextDnsSessionManager
+import com.eyalm.adns.data.nextdns.connection.NextDnsConnectionApi
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -32,6 +33,7 @@ object ApiClient {
     private lateinit var nextDnsCookieAuthApiInternal: NextDnsCookieAuthApi
     private lateinit var nextDnsApiKeyAuthApiInternal: NextDnsApiKeyAuthApi
     private lateinit var nextDnsLinkIpApiInternal: NextDnsLinkIpApi
+    private lateinit var nextDnsConnectionApiInternal: NextDnsConnectionApi
 
     /**
      * Initialize the API client. Call this once from Application.onCreate() or similar with an app Context.
@@ -96,6 +98,8 @@ object ApiClient {
             .create(NextDnsApiKeyAuthApi::class.java)
         nextDnsLinkIpApiInternal = retrofit(LINK_IP_BASE_URL, baseClient)
             .create(NextDnsLinkIpApi::class.java)
+        nextDnsConnectionApiInternal = retrofit(API_BASE_URL, baseClient)
+            .create(NextDnsConnectionApi::class.java)
     }
 
     private fun retrofit(baseUrl: String, client: OkHttpClient): Retrofit =
@@ -119,6 +123,9 @@ object ApiClient {
 
     val nextDnsLinkIpApi: NextDnsLinkIpApi
         get() = initialized { nextDnsLinkIpApiInternal }
+
+    val nextDnsConnectionApi: NextDnsConnectionApi
+        get() = initialized { nextDnsConnectionApiInternal }
 
     private fun <T> initialized(api: () -> T): T {
         if (!::nextDnsApiInternal.isInitialized) {
