@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,10 +40,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eyalm.adns.R
 import com.eyalm.adns.ui.components.ProfilesList
 import com.eyalm.adns.ui.screens.providerLogin.CreateProfileDialog
@@ -66,6 +68,13 @@ fun AccountSettingsScreen(
     var deviceName by remember { mutableStateOf(viewModel.nextDnsDeviceName) }
     val isDeviceNameValid = remember(deviceName) {
         deviceName.all { it.isDigit() || it in 'a'..'z' || it in 'A'..'Z' || it == ' ' }
+    }
+
+    val scrollState = rememberLazyListState()
+    val showAppBarTitle by remember {
+        derivedStateOf {
+            scrollState.firstVisibleItemIndex > 0
+        }
     }
 
     LaunchedEffect(viewModel.nextDnsDeviceName) {
@@ -106,7 +115,7 @@ fun AccountSettingsScreen(
             stringResource(R.string.nextdns_name),
         ),
         onBack = onBack,
-        showAppBarTitle = false,
+        showAppBarTitle = showAppBarTitle,
         modifier = Modifier,
         refreshing = profileSession.refreshing,
         onRefresh = {
@@ -124,6 +133,7 @@ fun AccountSettingsScreen(
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
+            state = scrollState,
         ) {
             item {
                 Text(

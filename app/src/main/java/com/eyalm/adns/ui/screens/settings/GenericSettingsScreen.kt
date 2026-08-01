@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.CircularWavyProgressIndicator
@@ -25,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -87,6 +89,12 @@ fun GenericCategoryScreen(
     val scalarSettings by scalarViewModel.state.collectAsState()
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val scrollState = rememberLazyListState()
+    val showAppBarTitle by remember {
+        derivedStateOf {
+            scrollState.firstVisibleItemIndex > 0
+        }
+    }
     var selector by remember(settingsPage.page, profileState.selected?.id) {
         mutableStateOf<SettingSelector?>(null)
     }
@@ -174,7 +182,7 @@ fun GenericCategoryScreen(
     SettingsScreenLayout(
         title = title,
         onBack = onBack,
-        showAppBarTitle = false,
+        showAppBarTitle = showAppBarTitle,
         refreshing = scalarSettings.refreshing,
         onRefresh = {
             profileState.selected?.let { profile ->
@@ -205,6 +213,7 @@ fun GenericCategoryScreen(
             }
         } else {
             LazyColumn(
+                state = scrollState,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)

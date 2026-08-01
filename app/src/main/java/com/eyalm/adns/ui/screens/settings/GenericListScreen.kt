@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Sort
@@ -55,6 +56,7 @@ import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -132,6 +134,13 @@ fun GenericListScreen(
     var showConfig by remember(listSetting) { mutableStateOf(false) }
     var showEnabledOnly by remember(listSetting) { mutableStateOf(false) }
 
+    val scrollState = rememberLazyListState()
+    val showAppBarTitle by remember {
+        derivedStateOf {
+            scrollState.firstVisibleItemIndex > 0
+        }
+    }
+
     LaunchedEffect(profile.id, listSetting, canEdit) {
         listViewModel.load(
             profileId = profile.id,
@@ -182,7 +191,7 @@ fun GenericListScreen(
     SettingsScreenLayout(
         title = listSetting.title(context),
         onBack = onBack,
-        showAppBarTitle = false,
+        showAppBarTitle = showAppBarTitle,
         refreshing = refreshing,
         onRefresh = listViewModel::refresh,
         snackbarHostState = snackbarHostState,
@@ -256,6 +265,7 @@ fun GenericListScreen(
             }
 
             LazyColumn(
+                state = scrollState,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
