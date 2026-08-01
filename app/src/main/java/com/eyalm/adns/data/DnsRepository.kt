@@ -3,7 +3,6 @@ package com.eyalm.adns.data
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.database.ContentObserver
@@ -15,15 +14,15 @@ import android.service.quicksettings.TileService
 import android.util.Log
 import com.eyalm.adns.MainActivity
 import com.eyalm.adns.R
+import com.eyalm.adns.data.activation.ActivationRepositories
 import com.eyalm.adns.data.dns.AndroidPrivateDnsSettings
 import com.eyalm.adns.data.dns.DnsConfigurationRepository
 import com.eyalm.adns.data.dns.DnsConfigurationResult
 import com.eyalm.adns.data.dns.DnsDisableBehaviorRepositories
 import com.eyalm.adns.data.dns.DnsWriteResult
 import com.eyalm.adns.data.dns.PrivateDnsController
-import com.eyalm.adns.data.activation.ActivationRepositories
-import com.eyalm.adns.data.provider.DnsProviderSelection
 import com.eyalm.adns.data.provider.DnsProviderCatalog
+import com.eyalm.adns.data.provider.DnsProviderSelection
 import com.eyalm.adns.data.provider.ProviderSelectionRepositories
 import com.eyalm.adns.data.provider.ProviderSelectionUpdateResult
 import com.eyalm.adns.data.runtime.RuntimeServiceController
@@ -285,7 +284,7 @@ class DnsRepository(rawContext: Context) {
 
         val toggleShortcut = ShortcutInfo.Builder(context, shortcutId)
             .setShortLabel(if (isActive) context.getString(R.string.disable_blocker) else context.getString(R.string.enable_blocker))
-            .setLongLabel(if (isActive) context.getString(R.string.disable_ad_blocker) else context.getString(R.string.enable_ad_blocker))
+            .setLongLabel(if (isActive) context.getString(R.string.disable_blocker) else context.getString(R.string.enable_blocker))
             .setIcon(Icon.createWithResource(context, R.drawable.ic_launcher_monochrome))
             .setIntent(Intent(context, MainActivity::class.java).apply {
                 action = "com.eyalm.adns.TOGGLE_ACTION"

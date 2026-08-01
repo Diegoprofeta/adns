@@ -190,7 +190,6 @@ fun MainSettingsScreen(
                                     ),
                                     description = stringResource(
                                         R.string.change_account_settings_for,
-                                        stringResource(providerNameRes),
                                     ),
                                     icon = Icons.Filled.AccountCircle,
                                     onClick = onAccountSettingsClick,

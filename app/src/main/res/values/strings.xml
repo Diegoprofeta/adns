@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name" translatable="false">ADNS</string>
-    <string name="a_dnsbased_ad_blocker_for_android">A DNS-based ad blocker for Android</string>
+    <string name="a_dnsbased_ad_blocker_for_android">Private DNS Supercharged</string>
     <string name="activation">Activation</string>
     <string name="adb_shell">ADB Shell</string>
     <string name="add_item">Add Item</string>
-    <string name="add_specific_domains_to_the_allowlist">Add specific domains to the Allowlist.</string>
-    <string name="add_specific_domains_to_the_denylist">Add specific domains to the denylist.</string>
+    <string name="add_specific_domains_to_the_allowlist">Add, remove, and edit allowed domains</string>
+    <string name="add_specific_domains_to_the_denylist">Add, remove, and edit blocked domains</string>
     <string name="add_the_quick_settings_tile">Add the quick settings tile</string>
     <string name="add_the_quick_settings_tile_to_your_device">Add the quick settings tile</string>
     <string name="adguard_dns">AdGuard</string>
@@ -23,7 +23,7 @@
     <string name="blocklists_trackers_affiliate_links">Blocklists, trackers, affiliate links</string>
     <string name="bypass_age_verification">Bypass Age Verification</string>
     <string name="cannot_load_stats">Cannot load stats</string>
-    <string name="change_account_settings_for">Change account settings for %1$s</string>
+    <string name="change_account_settings_for">Manage profiles, log out</string>
     <string name="change_provider">Change Provider</string>
     <string name="change_the_provider_to_use">Change the provider to use</string>
     <string name="choose_your_profile">Choose your profile.</string>
@@ -39,13 +39,11 @@
     <string name="denylist">Denylist</string>
     <string name="device_name_for_logs">Device Name (for Logs)</string>
     <string name="device_name_is_not_set">Device Name is not set</string>
-    <string name="disable_ad_blocker">Disable Ad Blocker</string>
-    <string name="disable_blocker">Disable Blocker</string>
+    <string name="disable_blocker">Disable DNS</string>
     <string name="done">Done!</string>
     <string name="download">Download</string>
     <string name="email">Email</string>
-    <string name="enable_ad_blocker">Enable Ad Blocker</string>
-    <string name="enable_blocker">Enable Blocker</string>
+    <string name="enable_blocker">Enable DNS</string>
     <string name="enable_or_disable_blocker_state_notifications">Enable or disable state notifications</string>
     <string name="enhanced">" (Enhanced)"</string>
     <string name="enter_a_domain">Enter a domain…</string>
@@ -72,7 +70,7 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="logs">Logs</string>
-    <string name="logs_performance_block_page">Logs, performance, block page</string>
+    <string name="logs_performance_block_page">Performance, rewrites, access</string>
     <string name="mynextdnsioaccount">my.nextdns.io/account</string>
     <string name="network_error_please_try_again">Network error. Please try again.</string>
     <string name="new_update">New Update</string>
@@ -116,7 +114,7 @@
     <string name="total_queries">TOTAL QUERIES</string>
     <string name="unknown_error">Unknown error</string>
     <string name="uptime">Uptime</string>
-    <string name="use_a_custom_hostname_for_the_dns_server">Use a custom hostname for the DNS server</string>
+    <string name="use_a_custom_hostname_for_the_dns_server">Use a custom hostname for the DNS server.</string>
     <string name="version_ncreated_by_eyal_meirom">Version %1$s\nCreated by Eyal Meirom</string>
     <string name="version_v_is_available_would_you_like_to_download_it">Version v%1$s is available.\nWould you like to download it?</string>
     <string name="waiting_for_permission">Waiting for permission…</string>
@@ -125,7 +123,7 @@
     <string name="your_dns_settings_have_been_updated">Your DNS settings have been updated.</string>
     <string name="youre_almost_there">You\'re almost there!</string>
     <string name="language">Language</string>
-    <string name="language_description">Select the app\'s language</string>
+    <string name="language_description">Select the display language</string>
     <string name="help_translate_adns">Help translate ADNS</string>
     <string name="help_translate_adns_description">Contribute translations or improve an existing language on Weblate.</string>
     <string name="open_weblate">Open Weblate</string>
@@ -135,7 +133,7 @@
     <string name="preferences">PREFERENCES</string>
     <string name="failed_to_load_logs_check_your_connection">Failed to load logs. Check your connection.</string>
     <string name="added_to">Added %1$s to %2$s</string>
-    <string name="view_your_dns_logs">View your DNS logs.</string>
+    <string name="view_your_dns_logs">View and search your DNS logs</string>
     <string name="blocked_only">Blocked only</string>
     <string name="show_only_blocked_items">Show only blocked items</string>
     <string name="enabled_only">Enabled only</string>
@@ -220,7 +218,7 @@
     <string name="already_linked">Already Linked</string>
     <string name="set_device_name_in_the_nextdns_settings_section">Set \"Device Name\" in the NextDNS settings section.</string>
     <string name="adns_app">ADNS App</string>
-    <string name="setup_nextdns_on_another_device">Setup NextDNS on another device.</string>
+    <string name="setup_nextdns_on_another_device">Setup guides, linked IP, DDNS</string>
     <string name="setup_another_device">Setup another device</string>
     <string name="download_adns">Download ADNS</string>
     <string name="api_key_required">Enter an API key.</string>
@@ -296,7 +294,7 @@
     <string name="private_dns_automation_description">ADNS applies and verifies the selected encrypted DNS hostname for you.</string>
     <string name="runtime_notification_channel_name">Private DNS status</string>
     <string name="runtime_notification_channel_description">Shows ADNS Private DNS state and keeps enabled Wi-Fi rules running.</string>
-    <string name="runtime_notification_title">ADNS Private DNS</string>
+    <string name="runtime_notification_title">Private DNS</string>
     <string name="runtime_notification_dns_enabled">Private DNS is enabled.</string>
     <string name="runtime_notification_dns_disabled">Private DNS is disabled.</string>
     <string name="runtime_notification_wifi_monitoring">Wi-Fi rules are monitoring the connected network.</string>
@@ -323,7 +321,7 @@
     <string name="wifi_rules">Wi-Fi rules</string>
     <string name="wifi_rules_description">Turn off Private DNS on an exact, user-selected Wi-Fi name.</string>
     <string name="wifi_rules_enable">Enable Wi-Fi rules</string>
-    <string name="wifi_rules_enable_description">Turn DNS off in certain networks.</string>
+    <string name="wifi_rules_enable_description">Turn DNS off in certain networks</string>
     <string name="wifi_rules_add_manual">Enter Wi-Fi name</string>
     <string name="wifi_rules_ssid_label">Wi-Fi name (SSID)</string>
     <string name="wifi_rules_duplicate">This Wi-Fi name is already in the list.</string>
