@@ -148,13 +148,8 @@
     <string name="all_devices">All devices</string>
     <string name="unknown_devices">Unknown devices</string>
     <string name="device">Device</string>
-    <string name="encrypted">" (Encrypted)"</string>
-    <string name="unencrypted">" (Unencrypted)"</string>
-    <string name="protocol">Protocol</string>
-    <string name="client_ip">Client IP</string>
     <string name="blocked_by">Blocked by</string>
     <string name="allow">Allow</string>
-    <string name="deny">Deny</string>
     <string name="copy">Copy</string>
     <string name="copied_to_clipboard">Copied to clipboard.</string>
     <string name="retry">Retry</string>
@@ -200,10 +195,6 @@
     <string name="blocking_enabled">Blocking enabled</string>
     <string name="blocking_enabled_description">Temporarily pause blocking without removing this item.</string>
     <string name="recreation_time_membership_description">Allow this item during the Recreation Time schedule.</string>
-    <plurals name="recreation_time_active_count">
-        <item quantity="one">%1$d active</item>
-        <item quantity="other">%1$d active</item>
-    </plurals>
     <string name="recreation_time_range">%1$s – %2$s</string>
     <string name="recreation_time_start">Start</string>
     <string name="recreation_time_end">End</string>
@@ -243,8 +234,6 @@
     <string name="remove_item">Remove item</string>
     <string name="activated_in">Activated %1$s in %2$s</string>
     <string name="failed_to_add_domain_safe">Could not add %1$s. Please try again.</string>
-    <string name="time">Time</string>
-    <string name="type">Type</string>
     <string name="provider_preset_adguard_default">Default filtering</string>
     <string name="provider_preset_adguard_default_description">Blocks ads and trackers.</string>
     <string name="provider_preset_adguard_unfiltered">Unfiltered</string>
@@ -380,5 +369,14 @@
     <string name="nextdns_connection_offline_description">Connect to a network and refresh to check this device.</string>
     <string name="nextdns_unknown_resolver">an unknown resolver</string>
     <string name="adb_grant_command" translatable="false">adb shell pm grant com.eyalm.adns android.permission.WRITE_SECURE_SETTINGS</string>
-    <string name="block">Block</string>
+    <string name="block_domain">Block Domain</string>
+    <string name="allow_domain">Allow Domain</string>
+    <string name="resolved">Resolved</string>
+    <string name="unencrypted_over">unencrypted over</string>
+    <string name="over">over</string>
+    <string name="from">from</string>
+    <string name="root_domain_label">Root domain</string>
+    <string name="query_type_label">Query type</string>
+    <string name="just_now">just now</string>
+    <string name="a_few_seconds_ago">a few seconds ago</string>
 </resources>
