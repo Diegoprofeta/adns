@@ -369,4 +369,9 @@
     <string name="color_scheme_system">সিস্টেম কালার</string>
     <string name="save">সেভ</string>
     <string name="domain_hidden">ডোমেইন গোপন করা হয়েছে</string>
+    <string name="paused">Paused</string>
+    <string name="blocking_enabled">ব্লকিং চালু</string>
+    <string name="blocking_enabled_description">আইটেমটি না সরিয়ে সাময়িকভাবে ব্লকিং স্থগিত রাখুন।</string>
+    <string name="recreation_time_membership_description">রিক্রিয়েশন টাইমের সিডিউলে এই আইটেমটি ব্যবহারের অনুমতি দিন।</string>
+    <string name="block">ব্লক</string>
 </resources>
