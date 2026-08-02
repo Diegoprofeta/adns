@@ -77,7 +77,7 @@ fun ExpressiveCardHeader(
                 val annotatedTitle = remember(title) {
                     buildAnnotatedString {
                         append(title)
-                        append(" ")
+                        append("  ")
                         appendInlineContent(betaBadgeId, "[beta]")
                     }
                 }

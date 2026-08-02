@@ -66,12 +66,10 @@ fun AccessSection(
                 }
             },
         )
-        Spacer(Modifier.height(12.dp))
         if (!state.initialLoadComplete) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(72.dp),
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center,
             ) {
                 CircularProgressIndicator()
@@ -82,6 +80,9 @@ fun AccessSection(
                     Text(error, color = MaterialTheme.colorScheme.error)
                 }
             }
+            if (state.items.isNotEmpty()) {
+                Spacer(Modifier.height(16.dp))
+            }
             state.items.forEachIndexed { index, entry ->
                 AccessRow(
                     entry = entry,
@@ -89,10 +90,6 @@ fun AccessSection(
                     onRoleClick = { viewModel.requestRoleChange(entry) },
                     onDelete = { viewModel.requestDelete(entry) },
                 )
-            }
-
-            if (state.items.isNotEmpty()) {
-                Spacer(Modifier.height(4.dp))
             }
         }
     }
@@ -254,7 +251,7 @@ private fun AccessRow(
         },
         position = position,
     )
-    Spacer(Modifier.height(4.dp))
+    Spacer(Modifier.height(2.dp))
 }
 
 private fun AccessRole.label(): String =

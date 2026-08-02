@@ -79,60 +79,51 @@ fun RecreationSection(
             }
             },
         )
-        Spacer(Modifier.height(12.dp))
         if (!state.initialLoadComplete) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(72.dp),
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center,
             ) {
                 CircularProgressIndicator()
             }
         } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                val activeDays = RecreationScheduleValidation.days.filter { it in state.schedule.times }
+            val activeDays = RecreationScheduleValidation.days.filter { it in state.schedule.times }
 
-                if (!state.editorOpen) {
-                    state.errorMessage?.let { error ->
-                        Text(
-                            text = error,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier.padding(horizontal = 16.dp),
-                        )
-                    }
+            if (!state.editorOpen) {
+                state.errorMessage?.let { error ->
+                    Text(
+                        text = error,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                    )
                 }
+            }
 
-                if (activeDays.isNotEmpty()) {
-                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        activeDays.forEachIndexed { index, day ->
-                            state.schedule.times[day]?.let { window ->
-                                ResourceSettingRow(
-                                    onClick = { if (canEdit) viewModel.openEditor() },
-                                    title = recreationDayName(day),
-                                    trailing = {
-                                        Text(
-                                            text = stringResource(
-                                                R.string.recreation_time_range,
-                                                window.start.take(5),
-                                                window.end.take(5),
-                                            ),
-                                            style = MaterialTheme.typography.bodyLarge,
-                                            color = MaterialTheme.colorScheme.primary,
-                                            fontWeight = FontWeight.Medium,
-                                        )
-                                    },
-                                    position = segmentPosition(index, activeDays.size),
+            if (activeDays.isNotEmpty()) {
+                Spacer(Modifier.height(16.dp))
+                activeDays.forEachIndexed { index, day ->
+                    state.schedule.times[day]?.let { window ->
+                        ResourceSettingRow(
+                            onClick = { if (canEdit) viewModel.openEditor() },
+                            title = recreationDayName(day),
+                            trailing = {
+                                Text(
+                                    text = stringResource(
+                                        R.string.recreation_time_range,
+                                        window.start.take(5),
+                                        window.end.take(5),
+                                    ),
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontWeight = FontWeight.Medium,
                                 )
-                            }
-                        }
+                            },
+                            position = segmentPosition(index, activeDays.size),
+                        )
+                        Spacer(Modifier.height(2.dp))
                     }
                 }
-
             }
         }
     }

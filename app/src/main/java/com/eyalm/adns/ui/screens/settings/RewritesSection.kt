@@ -69,12 +69,10 @@ fun RewritesSection(
             }
             },
         )
-        Spacer(Modifier.height(12.dp))
         if (!state.initialLoadComplete) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(72.dp),
+                    .fillMaxWidth(),
                 contentAlignment = Alignment.Center,
             ) {
                 CircularProgressIndicator()
@@ -85,6 +83,9 @@ fun RewritesSection(
                     Text(error, color = MaterialTheme.colorScheme.error)
                 }
             }
+            if (state.items.isNotEmpty()) {
+                Spacer(Modifier.height(16.dp))
+            }
             state.items.forEachIndexed { index, rewrite ->
                 RewriteRow(
                     rewrite = rewrite,
@@ -92,10 +93,6 @@ fun RewritesSection(
                     onDelete = { viewModel.requestDelete(rewrite) },
                     canEdit = canEdit
                 )
-            }
-
-            if (state.items.isNotEmpty()) {
-                Spacer(Modifier.height(4.dp))
             }
         }
     }
@@ -203,7 +200,7 @@ private fun RewriteRow(
         },
         position = position,
     )
-    Spacer(Modifier.height(4.dp))
+    Spacer(Modifier.height(2.dp))
 }
 
 private fun rewriteErrorText(
