@@ -44,8 +44,6 @@ fun LazyListScope.ProviderSelection(
     showCustomConfirmButton: Boolean = true,
 ) {
 
-    // TODO - take care of ResourceSettingRow here
-
     catalog.providers.forEachIndexed { index, provider ->
         val selected = currentSelection?.providerId == provider.id && !isCustomSelected
         item(key = provider.id.value) {

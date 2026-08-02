@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -130,15 +131,17 @@ fun SegmentedSettingRow(
         },
         modifier = modifier.then(
             if (indicatorColor != null) {
-                Modifier.drawWithContent {
-                    drawContent()
-                    val widthPx = 4.dp.toPx()
-                    drawRect(
-                        color = indicatorColor,
-                        topLeft = Offset.Zero,
-                        size = Size(widthPx, size.height)
-                    )
-                }
+                Modifier
+                    .clip(shape)
+                    .drawWithContent {
+                        drawContent()
+                        val widthPx = 4.dp.toPx()
+                        drawRect(
+                            color = indicatorColor,
+                            topLeft = Offset.Zero,
+                            size = Size(widthPx, size.height)
+                        )
+                    }
             } else Modifier
         ),
         content = {
@@ -196,7 +199,6 @@ fun SegmentedSettingRow(
     )
 }
 
-// TODO APPROVED but replace RecreationItemGroup
 @Composable
 fun NavigationSettingRow(
     title: String,
@@ -217,7 +219,7 @@ fun NavigationSettingRow(
         {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 it()
-                Spacer(modifier = Modifier.width(4.dp)) // TODO decide
+                Spacer(modifier = Modifier.width(4.dp))
             }
         }
     },
@@ -226,7 +228,7 @@ fun NavigationSettingRow(
     onClick = onClick,
 )
 
-// TODO APPROVED apart from recreation see todo comment in that file.
+
 @Composable
 fun ToggleSettingRow(
     title: String,
@@ -255,7 +257,6 @@ fun ToggleSettingRow(
     )
 }
 
-// TODO Approved!
 @Composable
 fun RadioSettingRow(
     title: String,
@@ -301,8 +302,7 @@ fun ActionSettingRow(
     onClick = onClick,
 )
 
-// TODO Not approved - see todos
-// Same for here:  +4.dp for usages with icons?
+
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ResourceSettingRow(
@@ -365,15 +365,17 @@ fun ExpandableResourceSettingRow(
         ),
         modifier = modifier.then(
             if (indicatorColor != null) {
-                Modifier.drawWithContent {
-                    drawContent()
-                    val widthPx = 4.dp.toPx()
-                    drawRect(
-                        color = indicatorColor,
-                        topLeft = Offset.Zero,
-                        size = Size(widthPx, size.height)
-                    )
-                }
+                Modifier
+                    .clip(shape)
+                    .drawWithContent {
+                        drawContent()
+                        val widthPx = 4.dp.toPx()
+                        drawRect(
+                            color = indicatorColor,
+                            topLeft = Offset.Zero,
+                            size = Size(widthPx, size.height)
+                        )
+                    }
             } else Modifier
         ),
         content = {

@@ -482,7 +482,7 @@ private fun <T : Any> SettingSelectionDialog(
                     selected = selected == option,
                     leading = option.iconKey
                         ?.let(::locationFlagIcon)
-                        ?.let { icon -> { ListIconView(icon, modifier = Modifier.size(36.dp)) } }, // TODO icon size wont change!
+                        ?.let { icon -> { ListIconView(icon, modifier = Modifier.size(36.dp)) } },
                     trailing = {
                         RadioButton(
                             selected = selected == option,
