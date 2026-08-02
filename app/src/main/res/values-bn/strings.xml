@@ -374,4 +374,9 @@
     <string name="blocking_enabled_description">আইটেমটি না সরিয়ে সাময়িকভাবে ব্লকিং স্থগিত রাখুন।</string>
     <string name="recreation_time_membership_description">রিক্রিয়েশন টাইমের সিডিউলে এই আইটেমটি ব্যবহারের অনুমতি দিন।</string>
     <string name="block">ব্লক</string>
+    <string name="nextdns_checking_connection">কানেকশন চেক করা হচ্ছে…</string>
+    <string name="nextdns_checking_connection_description">সিলেক্ট করা প্রোফাইলের সাথে এই ডিভাইসটি টেস্ট করা হচ্ছে।</string>
+    <string name="nextdns_connection_offline">অফলাইনে থাকায় কানেকশন চেক করা সম্ভব হচ্ছে না</string>
+    <string name="nextdns_connection_offline_description">একটি নেটওয়ার্কে কানেক্ট করুন এবং এই ডিভাইসটি চেক করতে রিফ্রেশ করুন।</string>
+    <string name="nextdns_unknown_resolver">একটি অজানা রিজলভার</string>
 </resources>
