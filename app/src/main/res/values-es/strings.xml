@@ -38,12 +38,10 @@
     <string name="denylist">Lista negra</string>
     <string name="device_name_for_logs">Nombre del dispositivo (para Bitácora)</string>
     <string name="device_name_is_not_set">El nombre del dispositivo no está establecido</string>
-    <string name="disable_ad_blocker">Desactivar bloqueador de anuncios</string>
     <string name="disable_blocker">Inhabilitar Bloqueador</string>
     <string name="done">¡Completado!</string>
     <string name="download">Descargar</string>
     <string name="email">Correo-e</string>
-    <string name="enable_ad_blocker">Habilitar Ad Blocker</string>
     <string name="enable_blocker">Habilitar Bloqueador</string>
     <string name="enable_or_disable_blocker_state_notifications">Habilite o inhabilita notificaciones de estado</string>
     <string name="enhanced">" (Mejorada)"</string>
@@ -116,8 +114,6 @@
     <string name="logs_cleared">Bitácoras purgadas.</string>
     <string name="rename_profile">Renombrar perfil</string>
     <string name="recreation_day_unknown">Día desconocido</string>
-    <string name="protocol">Protocolo</string>
-    <string name="unencrypted">" (Descifrado)"</string>
     <string name="waiting_for_permission">Esperado a permisos…</string>
     <string name="version_v_is_available_would_you_like_to_download_it">La versión v%1$s está disponible.\n¿Le gustaría descargarla?</string>
     <string name="tile_already_added">¡Azulejo ya añadido!</string>
@@ -155,11 +151,8 @@
     <string name="all_devices">Todos los dispositivos</string>
     <string name="unknown_devices">Dispositivos desconocidos</string>
     <string name="device">Dispositivo</string>
-    <string name="encrypted">" (Cifrado)"</string>
-    <string name="client_ip">IP cliente</string>
     <string name="blocked_by">Bloqueado por</string>
     <string name="allow">Conceder</string>
-    <string name="deny">Denegar</string>
     <string name="copy">Copiar</string>
     <string name="copied_to_clipboard">Copiado a portapapeles.</string>
     <string name="retry">Reintentar</string>
@@ -201,11 +194,6 @@
     <string name="remove">¿Retirar %1$s?</string>
     <string name="configure_the_time_window_for_each_day">Configure el tiempo de ventana por cada día.</string>
     <string name="recreation_time_disabled">No utilizado</string>
-    <plurals name="recreation_time_active_count">
-        <item quantity="one">%1$d activo</item>
-        <item quantity="many">%1$d activos</item>
-        <item quantity="other">%1$d activos</item>
-    </plurals>
     <string name="recreation_time_range">%1$s – %2$s</string>
     <string name="recreation_time_start">Inicio</string>
     <string name="recreation_time_end">Final</string>
@@ -239,8 +227,6 @@
     <string name="remove_item">Retirar elemento</string>
     <string name="activated_in">Se ha activado %1$s en %2$s</string>
     <string name="failed_to_add_domain_safe">No se pudo añadir %1$s. Inténtelo más tarde.</string>
-    <string name="time">Hora</string>
-    <string name="type">Tipo</string>
     <string name="provider_preset_adguard_default">Filtro por defecto</string>
     <string name="provider_preset_adguard_default_description">Bloquea anuncios y rastreadores.</string>
     <string name="provider_preset_adguard_unfiltered">No filtrado</string>

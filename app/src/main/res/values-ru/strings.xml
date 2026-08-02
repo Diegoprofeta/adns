@@ -39,12 +39,10 @@
     <string name="denylist">Черный список</string>
     <string name="device_name_for_logs">Имя устройства (для журналов)</string>
     <string name="device_name_is_not_set">Имя устройства не задано</string>
-    <string name="disable_ad_blocker">Выключить блокировщик</string>
     <string name="disable_blocker">Выключить блокировщик</string>
     <string name="done">Готово!</string>
     <string name="download">Скачать</string>
     <string name="email">Электронная почта</string>
-    <string name="enable_ad_blocker">Включить блокировщик</string>
     <string name="enable_blocker">Включить блокировщик</string>
     <string name="enable_or_disable_blocker_state_notifications">Включить или выключить уведомления о состоянии</string>
     <string name="enhanced">" (Улучшенный)"</string>
@@ -147,13 +145,8 @@
     <string name="all_devices">Все устройства</string>
     <string name="unknown_devices">Неизвестные устройства</string>
     <string name="device">Устройство</string>
-    <string name="encrypted">" (Зашифровано)"</string>
-    <string name="unencrypted">" (Не зашифровано)"</string>
-    <string name="protocol">Протокол</string>
-    <string name="client_ip">IP клиента</string>
     <string name="blocked_by">Заблокировано</string>
     <string name="allow">Разрешить</string>
-    <string name="deny">Запретить</string>
     <string name="copy">Копировать</string>
     <string name="copied_to_clipboard">Скопировано в буфер обмена.</string>
     <string name="retry">Повторить</string>
@@ -195,12 +188,6 @@
     <string name="remove">Удалить %1$s?</string>
     <string name="configure_the_time_window_for_each_day">Настройте временной интервал для каждого дня.</string>
     <string name="recreation_time_disabled">Не используется</string>
-    <plurals name="recreation_time_active_count">
-        <item quantity="one">%1$d активен</item>
-        <item quantity="few">%1$d активных</item>
-        <item quantity="many">%1$d активных</item>
-        <item quantity="other">%1$d активных</item>
-    </plurals>
     <string name="recreation_time_range">%1$s — %2$s</string>
     <string name="recreation_time_start">Начало</string>
     <string name="recreation_time_end">Конец</string>
@@ -240,8 +227,6 @@
     <string name="remove_item">Удалить элемент</string>
     <string name="activated_in">Активировано %1$s в %2$s</string>
     <string name="failed_to_add_domain_safe">Не удалось добавить %1$s. Пожалуйста, попробуйте еще раз.</string>
-    <string name="time">Время</string>
-    <string name="type">Тип</string>
     <string name="provider_preset_adguard_default">Стандартная фильтрация</string>
     <string name="provider_preset_adguard_default_description">Блокирует рекламу и трекеры.</string>
     <string name="provider_preset_adguard_unfiltered">Без фильтрации</string>

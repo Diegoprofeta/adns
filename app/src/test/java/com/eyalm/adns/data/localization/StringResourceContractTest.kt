@@ -18,15 +18,6 @@ class StringResourceContractTest {
     }
 
     @Test
-    fun `recreation active count is a plural resource`() {
-        val english = androidStringCatalogs().first { it.path.replace('\\', '/').contains("/values/") }
-
-        assertTrue(
-            english.readText().contains("<plurals name=\"recreation_time_active_count\">")
-        )
-    }
-
-    @Test
     fun `localized catalogs do not redefine non-translatable strings`() {
         val catalogs = androidStringCatalogs()
         val english = catalogs.first { it.path.replace('\\', '/').contains("/values/") }

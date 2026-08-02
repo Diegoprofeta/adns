@@ -39,12 +39,10 @@
     <string name="denylist">Blok siyahısı</string>
     <string name="device_name_for_logs">Cihaz Adı (Qeydlər üçün)</string>
     <string name="device_name_is_not_set">Cihaz Adı təyin edilməyib</string>
-    <string name="disable_ad_blocker">Reklam Bloklayıcısını Deaktiv Edin</string>
     <string name="disable_blocker">Bloklayıcını Deaktiv Edin</string>
     <string name="done">Hazırdır!</string>
     <string name="download">Yükləyin</string>
     <string name="email">E-poçt</string>
-    <string name="enable_ad_blocker">Reklam Bloklayıcısını Aktivləşdirin</string>
     <string name="enable_blocker">Bloklayıcını Aktivləşdirin</string>
     <string name="enable_or_disable_blocker_state_notifications">Vəziyyət bildirişlərini aktivləşdirin və ya deaktiv edin</string>
     <string name="enhanced">" (Təkmilləşdirilmiş)"</string>
@@ -147,13 +145,8 @@
     <string name="all_devices">Bütün cihazlar</string>
     <string name="unknown_devices">Naməlum cihazlar</string>
     <string name="device">Cihaz</string>
-    <string name="encrypted">" (Şifrələnmiş)"</string>
-    <string name="unencrypted">" (Şifrələnməmiş)"</string>
-    <string name="protocol">Protokol</string>
-    <string name="client_ip">Müştəri IP ünvanı</string>
     <string name="blocked_by">Bloklayan</string>
     <string name="allow">İcazə verin</string>
-    <string name="deny">Blokla</string>
     <string name="copy">Kopyalayın</string>
     <string name="copied_to_clipboard">Panoya kopyalandı.</string>
     <string name="retry">Təkrar cəhd edin</string>
@@ -195,10 +188,6 @@
     <string name="remove">%1$s silinsin?</string>
     <string name="configure_the_time_window_for_each_day">Hər gün üçün vaxt pəncərəsini konfiqurasiya edin.</string>
     <string name="recreation_time_disabled">İstifadə olunmayıb</string>
-    <plurals name="recreation_time_active_count">
-        <item quantity="one">%1$d aktivdir</item>
-        <item quantity="other">%1$d aktivdir</item>
-    </plurals>
     <string name="recreation_time_range">%1$s – %2$s</string>
     <string name="recreation_time_start">Başlayın</string>
     <string name="recreation_time_end">son</string>
@@ -238,8 +227,6 @@
     <string name="remove_item">Elementi silin</string>
     <string name="activated_in">%2$s-də %1$s aktivləşdirildi</string>
     <string name="failed_to_add_domain_safe">%1$s əlavə etmək mümkün olmadı. Yenidən cəhd edin.</string>
-    <string name="time">Vaxt</string>
-    <string name="type">Növü</string>
     <string name="provider_preset_adguard_default">Standart filtrləmə</string>
     <string name="provider_preset_adguard_default_description">Reklamları və izləyiciləri bloklayır.</string>
     <string name="provider_preset_adguard_unfiltered">Filtrlənməmiş</string>

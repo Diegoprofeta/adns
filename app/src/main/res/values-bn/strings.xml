@@ -39,12 +39,10 @@
     <string name="denylist">ডেনিলিস্ট</string>
     <string name="device_name_for_logs">ডিভাইসের নাম (লগের জন্য)</string>
     <string name="device_name_is_not_set">ডিভাইসের নাম সেট করা হয়নি</string>
-    <string name="disable_ad_blocker">অ্যাড ব্লকার নিষ্ক্রিয় করুন</string>
     <string name="disable_blocker">ব্লোকার নিষ্ক্রিয় করুন</string>
     <string name="done">সম্পন্ন!</string>
     <string name="download">ডাউনলোড</string>
     <string name="email">ইমেইল</string>
-    <string name="enable_ad_blocker">অ্যাড ব্লকার চালু করুন</string>
     <string name="enable_blocker">ব্লকার চালু করুন</string>
     <string name="enable_or_disable_blocker_state_notifications">স্টেট নোটিফিকেশন সক্রিয় বা নিষ্ক্রিয় করুন</string>
     <string name="enhanced">" (উন্নত)"</string>
@@ -146,14 +144,9 @@
     <string name="all_devices">সব ডিভাইস</string>
     <string name="unknown_devices">অজানা ডিভাইস</string>
     <string name="device">ডিভাইস</string>
-    <string name="encrypted">" (এনক্রিপ্টেড)"</string>
-    <string name="unencrypted">" (আনএনক্রিপ্টেড)"</string>
-    <string name="protocol">প্রোটোকল</string>
-    <string name="client_ip">ক্লায়েন্ট আইপি</string>
     <string name="blocked_by">যার দ্বারা ব্লক করা</string>
     <string name="private_dns">Private DNS</string>
     <string name="allow">অনুমতি দিন</string>
-    <string name="deny">প্রত্যাখ্যান করুন</string>
     <string name="copy">কপি করুন</string>
     <string name="copied_to_clipboard">ক্লিপবোর্ডে কপি করা হয়েছে।</string>
     <string name="retry">পুনরায় চেষ্টা করুন</string>
@@ -194,10 +187,6 @@
     <string name="remove">%1$s সরাবেন?</string>
     <string name="configure_the_time_window_for_each_day">প্রতিদিনের সময়সীমা সেট করুন।</string>
     <string name="recreation_time_disabled">ব্যবহৃত হয়নি</string>
-    <plurals name="recreation_time_active_count">
-        <item quantity="one">%1$d টি সঠিক</item>
-        <item quantity="other">%1$d টি সঠিক</item>
-    </plurals>
     <string name="recreation_time_range">%1$s – %2$s</string>
     <string name="recreation_time_start">শুরু</string>
     <string name="recreation_time_end">শেষ</string>
@@ -238,8 +227,6 @@
     <string name="remove_item">আইটেম সরানো হয়েছে</string>
     <string name="activated_in">%2$s-এ %1$s সক্রিয় করা হয়েছে</string>
     <string name="failed_to_add_domain_safe">%1$s যোগ করা যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
-    <string name="time">সময়</string>
-    <string name="type">টাইপ</string>
     <string name="provider_preset_adguard_default">ডিফল্ট ফিল্টারিং</string>
     <string name="provider_preset_adguard_default_description">বিজ্ঞাপন এবং ট্র্যাকার ব্লক করে।</string>
     <string name="provider_preset_adguard_unfiltered">আনফিল্টারড</string>
@@ -373,7 +360,6 @@
     <string name="blocking_enabled">ব্লকিং চালু</string>
     <string name="blocking_enabled_description">আইটেমটি না সরিয়ে সাময়িকভাবে ব্লকিং স্থগিত রাখুন।</string>
     <string name="recreation_time_membership_description">রিক্রিয়েশন টাইমের সিডিউলে এই আইটেমটি ব্যবহারের অনুমতি দিন।</string>
-    <string name="block">ব্লক</string>
     <string name="nextdns_checking_connection">কানেকশন চেক করা হচ্ছে…</string>
     <string name="nextdns_checking_connection_description">সিলেক্ট করা প্রোফাইলের সাথে এই ডিভাইসটি টেস্ট করা হচ্ছে।</string>
     <string name="nextdns_connection_offline">অফলাইনে থাকায় কানেকশন চেক করা সম্ভব হচ্ছে না</string>

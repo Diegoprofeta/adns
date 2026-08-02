@@ -39,12 +39,10 @@
     <string name="denylist">Lista de negação</string>
     <string name="device_name_for_logs">Nome do dispositivo (para registros)</string>
     <string name="device_name_is_not_set">O nome do dispositivo não está definido.</string>
-    <string name="disable_ad_blocker">Desative o bloqueador de anúncios</string>
     <string name="disable_blocker">Desativar bloqueador</string>
     <string name="done">Feito!</string>
     <string name="download">Download</string>
     <string name="email">Email</string>
-    <string name="enable_ad_blocker">Ative o bloqueador de anúncios</string>
     <string name="enable_blocker">Ativar bloqueador</string>
     <string name="enable_or_disable_blocker_state_notifications">Ativar ou desativar notificações de estado</string>
     <string name="enhanced">" (Aprimorado)"</string>
@@ -147,13 +145,8 @@
     <string name="all_devices">Todos os dispositivos</string>
     <string name="unknown_devices">Dispositivos desconhecidos</string>
     <string name="device">Dispositivo</string>
-    <string name="encrypted">" (Criptografado)"</string>
-    <string name="unencrypted">" Não criptografado"</string>
-    <string name="protocol">Protocolo</string>
-    <string name="client_ip">IP do cliente</string>
     <string name="blocked_by">Bloqueado por</string>
     <string name="allow">Permitir</string>
-    <string name="deny">Negar</string>
     <string name="copy">Copiar</string>
     <string name="copied_to_clipboard">Copiado para a área de transferência.</string>
     <string name="retry">Tentar novamente</string>
@@ -195,11 +188,6 @@
     <string name="remove">Remover %1$s?</string>
     <string name="configure_the_time_window_for_each_day">Configure a janela de tempo para cada dia.</string>
     <string name="recreation_time_disabled">Não usado</string>
-    <plurals name="recreation_time_active_count">
-        <item quantity="one">%1$d ativo</item>
-        <item quantity="many">%1$d ativos</item>
-        <item quantity="other">%1$d ativos</item>
-    </plurals>
     <string name="recreation_time_range">%1$s – %2$s</string>
     <string name="recreation_time_start">Começar</string>
     <string name="recreation_time_end">Fim</string>
@@ -239,8 +227,6 @@
     <string name="remove_item">Remover item</string>
     <string name="activated_in">%1$s ativado em %2$s</string>
     <string name="failed_to_add_domain_safe">Não foi possível adicionar %1$s. Por favor, tente novamente.</string>
-    <string name="time">Tempo</string>
-    <string name="type">Tipo</string>
     <string name="provider_preset_adguard_default">Filtragem padrão</string>
     <string name="provider_preset_adguard_default_description">Bloqueia anúncios e rastreadores.</string>
     <string name="provider_preset_adguard_unfiltered">Não filtrado</string>
