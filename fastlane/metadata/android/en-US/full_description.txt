@@ -2,8 +2,6 @@
 
 ADNS combines a feature-rich Private DNS client with a native NextDNS integration, giving you full control over your device's DNS settings and your NextDNS account.
 
-Currently in Beta. Download it from <a href="https://github.com/eyalm2000/adns/releases">GitHub Releases</a> or <a href="https://apt.izzysoft.de/fdroid/index/apk/com.eyalm.adns">IzzyOnDroid</a>.
-
 <b>Three Ways To Use ADNS</b>
 
 <b>1. Private DNS Client</b>

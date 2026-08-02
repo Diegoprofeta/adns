@@ -4,7 +4,7 @@
 
 ADNS combines a feature-rich Private DNS client for Android with a native NextDNS integration, giving you full control over your device's DNS settings and your NextDNS account.
 
-Currently in Beta. Download it from [GitHub Releases](https://github.com/eyalm2000/adns/releases) or [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/com.eyalm.adns).
+Download it from [GitHub Releases](https://github.com/eyalm2000/adns/releases) or [IzzyOnDroid](https://apt.izzysoft.de/fdroid/index/apk/com.eyalm.adns).
 
 ## Three Ways To Use ADNS
 
@@ -33,7 +33,7 @@ Use ADNS as a full NextDNS app when you want to manage your account without open
 Use ADNS to link your NextDNS account directly to your device's DNS settings and keep both sides in sync. Requires a one-time Shizuku or ADB setup.
 
 - Seamless integration with all ADNS features (Wi-Fi rules, notifications, and Quick Settings tile)
-- Automatic NextDNS setup handled entirely for you
+- Automatic NextDNS setup handled entirely for yo
 - Custom device name support (appears in your NextDNS dashboard, statistics, and logs)
 - One-click NextDNS profile switching that updates the system DNS settings for you
 
@@ -41,9 +41,14 @@ Use ADNS to link your NextDNS account directly to your device's DNS settings and
 
 <br>
 <p align="center">
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="ADNS main screen" width="30%">
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="ADNS main screen" width="30%">
     <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" alt="ADNS settings screen" width="30%">
-    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" alt="ADNS settings screen" width="30%">
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" alt="ADNS settings screen" width="30%">
+</p>
+<p align="center">
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" alt="ADNS main screen" width="30%">
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" alt="ADNS settings screen" width="30%">
+    <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" alt="ADNS settings screen" width="30%">
 </p>
 <br>
 
@@ -104,11 +109,6 @@ For deep system-level hosts file patching or dedicated root workflows, apps like
 #### Does Shizuku need to run in the background all the time?
 
 No. After onboarding, the app doesn't use Shizuku at all.
-
-## Roadmap
-
-The implementation roadmap lives here: [GitHub Projects](https://github.com/users/eyalm2000/projects/5).  
-See the latest project update on [GitHub Discussions](https://github.com/eyalm2000/adns/discussions/20).
 
 
 ## Build From Source
