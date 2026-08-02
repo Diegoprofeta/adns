@@ -287,7 +287,7 @@ fun TotalQueriesCard(
                             placeable.placeRelative(-padding, 0)
                         }
                     },
-                contentPadding = PaddingValues(horizontal = 16.dp),
+                contentPadding = PaddingValues(horizontal = 24.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             )  {
                 item {
