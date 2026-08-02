@@ -1,0 +1,7 @@
+- ADNS 2.0 is now stable
+- NextDNS connection status is now visible in Account Settings and on the Setup page
+- Parental control list items can now be temporarily disabled
+- Beta NextDNS settings are now clearly labeled
+- The expanded log view has been redesigned
+- Minor UI refinements
+- Bug fixes and stability improvements
