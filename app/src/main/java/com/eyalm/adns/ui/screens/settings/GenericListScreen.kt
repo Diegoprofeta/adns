@@ -60,7 +60,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -441,6 +443,7 @@ fun GenericListScreen(
                                 parental = listSetting.parentPage ==
                                     NextDnsResourceSpec.ParentPage.PARENTAL_CONTROL,
                                 showWebsite = listSetting.apiFeature != "blocklists",
+                                isPendingRemoval = pendingRemoval == row.value.id,
                                 position = when {
                                     previousIsHeader && nextIsHeader -> SegmentPosition.Single
                                     previousIsHeader -> SegmentPosition.First
@@ -473,11 +476,13 @@ private fun ResourceItemRow(
     allowsRemoval: Boolean,
     parental: Boolean,
     showWebsite: Boolean,
+    isPendingRemoval: Boolean,
     position: SegmentPosition,
     onToggleMembership: () -> Unit,
     onEditItem: () -> Unit,
     onRemove: () -> Unit,
 ) {
+    val scope = rememberCoroutineScope()
     val dismissState = rememberSwipeToDismissBoxState()
     val content: @Composable () -> Unit = {
         if (parental) {
@@ -568,10 +573,20 @@ private fun ResourceItemRow(
         }
     }
 
-    LaunchedEffect(dismissState.currentValue) {
-        if (dismissState.currentValue == SwipeToDismissBoxValue.EndToStart) {
+    LaunchedEffect(dismissState.targetValue) {
+        if (dismissState.targetValue == SwipeToDismissBoxValue.EndToStart) {
             onRemove()
-            dismissState.reset()
+            scope.launch {
+                dismissState.reset()
+            }
+        }
+    }
+
+    LaunchedEffect(isPendingRemoval) {
+        if (!isPendingRemoval && (dismissState.targetValue != SwipeToDismissBoxValue.Settled || dismissState.currentValue != SwipeToDismissBoxValue.Settled)) {
+            scope.launch {
+                dismissState.reset()
+            }
         }
     }
 
