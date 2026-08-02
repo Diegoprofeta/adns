@@ -16,8 +16,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,7 +31,6 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -44,13 +43,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -63,17 +62,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eyalm.adns.R
 import com.eyalm.adns.data.Locales
-import com.eyalm.adns.data.nextdns.api.NextDnsDeviceItem
 import com.eyalm.adns.data.nextdns.analytics.AnalyticsPeriod
 import com.eyalm.adns.data.nextdns.analytics.ListCard
 import com.eyalm.adns.data.nextdns.analytics.PercentCard
 import com.eyalm.adns.data.nextdns.analytics.StatsRegistry
-import com.eyalm.adns.data.nextdns.model.ListIcon
-import com.eyalm.adns.data.nextdns.model.nextDnsFaviconUrl
-import com.eyalm.adns.ui.components.refresh.AdnsPullToRefresh
+import com.eyalm.adns.data.nextdns.api.NextDnsDeviceItem
 import com.eyalm.adns.ui.components.GenericStatsListCard
 import com.eyalm.adns.ui.components.GenericStatsPercentCard
-import com.eyalm.adns.ui.components.ListIconView
+import com.eyalm.adns.ui.components.refresh.AdnsPullToRefresh
 import com.eyalm.adns.viewmodel.nextdns.CardState
 import com.eyalm.adns.viewmodel.nextdns.StatsViewModel
 import java.util.Locale
@@ -278,35 +274,51 @@ fun TotalQueriesCard(
             Spacer(modifier = Modifier.height(32.dp))
 
             var expanded by remember { mutableStateOf(false) }
-            Row(
-                Modifier.fillMaxWidth(),
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .layout { measurable, constraints ->
+                        val padding = 24.dp.roundToPx()
+                        val maxWidth = constraints.maxWidth + padding * 2
+                        val placeable = measurable.measure(
+                            constraints.copy(maxWidth = maxWidth, minWidth = maxWidth)
+                        )
+                        layout(constraints.maxWidth, placeable.height) {
+                            placeable.placeRelative(-padding, 0)
+                        }
+                    },
+                contentPadding = PaddingValues(horizontal = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Box {
-                    Button(onClick = { expanded = true }) {
-                        Text(selectedFilter, fontWeight = FontWeight.Bold)
-                        Icon(Icons.Default.ArrowDropDown, contentDescription = null)
-                    }
-                    DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false },
-                    ) {
-                        filterOptions.forEach { option ->
-                            DropdownMenuItem(
-                                text = { Text(option) },
-                                onClick = {
-                                    expanded = false
-                                    onFilterSelected(option)
-                                },
-                            )
+            )  {
+                item {
+                    Box {
+                        Button(onClick = { expanded = true }) {
+                            Text(selectedFilter, fontWeight = FontWeight.Bold)
+                            Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+                        }
+                        DropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false },
+                        ) {
+                            filterOptions.forEach { option ->
+                                DropdownMenuItem(
+                                    text = { Text(option) },
+                                    onClick = {
+                                        expanded = false
+                                        onFilterSelected(option)
+                                    },
+                                )
+                            }
                         }
                     }
                 }
-                AnalyticsDeviceSelector(
-                    devices = devices,
-                    selectedDeviceId = selectedDeviceId,
-                    onSelected = onDeviceSelected,
-                )
+                item {
+                    AnalyticsDeviceSelector(
+                        devices = devices,
+                        selectedDeviceId = selectedDeviceId,
+                        onSelected = onDeviceSelected,
+                    )
+                }
             }
         }
     }
