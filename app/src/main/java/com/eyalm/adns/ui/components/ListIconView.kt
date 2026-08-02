@@ -5,7 +5,7 @@ import android.util.LruCache
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -42,7 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.eyalm.adns.data.nextdns.model.BuiltInListIcon
 import com.eyalm.adns.data.nextdns.model.ListIcon
 import kotlinx.coroutines.Dispatchers
@@ -59,15 +59,17 @@ fun ListIconView(
 ) {
     if (icon is ListIcon.None) return
 
-    Box(
+    BoxWithConstraints(
         modifier = modifier
-            .defaultMinSize(minWidth = 40.dp, minHeight = 40.dp)
             .background(
                 color = Color.Transparent,
                 shape = CircleShape
             ),
         contentAlignment = Alignment.Center
     ) {
+        val size = minOf(maxWidth, maxHeight)
+        val fontSize = (size.value * 0.6f).sp
+
         when (icon) {
             is ListIcon.BuiltIn -> {
                 Icon(
@@ -80,7 +82,7 @@ fun ListIconView(
             is ListIcon.Text -> {
                 Text(
                     text = icon.text,
-                    style = MaterialTheme.typography.titleMedium,
+                    fontSize = fontSize,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -122,7 +124,7 @@ fun ListIconView(
                         ) {
                             Text(
                                 text = fallbackChar,
-                                style = MaterialTheme.typography.titleMedium,
+                                fontSize = fontSize,
                                 color = textColor
                             )
                         }
