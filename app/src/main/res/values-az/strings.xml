@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="a_dnsbased_ad_blocker_for_android">Android üçün DNS əsaslı reklam bloklayıcısı</string>
+    <string name="a_dnsbased_ad_blocker_for_android">Gücləndirilmiş Şəxsi DNS</string>
     <string name="activation">Aktivləşdirmə</string>
     <string name="adb_shell">ADB Shell</string>
     <string name="add_item">Element əlavə et</string>
-    <string name="add_specific_domains_to_the_allowlist">İcazə verilənlər siyahısına xüsusi domenlər əlavə edin.</string>
-    <string name="add_specific_domains_to_the_denylist">Qadağan olunmuşlar siyahısına xüsusi domenlər əlavə edin.</string>
+    <string name="add_specific_domains_to_the_allowlist">İcazə verilən domenləri əlavə edin, silin və redaktə edin</string>
+    <string name="add_specific_domains_to_the_denylist">Bloklanmış domenləri əlavə edin, silin və redaktə edin</string>
     <string name="add_the_quick_settings_tile">Tez tənzimləmələr plitəsini əlavə edin</string>
     <string name="add_the_quick_settings_tile_to_your_device">Tez tənzimləmələr plitəsini əlavə edin</string>
     <string name="adguard_dns">AdGuard</string>
@@ -23,7 +23,7 @@
     <string name="blocklists_trackers_affiliate_links">Blok siyahıları, izləyicilər, filial linkləri</string>
     <string name="bypass_age_verification">Bypass Yaş Təsdiqi</string>
     <string name="cannot_load_stats">Statistika yüklənə bilmir</string>
-    <string name="change_account_settings_for">%1$s üçün hesab parametrlərini dəyişdirin</string>
+    <string name="change_account_settings_for">Profilləri idarə edin, çıxış edin</string>
     <string name="change_provider">Provayderi dəyişdirin</string>
     <string name="change_the_provider_to_use">İstifadə ediləcək provayderi dəyişdirin</string>
     <string name="choose_your_profile">Profilinizi seçin.</string>
@@ -39,11 +39,11 @@
     <string name="denylist">Blok siyahısı</string>
     <string name="device_name_for_logs">Cihaz Adı (Qeydlər üçün)</string>
     <string name="device_name_is_not_set">Cihaz Adı təyin edilməyib</string>
-    <string name="disable_blocker">Bloklayıcını Deaktiv Edin</string>
+    <string name="disable_blocker">DNS deaktiv edin</string>
     <string name="done">Hazırdır!</string>
     <string name="download">Yükləyin</string>
     <string name="email">E-poçt</string>
-    <string name="enable_blocker">Bloklayıcını Aktivləşdirin</string>
+    <string name="enable_blocker">DNS aktivləşdirin</string>
     <string name="enable_or_disable_blocker_state_notifications">Vəziyyət bildirişlərini aktivləşdirin və ya deaktiv edin</string>
     <string name="enhanced">" (Təkmilləşdirilmiş)"</string>
     <string name="enter_a_domain">Domen daxil edin…</string>
@@ -69,7 +69,7 @@
     <string name="login">Giriş</string>
     <string name="logout">Çıxış</string>
     <string name="logs">Günlüklər</string>
-    <string name="logs_performance_block_page">Qeydlər, performans, blok səhifəsi</string>
+    <string name="logs_performance_block_page">Məhsuldarlıq, yenidən yazma, giriş</string>
     <string name="mynextdnsioaccount">my.nextdns.io/account</string>
     <string name="network_error_please_try_again">Şəbəkə xətası. Zəhmət olmasa, yenidən cəhd edin.</string>
     <string name="new_update">Yeni Yeniləmə</string>
@@ -113,7 +113,7 @@
     <string name="total_queries">ÜMUMİ SORĞULAR</string>
     <string name="unknown_error">Naməlum xəta</string>
     <string name="uptime">İş vaxtı</string>
-    <string name="use_a_custom_hostname_for_the_dns_server">DNS serveri üçün xüsusi bir host adı istifadə edin</string>
+    <string name="use_a_custom_hostname_for_the_dns_server">DNS serveri üçün xüsusi host adı istifadə edin.</string>
     <string name="version_ncreated_by_eyal_meirom">Versiya %1$s\nEyal Meirom tərəfindən yaradılıb</string>
     <string name="version_v_is_available_would_you_like_to_download_it">v%1$s versiyası mövcuddur.\nOnu yükləmək istərdinizmi?</string>
     <string name="waiting_for_permission">İcazə gözlənilir…</string>
@@ -122,7 +122,7 @@
     <string name="your_dns_settings_have_been_updated">DNS parametrləriniz yeniləndi.</string>
     <string name="youre_almost_there">Demək olar ki, çatdınız!</string>
     <string name="language">Dil</string>
-    <string name="language_description">Tətbiqin dilini seçin</string>
+    <string name="language_description">Göstəriləcək dili seçin</string>
     <string name="help_translate_adns">ADNS-i tərcümə etməyə kömək edin</string>
     <string name="help_translate_adns_description">Weblate-də tərcümələr edin və ya mövcud bir dili təkmilləşdirin.</string>
     <string name="open_weblate">Weblate-i açın</string>
@@ -132,7 +132,7 @@
     <string name="preferences">TƏRCİHLƏR</string>
     <string name="failed_to_load_logs_check_your_connection">Jurnalları yükləmək alınmadı. Bağlantınızı yoxlayın.</string>
     <string name="added_to">%1$s %2$s-ə əlavə edildi</string>
-    <string name="view_your_dns_logs">DNS qeydlərinizə baxın.</string>
+    <string name="view_your_dns_logs">DNS loglarınıza baxın və axtarış aparın</string>
     <string name="blocked_only">Yalnız bloklanıb</string>
     <string name="show_only_blocked_items">Yalnız bloklanmış elementləri göstər</string>
     <string name="enabled_only">Yalnız aktivdir</string>
@@ -213,7 +213,7 @@
     <string name="already_linked">Artıq Əlaqələndirilib</string>
     <string name="set_device_name_in_the_nextdns_settings_section">NextDNS parametrləri bölməsində \"Cihaz Adı\"nı təyin edin.</string>
     <string name="adns_app">ADNS Tətbiqi</string>
-    <string name="setup_nextdns_on_another_device">Başqa bir cihazda NextDNS qurun.</string>
+    <string name="setup_nextdns_on_another_device">Quraşdırma təlimatları, əlaqələndirilmiş IP, DDNS</string>
     <string name="setup_another_device">Başqa bir cihaz quraşdırın</string>
     <string name="download_adns">ADNS-i yükləyin</string>
     <string name="api_key_required">API açarı daxil edin.</string>
@@ -289,7 +289,7 @@
     <string name="private_dns_automation_description">ADNS seçilmiş şifrələnmiş DNS host adını sizin üçün tətbiq edir və təsdiqləyir.</string>
     <string name="runtime_notification_channel_name">Şəxsi DNS statusu</string>
     <string name="runtime_notification_channel_description">ADNS Şəxsi DNS vəziyyətini göstərir və aktiv Wi-Fi qaydalarını işlək saxlayır.</string>
-    <string name="runtime_notification_title">ADNS Şəxsi DNS</string>
+    <string name="runtime_notification_title">Şəxsi DNS</string>
     <string name="runtime_notification_dns_enabled">Şəxsi DNS aktivdir.</string>
     <string name="runtime_notification_dns_disabled">Şəxsi DNS deaktiv edilib.</string>
     <string name="runtime_notification_wifi_monitoring">Wi-Fi qaydaları qoşulmuş şəbəkəni izləyir.</string>
@@ -315,7 +315,7 @@
     <string name="wifi_rules">Wi-Fi qaydaları</string>
     <string name="wifi_rules_description">İstifadəçi tərəfindən seçilmiş dəqiq Wi-Fi adında Şəxsi DNS söndürün.</string>
     <string name="wifi_rules_enable">Wi-Fi qaydalarını aktivləşdirin</string>
-    <string name="wifi_rules_enable_description">Müəyyən şəbəkələrdə DNS-i söndürün.</string>
+    <string name="wifi_rules_enable_description">Müəyyən şəbəkələrdə DNS-i söndürün</string>
     <string name="wifi_rules_add_manual">Wi-Fi adını daxil edin</string>
     <string name="wifi_rules_ssid_label">Wi-Fi adı (SSID)</string>
     <string name="wifi_rules_duplicate">Bu Wi-Fi adı artıq siyahıdadır.</string>
@@ -355,4 +355,24 @@
     <string name="color_scheme_adns">ADNS rəngləri</string>
     <string name="color_scheme_system">Sistem rəngləri</string>
     <string name="save">Yadda saxla</string>
+    <string name="domain_hidden">Domen gizlədilib</string>
+    <string name="paused">Dayandırılıb</string>
+    <string name="blocking_enabled">Bloklama aktivləşdirilib</string>
+    <string name="blocking_enabled_description">Bu elementi silmədən bloklamanı müvəqqəti dayandırın.</string>
+    <string name="recreation_time_membership_description">İstirahət vaxtı ərzində cədvələ bu əşyaya icazə verin.</string>
+    <string name="nextdns_checking_connection">Əlaqə yoxlanılır…</string>
+    <string name="nextdns_checking_connection_description">Bu cihazın seçilmiş profilə uyğun olaraq sınaqdan keçirilməsi.</string>
+    <string name="nextdns_connection_offline">Oflayn rejimdə əlaqə yoxlanışı mümkün deyil</string>
+    <string name="nextdns_connection_offline_description">Bu cihazı yoxlamaq üçün şəbəkəyə qoşulun və yeniləyin.</string>
+    <string name="nextdns_unknown_resolver">naməlum həll edici</string>
+    <string name="block_domain">Domeni blokla</string>
+    <string name="allow_domain">Domenə icazə ver</string>
+    <string name="resolved">Həll edildi</string>
+    <string name="unencrypted_over">şifrələnməmiş şəkildə</string>
+    <string name="over">üzərində</string>
+    <string name="from">etibarən</string>
+    <string name="root_domain_label">Kök domen</string>
+    <string name="query_type_label">Sorğu növü</string>
+    <string name="just_now">elə indicə</string>
+    <string name="a_few_seconds_ago">bir neçə saniyə əvvəl</string>
 </resources>

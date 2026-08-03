@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="a_dnsbased_ad_blocker_for_android">一款基于DNS的安卓广告拦截工具</string>
+    <string name="a_dnsbased_ad_blocker_for_android">增强的私人DNS</string>
     <string name="activation">激活</string>
     <string name="adb_shell">ADB Shell</string>
     <string name="add_the_quick_settings_tile">添加快速设置磁贴</string>
@@ -17,8 +17,8 @@
     <string name="bypass_age_verification">绕过年龄验证</string>
     <string name="automatically_bypass_age_verification_checks_used_by_certain_websites_such_as_adult_content_sites">自动绕过某些网站（如成人内容网站）所使用的年龄验证检查，这些检查用于在允许访问之前核实访客的年龄。</string>
     <string name="allowlist">白名单</string>
-    <string name="add_specific_domains_to_the_allowlist">将特定域名添加到白名单中</string>
-    <string name="add_specific_domains_to_the_denylist">将特定域名添加到黑名单中</string>
+    <string name="add_specific_domains_to_the_allowlist">添加、移除和编辑允许的域名</string>
+    <string name="add_specific_domains_to_the_denylist">添加、移除和编辑被阻止的域名</string>
     <string name="add_item">添加条目</string>
     <string name="cloudflare_dns">Cloudflare DNS</string>
     <string name="confirm">确定</string>
@@ -33,12 +33,12 @@
     <string name="private_dns">私有 DNS</string>
     <string name="server">服务器</string>
     <string name="home">主页</string>
-    <string name="change_account_settings_for">更改 %1$s 的账户设置</string>
+    <string name="change_account_settings_for">管理个人资料，登出</string>
     <string name="change_provider">更换服务商</string>
     <string name="change_the_provider_to_use">更换要使用的服务商</string>
     <string name="create">创建</string>
     <string name="custom_hostname_advanced">自定义域名（高级）</string>
-    <string name="use_a_custom_hostname_for_the_dns_server">为 DNS 服务器指定自定义域名</string>
+    <string name="use_a_custom_hostname_for_the_dns_server">为DNS服务器使用自定义主机名。</string>
     <string name="device_name_for_logs">设备名称（用于日志）</string>
     <string name="device_name_is_not_set">设备名称未设置</string>
     <string name="device">设备</string>
@@ -67,7 +67,7 @@
     <string name="save">保存</string>
     <string name="add">添加</string>
     <string name="unknown_error">未知错误</string>
-    <string name="view_your_dns_logs">查看 DNS 日志</string>
+    <string name="view_your_dns_logs">查看和搜索DNS日志</string>
     <string name="welcome_to_adns">欢迎使用 ADNS</string>
     <string name="wifi_battery_optimization_description">电池优化可能会中断 Wi-Fi 监控。您可前往系统设置进行调整，但这与位置权限无关。</string>
     <string name="wifi_location_permission_description">Android 系统需要获取精确位置权限才能读取已连接的 Wi-Fi 名称。ADNS 不会使用设备位置信息。</string>
@@ -99,7 +99,7 @@
     <string name="login">登录</string>
     <string name="logout">退出登录</string>
     <string name="logs">日志</string>
-    <string name="logs_performance_block_page">日志、性能、拦截页面</string>
+    <string name="logs_performance_block_page">性能、重写、访问</string>
     <string name="network_error_please_try_again">网络错误，请重试。</string>
     <string name="nextdns_name">NextDNS</string>
     <string name="nextdns_profile_settings">NextDNS 配置设置</string>
@@ -139,7 +139,7 @@
     <string name="uptime">运行时间</string>
     <string name="youre_almost_there">马上就要完成了！</string>
     <string name="language">语言</string>
-    <string name="language_description">选择应用语言</string>
+    <string name="language_description">选择显示语言</string>
     <string name="help_translate_adns">帮助翻译 ADNS</string>
     <string name="help_translate_adns_description">在 Weblate 上贡献翻译或改进现有语言。</string>
     <string name="open_weblate">前往 Weblate</string>
@@ -159,8 +159,8 @@
     <string name="logged_in_as">已登录为</string>
     <string name="api_key_account">API 密钥账户</string>
     <string name="custom_dns_hostname">自定义 DNS 主机名</string>
-    <string name="disable_blocker">关闭拦截器</string>
-    <string name="enable_blocker">开启拦截器</string>
+    <string name="disable_blocker">禁用DNS</string>
+    <string name="enable_blocker">开启DNS</string>
     <string name="enable_or_disable_blocker_state_notifications">开启或关闭状态通知</string>
     <string name="enhanced">" （增强）"</string>
     <string name="log_in_with_credentials_instead">改用登录凭证登录</string>
@@ -356,4 +356,5 @@
     <string name="toggling_settings">开关设置</string>
     <string name="app_icon">应用图标</string>
     <string name="paused">已暂停</string>
+    <string name="domain_hidden">域名被隐藏</string>
 </resources>
