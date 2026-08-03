@@ -355,4 +355,24 @@
     <string name="color_scheme_adns">Cores ADNS</string>
     <string name="color_scheme_system">Cores do sistema</string>
     <string name="save">Salvar</string>
+    <string name="domain_hidden">Domínio oculto</string>
+    <string name="paused">Pausado</string>
+    <string name="blocking_enabled">Bloqueio ativado</string>
+    <string name="blocking_enabled_description">Pause temporariamente o bloqueio sem remover este item.</string>
+    <string name="recreation_time_membership_description">Permita este item durante o horário de recreação.</string>
+    <string name="nextdns_checking_connection">Verificando conexão…</string>
+    <string name="nextdns_checking_connection_description">Testando este dispositivo em relação ao perfil selecionado.</string>
+    <string name="nextdns_connection_offline">Verificação de conexão indisponível off-line</string>
+    <string name="nextdns_connection_offline_description">Conecte-se a uma rede e atualize para verificar este dispositivo.</string>
+    <string name="nextdns_unknown_resolver">um resolvedor desconhecido</string>
+    <string name="block_domain">Bloquear domínio</string>
+    <string name="allow_domain">Permitir domínio</string>
+    <string name="resolved">Resolvido</string>
+    <string name="unencrypted_over">não criptografado</string>
+    <string name="over">sobre</string>
+    <string name="from">de</string>
+    <string name="root_domain_label">Domínio raiz</string>
+    <string name="query_type_label">Tipo de consulta</string>
+    <string name="just_now">agora mesmo</string>
+    <string name="a_few_seconds_ago">alguns segundos atrás</string>
 </resources>
