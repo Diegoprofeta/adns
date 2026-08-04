@@ -69,6 +69,8 @@
     <string name="logged_in_as">LOGGED IN AS</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="logout_confirmation_title">Logout</string>
+    <string name="logout_confirmation_message">Are you sure you want to log out?</string>
     <string name="logs">Logs</string>
     <string name="logs_performance_block_page">Performance, rewrites, access</string>
     <string name="mynextdnsioaccount">my.nextdns.io/account</string>

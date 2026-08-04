@@ -69,6 +69,8 @@
     <string name="logged_in_as">מחובר בתור</string>
     <string name="login">התחברות</string>
     <string name="logout">התנתקות</string>
+    <string name="logout_confirmation_title">התנתקות</string>
+    <string name="logout_confirmation_message">האם אתה בטוח שברצונך להתנתק?</string>
     <string name="logs">לוגים</string>
     <string name="logs_performance_block_page">ביצועים, שכתובים, גישה</string>
     <string name="mynextdnsioaccount">my.nextdns.io/account</string>

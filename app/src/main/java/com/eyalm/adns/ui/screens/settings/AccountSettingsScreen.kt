@@ -46,6 +46,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eyalm.adns.R
 import com.eyalm.adns.ui.components.ProfilesList
+import com.eyalm.adns.ui.components.dialogs.DestructiveConfirmationDialog
 import com.eyalm.adns.ui.screens.providerLogin.CreateProfileDialog
 import com.eyalm.adns.ui.theme.pageTitle
 import com.eyalm.adns.viewmodel.SettingsViewModel
@@ -65,6 +66,7 @@ fun AccountSettingsScreen(
     val selectedProfile = profileSession.selected
     val lifecycleOwner = LocalLifecycleOwner.current
     var openCreateProfileDialog by remember { mutableStateOf(false) }
+    var openLogoutConfirmationDialog by remember { mutableStateOf(false) }
     var deviceName by remember { mutableStateOf(viewModel.nextDnsDeviceName) }
     val isDeviceNameValid = remember(deviceName) {
         deviceName.all { it.isDigit() || it in 'a'..'z' || it in 'A'..'Z' || it == ' ' }
@@ -105,6 +107,20 @@ fun AccountSettingsScreen(
                 }
             )
 
+        }
+        openLogoutConfirmationDialog -> {
+            DestructiveConfirmationDialog(
+                title = stringResource(R.string.logout_confirmation_title),
+                body = stringResource(R.string.logout_confirmation_message),
+                confirmLabel = stringResource(R.string.logout),
+                onConfirm = {
+                    openLogoutConfirmationDialog = false
+                    viewModel.logout()
+                },
+                onDismiss = {
+                    openLogoutConfirmationDialog = false
+                }
+            )
         }
     }
 
@@ -209,7 +225,7 @@ fun AccountSettingsScreen(
                             }
                             Button(
                                 onClick = {
-                                    viewModel.logout()
+                                    openLogoutConfirmationDialog = true
                                 },
                                 modifier = Modifier
                                     .fillMaxWidth()
