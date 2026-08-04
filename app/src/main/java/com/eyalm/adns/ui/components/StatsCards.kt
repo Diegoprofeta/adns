@@ -118,7 +118,7 @@ private fun StatRowView(row: StatRow) {
                 Text(
                     it, style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 1, overflow = TextOverflow.Ellipsis // TODO fix padding for long descriptions
+                    maxLines = 3, overflow = TextOverflow.Ellipsis
                 )
             }
         }
