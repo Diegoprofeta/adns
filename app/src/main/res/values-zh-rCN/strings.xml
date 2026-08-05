@@ -357,4 +357,6 @@
     <string name="app_icon">应用图标</string>
     <string name="paused">已暂停</string>
     <string name="domain_hidden">域名被隐藏</string>
+    <string name="logout_confirmation_title">退出登录</string>
+    <string name="logout_confirmation_message">您确定想要退出登录吗？</string>
 </resources>
