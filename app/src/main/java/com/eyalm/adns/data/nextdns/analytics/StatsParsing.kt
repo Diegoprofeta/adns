@@ -1,14 +1,13 @@
 package com.eyalm.adns.data.nextdns.analytics
 
 import com.eyalm.adns.data.Locales
-import com.eyalm.adns.data.nextdns.model.ListIcon
 import com.eyalm.adns.data.nextdns.model.BuiltInListIcon
+import com.eyalm.adns.data.nextdns.model.ListIcon
 import com.eyalm.adns.data.nextdns.model.countryFlag
 import com.eyalm.adns.data.nextdns.model.nextDnsFaviconUrl
-
-import android.icu.text.NumberFormat
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import java.text.NumberFormat
 import java.util.Locale
 
 private fun fmt(n: Int): String = NumberFormat.getNumberInstance(Locale.US).format(n)
@@ -76,6 +75,40 @@ internal fun parseList(card: ListCard, data: JsonArray): List<StatRow> = when (c
             icon = ListIcon.Text(countryFlag(code))
         )
     }
+
+    ListKind.GAFAM -> {
+        val objs = data.objs()
+        val totalQueries = objs.sumOf { it.int("queries") }
+        val rows = objs.map { o ->
+            val companyKey = o.str("company") ?: "others"
+            val localizedName = Locales.getString("analytics", "gafam", "companies", companyKey, "name")
+            val fallbackName = companyKey.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.US) else it.toString() }
+            val name = localizedName.ifEmpty { fallbackName }
+            val q = o.int("queries")
+            val pct = if (totalQueries > 0) (q.toFloat() / totalQueries) * 100f else 0f
+            val domain = companyDomain(companyKey)
+            val icon = domain?.let(::nextDnsFaviconUrl)?.let(ListIcon::Url)
+                ?: if (companyKey.lowercase() == "others") ListIcon.Text("?") else ListIcon.None
+            StatRow(
+                id = companyKey,
+                title = name,
+                subtitle = fmtPercent(pct),
+                value = fmt(q),
+                icon = icon
+            )
+        }
+        val (others, main) = rows.partition { it.id.lowercase() == "others" }
+        main.sortedByDescending { it.value.replace(",", "").toIntOrNull() ?: 0 } + others
+    }
+}
+
+private fun companyDomain(companyKey: String): String? = when (companyKey.lowercase()) {
+    "facebook" -> "facebook.com"
+    "google" -> "google.com"
+    "microsoft" -> "microsoft.com"
+    "amazon" -> "amazon.com"
+    "apple" -> "apple.com"
+    else -> null
 }
 
 internal fun parsePercent(card: PercentCard, data: JsonArray): Float {

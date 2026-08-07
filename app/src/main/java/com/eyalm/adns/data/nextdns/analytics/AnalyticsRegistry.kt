@@ -25,7 +25,7 @@ sealed class StatCard {
     fun emptyText()   = Locales.getString(*emptyPath.toTypedArray())
 }
 
-enum class ListKind { DOMAINS, REASONS, DEVICES, IPS, COUNTRIES }
+enum class ListKind { DOMAINS, REASONS, DEVICES, IPS, COUNTRIES, GAFAM }
 
 data class ListCard(
     override val key: String,
@@ -80,6 +80,12 @@ object StatsRegistry {
             localePath = listOf("analytics", "ips"),
             emptyPath  = listOf("analytics", "ips", "empty"),
             kind = ListKind.IPS),
+
+        ListCard("destinations.gafam", "destinations",
+            params = mapOf("type" to "gafam"),
+            localePath = listOf("analytics", "gafam"),
+            emptyPath  = listOf("analytics", "domains", "empty"),
+            kind = ListKind.GAFAM),
 
         ListCard("domains.root", "domains",
             params = mapOf("root" to "true", "limit" to "6"),

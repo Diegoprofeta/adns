@@ -1,10 +1,13 @@
 package com.eyalm.adns.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,11 +26,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.eyalm.adns.data.nextdns.analytics.ListCard
+import com.eyalm.adns.data.nextdns.analytics.ListKind
 import com.eyalm.adns.data.nextdns.analytics.PercentCard
 import com.eyalm.adns.data.nextdns.analytics.StatRow
 import com.eyalm.adns.data.nextdns.analytics.fmtPercent
@@ -130,6 +136,59 @@ private fun StatRowView(row: StatRow) {
     }
 }
 
+private fun gafamCompanyColor(companyKey: String): Color = when (companyKey.lowercase()) {
+    "facebook" -> Color(0xFF3B5998)
+    "google" -> Color(0xFF4285F4)
+    "microsoft" -> Color(0xFF7FBA00)
+    "amazon" -> Color(0xFFFF9900)
+    "apple" -> Color(0xFFA2AAAD)
+    "others" -> Color(0xFF555555)
+    else -> Color(0xFF8E8E93)
+}
+
+@Composable
+fun GafamDistributionBar(
+    rows: List<StatRow>,
+    modifier: Modifier = Modifier,
+    heightDp: Dp = 10.dp
+) {
+    val rowValues = rows.map { row ->
+        val pct = row.subtitle?.removeSuffix("%")?.toFloatOrNull() ?: 0f
+        row to pct
+    }.filter { it.second > 0f }
+
+    val totalPct = rowValues.sumOf { it.second.toDouble() }.toFloat()
+
+    if (totalPct <= 0f) {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(heightDp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+        )
+        return
+    }
+
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(heightDp)
+            .clip(CircleShape),
+        horizontalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        rowValues.forEach { (row, pct) ->
+            val weight = (pct / 100f).coerceAtLeast(0.001f)
+            Box(
+                modifier = Modifier
+                    .weight(weight)
+                    .fillMaxHeight()
+                    .background(gafamCompanyColor(row.id))
+            )
+        }
+    }
+}
+
 @Composable
 fun GenericStatsListCard(card: ListCard, state: CardState) {
     StatCardShell(title = card.title(), description = card.description()) {
@@ -139,6 +198,15 @@ fun GenericStatsListCard(card: ListCard, state: CardState) {
                 if (state.rows.isEmpty()) {
                     StatCardEmpty(card.emptyText())
                 } else {
+                    if (card.kind == ListKind.GAFAM) {
+                        GafamDistributionBar(
+                            rows = state.rows,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 24.dp, vertical = 8.dp)
+                        )
+                        Spacer(Modifier.height(4.dp))
+                    }
                     state.rows.forEachIndexed { i, row ->
                         StatRowView(row)
                         if (i < state.rows.lastIndex)
