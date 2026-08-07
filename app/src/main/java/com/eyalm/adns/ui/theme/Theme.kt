@@ -10,8 +10,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import com.eyalm.adns.data.appearance.AppearanceRepository
 import com.eyalm.adns.data.appearance.ColorSchemePreference
+import com.eyalm.adns.data.appearance.DarkModePreference
 import com.eyalm.adns.data.appearance.resolveDarkTheme
 
 @Composable
@@ -25,7 +27,7 @@ fun AdnsTheme(content: @Composable () -> Unit) {
         preference = preferences.darkMode,
         systemDark = isSystemInDarkTheme(),
     )
-    val colorScheme = if (
+    val baseColorScheme = if (
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
         preferences.colorScheme == ColorSchemePreference.SystemDynamic
     ) {
@@ -34,6 +36,21 @@ fun AdnsTheme(content: @Composable () -> Unit) {
         AdnsDarkColorScheme
     } else {
         AdnsLightColorScheme
+    }
+
+    val colorScheme = if (preferences.darkMode == DarkModePreference.Oled) {
+        baseColorScheme.copy(
+            background = Color(0xFF000000),
+            surface = Color(0xFF000000),
+            surfaceDim = Color(0xFF000000),
+            surfaceContainerLowest = Color(0xFF000000),
+            surfaceContainerLow = Color(0xFF0A0B0E),
+            surfaceContainer = Color(0xFF121418),
+            surfaceContainerHigh = Color(0xFF1B1D22),
+            surfaceContainerHighest = Color(0xFF24262C),
+        )
+    } else {
+        baseColorScheme
     }
 
     MaterialTheme(

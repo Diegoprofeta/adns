@@ -360,6 +360,7 @@
     <string name="theme_system_default">System default</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
+    <string name="theme_oled">OLED</string>
     <string name="color_scheme_adns">ADNS colors</string>
     <string name="color_scheme_system">System colors</string>
     <string name="save">Save</string>

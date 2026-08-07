@@ -3,7 +3,8 @@ package com.eyalm.adns.data.appearance
 enum class DarkModePreference {
     System,
     Light,
-    Dark;
+    Dark,
+    Oled;
 
     companion object {
         fun fromStored(value: String?): DarkModePreference =
@@ -32,7 +33,7 @@ fun resolveDarkTheme(
 ): Boolean = when (preference) {
     DarkModePreference.System -> systemDark
     DarkModePreference.Light -> false
-    DarkModePreference.Dark -> true
+    DarkModePreference.Dark, DarkModePreference.Oled -> true
 }
 
 fun supportsDynamicColor(sdkInt: Int): Boolean = sdkInt >= 31

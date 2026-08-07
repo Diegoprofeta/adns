@@ -61,11 +61,23 @@ fun AppearanceScreen(onBack: () -> Unit) {
             RadioSettingRow(
                 title = stringResource(R.string.theme_dark),
                 selected = preferences.darkMode == DarkModePreference.Dark,
-                position = SegmentPosition.Last,
+                position = SegmentPosition.Middle,
                 radio = { selected, onClick ->
                     RadioButton(selected = selected, onClick = onClick)
                 },
                 onClick = { repository.setDarkMode(DarkModePreference.Dark) },
+            )
+        }
+        item { Spacer(Modifier.height(4.dp)) }
+        item {
+            RadioSettingRow(
+                title = stringResource(R.string.theme_oled),
+                selected = preferences.darkMode == DarkModePreference.Oled,
+                position = SegmentPosition.Last,
+                radio = { selected, onClick ->
+                    RadioButton(selected = selected, onClick = onClick)
+                },
+                onClick = { repository.setDarkMode(DarkModePreference.Oled) },
             )
         }
 

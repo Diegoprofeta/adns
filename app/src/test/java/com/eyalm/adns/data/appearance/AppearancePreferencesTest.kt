@@ -13,14 +13,16 @@ class AppearancePreferencesTest {
     }
 
     @Test
-    fun `explicit dark and light modes ignore the system`() {
+    fun `explicit dark light and oled modes ignore the system`() {
         assertTrue(resolveDarkTheme(DarkModePreference.Dark, systemDark = false))
+        assertTrue(resolveDarkTheme(DarkModePreference.Oled, systemDark = false))
         assertFalse(resolveDarkTheme(DarkModePreference.Light, systemDark = true))
     }
 
     @Test
-    fun `invalid stored values return stable defaults`() {
+    fun `invalid stored values return stable defaults and oled is parsed`() {
         assertEquals(DarkModePreference.System, DarkModePreference.fromStored("invalid"))
+        assertEquals(DarkModePreference.Oled, DarkModePreference.fromStored("oled"))
         assertEquals(ColorSchemePreference.Adns, ColorSchemePreference.fromStored("invalid"))
     }
 
