@@ -1,0 +1,5 @@
+- New floating bottom bar
+- New dark OLED theme
+- Improved Stats page with a new GAFAM stats card and other enhancements
+- Updated localizations, including a new Italian translation
+- Added a confirmation dialog before logging out
