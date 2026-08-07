@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -152,8 +153,10 @@ fun MainSettingsScreen(
         LazyColumn(
             state = state,
             modifier = Modifier
-                .padding(innerPadding)
+                .fillMaxSize()
+                .padding(top = innerPadding.calculateTopPadding())
                 .padding(horizontal = 16.dp),
+            contentPadding = PaddingValues(bottom = innerPadding.calculateBottomPadding() + 24.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             val isNextDns = (provider as? DnsProviderSelection.Enhanced)

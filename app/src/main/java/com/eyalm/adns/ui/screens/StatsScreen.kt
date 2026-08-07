@@ -99,7 +99,7 @@ fun StatsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
-                .padding(innerPadding)
+                .padding(top = innerPadding.calculateTopPadding())
                 .statusBarsPadding()
         ) {
             if (uiState.initialLoading) {
@@ -139,6 +139,7 @@ fun StatsScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp),
+                    contentPadding = PaddingValues(bottom = innerPadding.calculateBottomPadding() + 24.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
 

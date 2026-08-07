@@ -1,12 +1,12 @@
 package com.eyalm.adns
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.SizeTransform
@@ -20,6 +20,7 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -31,11 +32,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -49,15 +46,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eyalm.adns.data.DnsRepository
+import com.eyalm.adns.data.Locales
 import com.eyalm.adns.data.activation.ActivationMode
 import com.eyalm.adns.data.activation.ActivationRepositories
-import com.eyalm.adns.data.nextdns.auth.NextDnsSessionManager
-import com.eyalm.adns.data.Locales
 import com.eyalm.adns.data.localization.AppLocaleRepository
+import com.eyalm.adns.data.nextdns.auth.NextDnsSessionManager
 import com.eyalm.adns.data.provider.DnsProviderCatalog
 import com.eyalm.adns.data.provider.DnsProviderSelection
 import com.eyalm.adns.data.runtime.RuntimeServiceController
@@ -65,6 +61,8 @@ import com.eyalm.adns.domain.AppCapabilities
 import com.eyalm.adns.domain.AppDestination
 import com.eyalm.adns.domain.MainTab
 import com.eyalm.adns.domain.resolveAvailableMainTab
+import com.eyalm.adns.ui.components.ExpressiveFloatingMenu
+import com.eyalm.adns.ui.components.FloatingMenuItem
 import com.eyalm.adns.ui.components.dialogs.ConfirmationDialog
 import com.eyalm.adns.ui.screens.ActivationScreen
 import com.eyalm.adns.ui.screens.HomeScreen
@@ -308,6 +306,17 @@ fun Greeting(
         selectedItem = capabilities.defaultTab
     }
 
+    val menuItems = remember(capabilities.visibleTabs, labels, selectedIcons, unselectedIcons) {
+        capabilities.visibleTabs.map { tab ->
+            FloatingMenuItem(
+                id = tab,
+                label = requireNotNull(labels[tab]),
+                selectedIcon = requireNotNull(selectedIcons[tab]),
+                unselectedIcon = requireNotNull(unselectedIcons[tab]),
+            )
+        }
+    }
+
     Scaffold(
         bottomBar = {
             AnimatedVisibility(
@@ -318,88 +327,74 @@ fun Greeting(
                 enter = slideInVertically { it } + fadeIn(),
                 exit = slideOutVertically { it } + fadeOut()
             ) {
-                NavigationBar {
-                    capabilities.visibleTabs.forEach { item ->
-                        NavigationBarItem(
-                            icon = {
-                                Icon(
-                                    imageVector = requireNotNull(
-                                        if (selectedItem == item) {
-                                            selectedIcons[item]
-                                        } else {
-                                            unselectedIcons[item]
-                                        }
-                                    ),
-                                    contentDescription = labels[item],
-                                )
-                            },
-                            label = { Text(requireNotNull(labels[item])) },
-                            selected = selectedItem == item,
-                            onClick = {
-                                if (
-                                    item != MainTab.Stats ||
-                                    nextDnsSessionManager.requestFeatureAccess()
-                                ) {
-                                    selectedItem = item
-                                }
-                            },
-                        )
+                ExpressiveFloatingMenu(
+                    items = menuItems,
+                    selectedItem = selectedItem,
+                    onItemSelected = { item ->
+                        if (
+                            item != MainTab.Stats ||
+                            nextDnsSessionManager.requestFeatureAccess()
+                        ) {
+                            selectedItem = item
+                        }
                     }
-
-                }
+                )
             }
-
-
         },
         contentWindowInsets = WindowInsets(0)
     ) { innerPadding ->
-        AnimatedContent(
-            targetState = selectedItem,
-            transitionSpec = {
-                ((fadeIn(animationSpec = tween(220)) +
-                        scaleIn(
-                            initialScale = 0.93f,
-                            animationSpec = tween(300, easing = LinearOutSlowInEasing)
-                        )) togetherWith
-                        (fadeOut(animationSpec = tween(120)) +
-                                scaleOut(
-                                    targetScale = 1.07f,
-                                    animationSpec = tween(300, easing = FastOutSlowInEasing)
-                                )))
-                    .using(SizeTransform(clip = false))
-            },
-            label = "MainContentTransition"
-        ) { targetIndex ->
-            when (targetIndex) {
-                MainTab.Home -> {
-                    HomeScreen(
-                        isEnabled = isEnabled,
-                        runningTime = runningTime,
-                        onToggle = onToggle,
-                        controlsEnabled = capabilities.canUseDnsToggleSurfaces,
-                        server = server,
-                        onEditClick = {
-                            selectedItem = MainTab.Settings
-                            onEditClick()
-                        },
-                        innerPadding = innerPadding,
-                        onSettingsClick = {
-                            selectedItem = MainTab.Settings
-                        }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = innerPadding.calculateTopPadding()) // Ignore bottom padding
+        ) {
+            AnimatedContent(
+                targetState = selectedItem,
+                transitionSpec = {
+                    ((fadeIn(animationSpec = tween(220)) +
+                            scaleIn(
+                                initialScale = 0.93f,
+                                animationSpec = tween(300, easing = LinearOutSlowInEasing)
+                            )) togetherWith
+                            (fadeOut(animationSpec = tween(120)) +
+                                    scaleOut(
+                                        targetScale = 1.07f,
+                                        animationSpec = tween(300, easing = FastOutSlowInEasing)
+                                    )))
+                        .using(SizeTransform(clip = false))
+                },
+                label = "MainContentTransition"
+            ) { targetIndex ->
+                when (targetIndex) {
+                    MainTab.Home -> {
+                        HomeScreen(
+                            isEnabled = isEnabled,
+                            runningTime = runningTime,
+                            onToggle = onToggle,
+                            controlsEnabled = capabilities.canUseDnsToggleSurfaces,
+                            server = server,
+                            onEditClick = {
+                                selectedItem = MainTab.Settings
+                                onEditClick()
+                            },
+                            innerPadding = innerPadding,
+                            onSettingsClick = {
+                                selectedItem = MainTab.Settings
+                            }
+                        )
+
+                    }
+
+                    MainTab.Stats -> StatsScreen(
+                        innerPadding
                     )
 
-                }
-
-                MainTab.Stats -> StatsScreen(
-                    innerPadding
-                )
-
-                MainTab.Settings -> {
-                    SettingsTabRouter(
-                        modifier = Modifier.padding(innerPadding),
-                        onNavigateToProvidersActivity = onNavigateToProviders,
-                        innerPadding = innerPadding
-                    )
+                    MainTab.Settings -> {
+                        SettingsTabRouter(
+                            onNavigateToProvidersActivity = onNavigateToProviders,
+                            innerPadding = innerPadding
+                        )
+                    }
                 }
             }
         }

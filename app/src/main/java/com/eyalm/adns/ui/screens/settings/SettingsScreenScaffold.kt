@@ -68,8 +68,9 @@ fun SettingsScreenScaffold(
             state = scrollState,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 16.dp)
+                .padding(top = innerPadding.calculateTopPadding())
+                .padding(horizontal = 16.dp),
+            contentPadding = PaddingValues(bottom = innerPadding.calculateBottomPadding() + 24.dp)
         ) {
                 item {
                     Text(
