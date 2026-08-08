@@ -19,7 +19,7 @@
     <string name="application_activated_successfully">Applicazione attivata con successo.</string>
     <string name="automatically_bypass_age_verification_checks_used_by_certain_websites_such_as_adult_content_sites">Evita automaticamente i controlli di verifica dell\'età utilizzati da determinati siti web, come i siti per adulti, per verificare l\'età di un visitatore prima di consentire l\'accesso.</string>
     <string name="blocked">%1$s (%2$s%%) bloccato</string>
-    <string name="blockerndisabled">Blocco\nDisabilitato</string>
+    <string name="blockerndisabled">Blocco\ndisabilitato</string>
     <string name="blocklists_trackers_affiliate_links">Liste di blocco, tracker, link di affiliazione</string>
     <string name="bypass_age_verification">Bypassa verifica dell\'età</string>
     <string name="cannot_load_stats">Impossibile caricare le statistiche</string>
@@ -62,7 +62,7 @@
     <string name="finish">Fine</string>
     <string name="general_profile_settings">Impostazioni generali profilo</string>
     <string name="google_dns">Google DNS</string>
-    <string name="goooodbyenads">Addio,\npubblicità!</string>
+    <string name="goooodbyenads">Addioooo,\nannunci!</string>
     <string name="hide_password">Nascondi password</string>
     <string name="invalid_domain">Dominio non valido</string>
     <string name="domain_hidden">Dominio nascosto</string>
@@ -272,7 +272,7 @@
     <string name="shizuku_unavailable">Shizuku non è in esecuzione. Avvia Shizuku e riprova.</string>
     <string name="shizuku_permission_denied">Autorizzazione Shizuku negata.</string>
     <string name="quad9">Quad9</string>
-    <string name="the_public_quad9_dns_server">Il server DNS pubblico Quad9.</string>
+    <string name="the_public_quad9_dns_server">Il server DNS pubblico di Quad9.</string>
     <string name="secured">Protetto</string>
     <string name="blocks_malware_and_phishing">Blocca malware e phishing</string>
     <string name="secured_with_ecs">Protetto tramite ECS</string>

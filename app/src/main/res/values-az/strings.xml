@@ -57,7 +57,7 @@
     <string name="finish">Bitir</string>
     <string name="general_profile_settings">Ümumi Profil Parametrləri</string>
     <string name="google_dns">Google DNS</string>
-    <string name="goooodbyenads">Goooodbye,\nAds!</string>
+    <string name="goooodbyenads">Goooodbye,\nReklam!</string>
     <string name="hide_password">Şifrəni gizlət</string>
     <string name="hint_to_remove_items_from_the_list_swipe_to_the_left">Siyahıdan elementləri silmək üçün sola sürüşdürün.</string>
     <string name="invalid_domain">Yanlış Domein</string>
@@ -375,4 +375,6 @@
     <string name="query_type_label">Sorğu növü</string>
     <string name="just_now">elə indicə</string>
     <string name="a_few_seconds_ago">bir neçə saniyə əvvəl</string>
+    <string name="logout_confirmation_title">Çıxış edin</string>
+    <string name="logout_confirmation_message">Hesabdan çıxmaq istədiyinizə əminsinizmi?</string>
 </resources>

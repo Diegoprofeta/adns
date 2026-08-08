@@ -4,16 +4,16 @@
     <string name="activation">Ativação</string>
     <string name="adb_shell">ADB Shell</string>
     <string name="add_item">Adicionar item</string>
-    <string name="add_specific_domains_to_the_allowlist">Adicione domínios específicos à lista de permissões.</string>
-    <string name="add_specific_domains_to_the_denylist">Adicione domínios específicos à lista de bloqueio.</string>
+    <string name="add_specific_domains_to_the_allowlist">Adicionar, remover e editar domínios permitidos</string>
+    <string name="add_specific_domains_to_the_denylist">Adicionar, remover e editar domínios bloqueados</string>
     <string name="add_the_quick_settings_tile">Adicione o bloco de configurações rápidas</string>
     <string name="add_the_quick_settings_tile_to_your_device">Adicione o bloco de configurações rápidas</string>
-    <string name="adguard_dns">AdGuard</string>
-    <string name="adns_adblock">ADNS AdBlock</string>
+    <string name="adguard_dns">Adguard</string>
+    <string name="adns_adblock">ADNS Adblock</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">O ADNS usa suas credenciais apenas para criar automaticamente sua chave de API do NextDNS, que é então armazenada em formato criptografado. Seu e-mail e senha em si nunca são salvos.</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">O ADNS utiliza sua chave de API do NextDNS para buscar e configurar seus perfis. Sua chave de API é armazenada com segurança em formato criptografado no seu dispositivo.</string>
     <string name="allowlist">Lista de permissões</string>
-    <string name="api_key">API Key</string>
+    <string name="api_key">API key</string>
     <string name="api_key_account">Conta com chave de API</string>
     <string name="app_settings">CONFIGURAÇÕES DO APLICATIVO</string>
     <string name="application_activated_successfully">Aplicativo ativado com sucesso.</string>
@@ -23,11 +23,11 @@
     <string name="blocklists_trackers_affiliate_links">Listas de bloqueio, rastreadores, links de afiliados</string>
     <string name="bypass_age_verification">Ignorar verificação de idade</string>
     <string name="cannot_load_stats">Não foi possível carregar as estatísticas</string>
-    <string name="change_account_settings_for">Alterar configurações da conta para %1$s</string>
+    <string name="change_account_settings_for">Gerenciar perfis, encerrar sessão</string>
     <string name="change_provider">Alterar fornecedor</string>
     <string name="change_the_provider_to_use">Alterar o provedor a ser utilizado</string>
     <string name="choose_your_profile">Escolha seu perfil.</string>
-    <string name="cloudflare_dns">Cloudflare DNS</string>
+    <string name="cloudflare_dns">cloudflare DNS</string>
     <string name="confirm">Confirmar</string>
     <string name="congratulations">Parabéns!</string>
     <string name="connect_your_account_to_use_nextdns_as_a_dns_provider">Conecte sua conta para usar o NextDNS como provedor de DNS.</string>
@@ -38,7 +38,7 @@
     <string name="custom_hostname_advanced">Nome de host personalizado (avançado)</string>
     <string name="denylist">Lista de negação</string>
     <string name="device_name_for_logs">Nome do dispositivo (para registros)</string>
-    <string name="device_name_is_not_set">O nome do dispositivo não está definido.</string>
+    <string name="device_name_is_not_set">Nome do dispositivo não definido</string>
     <string name="disable_blocker">Desativar bloqueador</string>
     <string name="done">Feito!</string>
     <string name="download">Download</string>
@@ -74,7 +74,7 @@
     <string name="network_error_please_try_again">Erro de rede. Por favor, tente novamente.</string>
     <string name="new_update">Nova atualização</string>
     <string name="next">Próximo</string>
-    <string name="nextdns_name">NextDNS</string>
+    <string name="nextdns_name">nextDNS</string>
     <string name="nextdns_profile_settings">CONFIGURAÇÕES DE PERFIL DO NEXTDNS</string>
     <string name="not_running">Não está funcionando</string>
     <string name="other_preferences">OUTRAS PREFERÊNCIAS</string>
@@ -375,4 +375,6 @@
     <string name="query_type_label">Tipo de consulta</string>
     <string name="just_now">agora mesmo</string>
     <string name="a_few_seconds_ago">alguns segundos atrás</string>
+    <string name="logout_confirmation_title">Desconectar</string>
+    <string name="logout_confirmation_message">Tem certeza de que deseja sair?</string>
 </resources>
