@@ -377,4 +377,5 @@
     <string name="query_type_label">Tipo richiesta</string>
     <string name="just_now">proprio ora</string>
     <string name="a_few_seconds_ago">pochi secondi fa</string>
+    <string name="theme_oled">OLED</string>
 </resources>
