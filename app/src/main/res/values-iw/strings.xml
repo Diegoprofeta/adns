@@ -377,4 +377,5 @@
     <string name="query_type_label">סוג שאילתה</string>
     <string name="just_now">ממש עכשיו</string>
     <string name="a_few_seconds_ago">לפני מספר שניות</string>
+    <string name="theme_oled">OLED</string>
 </resources>
