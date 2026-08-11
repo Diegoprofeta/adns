@@ -377,4 +377,5 @@
     <string name="a_few_seconds_ago">bir neçə saniyə əvvəl</string>
     <string name="logout_confirmation_title">Çıxış edin</string>
     <string name="logout_confirmation_message">Hesabdan çıxmaq istədiyinizə əminsinizmi?</string>
+    <string name="theme_oled">OLED</string>
 </resources>

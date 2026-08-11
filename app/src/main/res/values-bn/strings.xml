@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="a_dnsbased_ad_blocker_for_android">অ্যান্ড্রয়েডের জন্য একটি DNS-ভিত্তিক অ্যাড ব্লকার</string>
+    <string name="a_dnsbased_ad_blocker_for_android">প্রাইভেট DNS সুপারচার্জড</string>
     <string name="activation">সক্রিয়করণ</string>
     <string name="adb_shell">এডিবি শেল</string>
     <string name="add_item">আইটেম যুক্ত করুন</string>
-    <string name="add_specific_domains_to_the_allowlist">অ্যালাউলিস্টে নির্দিষ্ট ডোমেইন যোগ করুন।</string>
-    <string name="add_specific_domains_to_the_denylist">অনুমোদিত তালিকায় নির্দিষ্ট ডোমেইন যোগ করুন।</string>
+    <string name="add_specific_domains_to_the_allowlist">অনুমোদিত ডোমেইন যোগ করুন, সরান এবং এডিট করুন</string>
+    <string name="add_specific_domains_to_the_denylist">ব্লক করা ডোমেইন যোগ করুন, সরান এবং এডিট করুন</string>
     <string name="add_the_quick_settings_tile">কুইক সেটিংস টাইল যোগ করুন</string>
     <string name="add_the_quick_settings_tile_to_your_device">তোমার ডিভাইসে কুইক সেটিংস টাইল যোগ করুন</string>
     <string name="adguard_dns">AdGuard</string>
@@ -23,7 +23,7 @@
     <string name="blocklists_trackers_affiliate_links">ব্লকলিস্ট, ট্র্যাকার, অ্যাফিলিয়েট লিংক</string>
     <string name="bypass_age_verification">বয়স যাচাইকরণ এড়িয়ে যান</string>
     <string name="cannot_load_stats">স্ট্যাটাস লোড করা যাচ্ছে না</string>
-    <string name="change_account_settings_for">%1$s-এর অ্যাকাউন্ট সেটিংস পরিবর্তন করুন</string>
+    <string name="change_account_settings_for">প্রোফাইল ম্যানেজ করুন, লগ আউট করুন</string>
     <string name="change_provider">প্রোভাইডার পরিবর্তন করুন</string>
     <string name="change_the_provider_to_use">ব্যবহার করার জন্য প্রোভাইডার পরিবর্তন করুন</string>
     <string name="choose_your_profile">আপনার প্রোফাইল নির্বাচন করুন।</string>
@@ -39,11 +39,11 @@
     <string name="denylist">ডেনিলিস্ট</string>
     <string name="device_name_for_logs">ডিভাইসের নাম (লগের জন্য)</string>
     <string name="device_name_is_not_set">ডিভাইসের নাম সেট করা হয়নি</string>
-    <string name="disable_blocker">ব্লোকার নিষ্ক্রিয় করুন</string>
+    <string name="disable_blocker">DNS নিষ্ক্রিয় করুন</string>
     <string name="done">সম্পন্ন!</string>
     <string name="download">ডাউনলোড</string>
     <string name="email">ইমেইল</string>
-    <string name="enable_blocker">ব্লকার চালু করুন</string>
+    <string name="enable_blocker">DNS চালু করুন</string>
     <string name="enable_or_disable_blocker_state_notifications">স্টেট নোটিফিকেশন সক্রিয় বা নিষ্ক্রিয় করুন</string>
     <string name="enhanced">" (উন্নত)"</string>
     <string name="enter_a_domain">একটি ডোমেইন লিখুন…</string>
@@ -69,7 +69,7 @@
     <string name="login">লগইন</string>
     <string name="logout">লগআউট</string>
     <string name="logs">লগ</string>
-    <string name="logs_performance_block_page">লগ, পারফরম্যান্স, ব্লক পৃষ্ঠা</string>
+    <string name="logs_performance_block_page">পারফরম্যান্স, রিরাইট, অ্যাক্সেস</string>
     <string name="mynextdnsioaccount">my.nextdns.io/account</string>
     <string name="network_error_please_try_again">নেটওয়ার্ক ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।</string>
     <string name="new_update">নতুন আপডেট</string>
@@ -112,7 +112,7 @@
     <string name="total_queries">মোট কোয়েরি</string>
     <string name="unknown_error">অজানা ত্রুটি</string>
     <string name="uptime">আপটাইম</string>
-    <string name="use_a_custom_hostname_for_the_dns_server">DNS সার্ভারের জন্য কাস্টম হোস্টনেম ব্যবহার করুন</string>
+    <string name="use_a_custom_hostname_for_the_dns_server">DNS সার্ভারের জন্য কাস্টম হোস্টনেম ব্যবহার করুন।</string>
     <string name="version_ncreated_by_eyal_meirom">ভার্সন %1$s\nতৈরি করেছেন আইয়াল মেইরম</string>
     <string name="version_v_is_available_would_you_like_to_download_it">ভার্সন v%1$s উপলব্ধ রয়েছে।\nআপনি কি এটি ডাউনলোড করতে চান?</string>
     <string name="waiting_for_permission">অনুমতির জন্য অপেক্ষা করা হচ্ছে…</string>
@@ -121,7 +121,7 @@
     <string name="your_dns_settings_have_been_updated">আপনার DNS সেটিংস আপডেট করা হয়েছে।</string>
     <string name="youre_almost_there">আপনি প্রায় শেষ পর্যায়ে চলে এসেছেন!</string>
     <string name="language">ভাষা</string>
-    <string name="language_description">অ্যাপের ভাষা বেছে নিন</string>
+    <string name="language_description">ডিসপ্লে ল্যাঙ্গুয়েজ বেছে নিন</string>
     <string name="help_translate_adns">ADNS কে অনুবাদ করতে সাহায্য করুন</string>
     <string name="help_translate_adns_description">ওয়েবসাইট-এ অনুবাদে অবদান রাখুন বা বিদ্যমান ভাষার অনুবাদ উন্নত করুন।</string>
     <string name="open_weblate">ওয়েবসাইট খুলুন</string>
@@ -131,7 +131,7 @@
     <string name="preferences">পছন্দসমূহ</string>
     <string name="failed_to_load_logs_check_your_connection">Private DNS</string>
     <string name="added_to">%2$s-এ %1$s যোগ করা হয়েছে</string>
-    <string name="view_your_dns_logs">আপনার DNS লগ দেখুন।</string>
+    <string name="view_your_dns_logs">আপনার DNS লগ দেখুন এবং সার্চ করুন</string>
     <string name="blocked_only">শুধুমাত্র ব্লক করা</string>
     <string name="show_only_blocked_items">শুধুমাত্র ব্লক করা আইটেমগুলো দেখান</string>
     <string name="enabled_only">শুধুমাত্র সক্রিয়</string>
@@ -213,7 +213,7 @@
     <string name="already_linked">ইতিমধ্যে লিঙ্ক করা হয়েছে</string>
     <string name="set_device_name_in_the_nextdns_settings_section">NextDNS সেটিংস বিভাগে \"ডিভাইসের নাম\" নির্বাচন করুন।</string>
     <string name="adns_app">ADNS অ্যাপ</string>
-    <string name="setup_nextdns_on_another_device">অন্য একটি ডিভাইসে NextDNS সেটআপ করুন।</string>
+    <string name="setup_nextdns_on_another_device">সেটআপ গাইড, লিঙ্কড IP, DDNS</string>
     <string name="setup_another_device">অন্য একটি ডিভাইস সেটআপ করুন</string>
     <string name="download_adns">ADNS ডাউনলোড করুন</string>
     <string name="api_key_required">একটি API কি লিখুন।</string>
@@ -289,7 +289,7 @@
     <string name="private_dns_automation_description">ADNS আপনার নির্বাচিত এনক্রিপ্ট করা DNS হোস্টনেম প্রয়োগ এবং যাচাই করে।</string>
     <string name="runtime_notification_channel_name">প্রাইভেট DNS স্ট্যাটাস</string>
     <string name="runtime_notification_channel_description">ADNS প্রাইভেট DNS স্ট্যাটাস প্রদর্শন করে এবং চালু থাকা ওয়াই-ফাই রুলগুলো সচল রাখে।</string>
-    <string name="runtime_notification_title">ADNS প্রাইভেট DNS</string>
+    <string name="runtime_notification_title">প্রাইভেট DNS</string>
     <string name="runtime_notification_dns_enabled">প্রাইভেট DNS সক্রিয় রয়েছে।</string>
     <string name="runtime_notification_dns_disabled">প্রাইভেট DNS নিষ্ক্রিয় রয়েছে।</string>
     <string name="runtime_notification_wifi_monitoring">ওয়াই-ফাই রুলগুলো সংযুক্ত নেটওয়ার্ক পর্যবেক্ষণ করছে।</string>
@@ -315,7 +315,7 @@
     <string name="wifi_rules">ওয়াই-ফাই রুলস</string>
     <string name="wifi_rules_description">ব্যবহারকারীর নির্দিষ্টভাবে নির্বাচিত ওয়াই-ফাই নামের ওপর প্রাইভেট DNS বন্ধ করুন।</string>
     <string name="wifi_rules_enable">ওয়াই-ফাই রুলস চালু করুন</string>
-    <string name="wifi_rules_enable_description">নির্দিষ্ট নেটওয়ার্কগুলোতে DNS বন্ধ করুন।</string>
+    <string name="wifi_rules_enable_description">নির্দিষ্ট নেটওয়ার্কগুলোতে DNS বন্ধ করুন</string>
     <string name="wifi_rules_add_manual">ওয়াই-ফাই নাম লিখুন</string>
     <string name="wifi_rules_ssid_label">ওয়াই-ফাই নাম (SSID)</string>
     <string name="wifi_rules_duplicate">এই ওয়াই-ফাই নামটি ইতিমধ্যে তালিকায় রয়েছে।</string>
@@ -365,4 +365,17 @@
     <string name="nextdns_connection_offline">অফলাইনে থাকায় কানেকশন চেক করা সম্ভব হচ্ছে না</string>
     <string name="nextdns_connection_offline_description">একটি নেটওয়ার্কে কানেক্ট করুন এবং এই ডিভাইসটি চেক করতে রিফ্রেশ করুন।</string>
     <string name="nextdns_unknown_resolver">একটি অজানা রিজলভার</string>
+    <string name="logout_confirmation_title">Logout</string>
+    <string name="logout_confirmation_message">আপনি কি নিশ্চিত যে আপনি লগ আউট করতে চান?</string>
+    <string name="theme_oled">OLED</string>
+    <string name="block_domain">ডোমেইন ব্লক করুন</string>
+    <string name="allow_domain">ডোমেইন অ্যালাউ করুন</string>
+    <string name="resolved">রিসলভড</string>
+    <string name="unencrypted_over">আনএনক্রিপ্টেড ওভার</string>
+    <string name="over">ওভার</string>
+    <string name="from">ফ্রম</string>
+    <string name="root_domain_label">রুট ডোমেইন</string>
+    <string name="query_type_label">কোয়েরি টাইপ</string>
+    <string name="just_now">এইমাত্র</string>
+    <string name="a_few_seconds_ago">কয়েক সেকেন্ড আগে</string>
 </resources>
