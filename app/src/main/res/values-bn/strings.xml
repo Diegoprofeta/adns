@@ -9,7 +9,6 @@
     <string name="add_the_quick_settings_tile">কুইক সেটিংস টাইল যোগ করুন</string>
     <string name="add_the_quick_settings_tile_to_your_device">তোমার ডিভাইসে কুইক সেটিংস টাইল যোগ করুন</string>
     <string name="adguard_dns">AdGuard</string>
-    <string name="adns_adblock">ADNS অ্যাডব্লক</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS আপনার লগইন তথ্য শুধুমাত্র আপনার NextDNS API কী স্বয়ংক্রিয়ভাবে তৈরি করতে ব্যবহার করে, যা এরপর এনক্রিপ্টেড ফরম্যাটে সংরক্ষিত হয়। আপনার ইমেইল এবং পাসওয়ার্ড কখনোই সংরক্ষণ করা হয় না।</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS আপনার প্রোফাইলগুলো নিয়ে আসতে এবং কনফিগার করতে আপনার NextDNS API কী ব্যবহার করে। আপনার API কী আপনার ডিভাইসেই এনক্রিপ্টেড ফরম্যাটে সুরক্ষিতভাবে সংরক্ষিত থাকে।</string>
     <string name="allowlist">অনুমোদিত তালিকা</string>

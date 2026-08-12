@@ -9,7 +9,6 @@
     <string name="add_the_quick_settings_tile">Добавить плитку быстрых настроек</string>
     <string name="add_the_quick_settings_tile_to_your_device">Добавить плитку быстрых настроек</string>
     <string name="adguard_dns">AdGuard</string>
-    <string name="adns_adblock">ADNS AdBlock</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS использует ваши учетные данные только для автоматического создания API ключа NextDNS, который затем хранится в зашифрованном виде. Ваши email и пароль никогда не сохраняются.</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS использует ваш API ключ NextDNS для получения и настройки профилей. Ваш API ключ надежно хранится на устройстве в зашифрованном виде.</string>
     <string name="allowlist">Разрешенный список</string>

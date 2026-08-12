@@ -9,7 +9,6 @@
     <string name="add_the_quick_settings_tile">Adaugă un icon Setări rapide</string>
     <string name="add_the_quick_settings_tile_to_your_device">Adaugă un icon Setări rapide</string>
     <string name="adguard_dns">Ad-Guard</string>
-    <string name="adns_adblock">Blocare Reclame ADNS</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS îți folosește datele doar pentru a crea automat o cheie API NextDNS, care este după aceea stocată într-un forma criptat. E-mailul tău și parola nu sunt niciodată salvate.</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS îți folosește cheia API NextDNS pentru ați extrage/configura profilurile. Cheia ta API este stocată într-un format criptat pe dispozitivul tău.</string>
     <string name="allowlist">Lista Albă</string>

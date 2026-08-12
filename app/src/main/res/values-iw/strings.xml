@@ -9,7 +9,6 @@
     <string name="add_the_quick_settings_tile">הוסף אריח הגדרות מהירות</string>
     <string name="add_the_quick_settings_tile_to_your_device">הוסף אריח הגדרות מהירות למכשיר שלך</string>
     <string name="adguard_dns">AdGuard</string>
-    <string name="adns_adblock">ADNS AdBlock</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS משתמש בפרטי הגישה שלך אך ורק כדי ליצור באופן אוטומטי את מפתח ה-API של NextDNS שלך, אשר נשמר לאחר מכן בפורמט מוצפן. האימייל והסיסמה שלך עצמם לעולם אינם נשמרים.</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS משתמש במפתח ה-API של NextDNS שלך כדי לאחזר ולהגדיר את הפרופילים שלך. מפתח ה-API שלך נשמר בצורה מאובטחת בפורמט מוצפן במכשיר שלך.</string>
     <string name="allowlist">רשימת התרים</string>

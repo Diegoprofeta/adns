@@ -9,7 +9,6 @@
     <string name="add_the_quick_settings_tile">Add the quick settings tile</string>
     <string name="add_the_quick_settings_tile_to_your_device">Add the quick settings tile</string>
     <string name="adguard_dns">AdGuard</string>
-    <string name="adns_adblock">ADNS AdBlock</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS uses your credentials only to automatically create your NextDNS API key, which is then stored in an encrypted format. Your email and password themselves are never saved.</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS uses your NextDNS API key to fetch and configure your profiles. Your API key is stored securely in an encrypted format on your device.</string>
     <string name="allowlist">Allowlist</string>

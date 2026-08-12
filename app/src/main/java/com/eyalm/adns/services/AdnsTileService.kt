@@ -86,7 +86,7 @@ class AdnsTileService : TileService() {
             else -> Tile.STATE_INACTIVE
         }
         tile.label = getString(
-            if (available) R.string.adns_adblock else R.string.activation_required
+            if (available) R.string.app_name else R.string.activation_required
         )
         tile.updateTile()
     }

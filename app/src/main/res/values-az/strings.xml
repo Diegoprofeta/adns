@@ -9,7 +9,6 @@
     <string name="add_the_quick_settings_tile">Tez tənzimləmələr plitəsini əlavə edin</string>
     <string name="add_the_quick_settings_tile_to_your_device">Tez tənzimləmələr plitəsini əlavə edin</string>
     <string name="adguard_dns">AdGuard</string>
-    <string name="adns_adblock">ADNS Reklam Bloklayıcısı</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS sizin giriş məlumatlarınızdan yalnız NextDNS API açarınızı avtomatik yaratmaq üçün istifadə edir; həmin açar daha sonra şifrələnmiş formatda saxlanılır. E-poçt ünvanınız və şifrəniz isə heç vaxt yaddaşda saxlanılmır.</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS profillərinizi əldə etmək və konfiqurasiya etmək üçün NextDNS API açarınızdan istifadə edir. API açarınız cihazınızda şifrələnmiş formatda təhlükəsiz şəkildə saxlanılır.</string>
     <string name="allowlist">İcazəli siyahı</string>

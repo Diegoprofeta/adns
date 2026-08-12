@@ -6,7 +6,6 @@
     <string name="add_the_quick_settings_tile">添加快速设置磁贴</string>
     <string name="add_the_quick_settings_tile_to_your_device">将快速设置磁贴添加到您的设备</string>
     <string name="adguard_dns">AdGuard</string>
-    <string name="adns_adblock">ADNS广告拦截</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS 仅使用您的登录凭证来自动生成 NextDNS API 密钥，该密钥会以加密格式存储。您的邮箱和密码本身不会被保存。</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS 使用您的 NextDNS API 密钥来获取和配置您的配置文件。您的 API 密钥会以加密格式安全存储在您的设备上。</string>
     <string name="app_settings">应用设置</string>

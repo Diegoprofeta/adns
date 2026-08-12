@@ -9,7 +9,6 @@
     <string name="add_the_quick_settings_tile">クイック設定タイルを追加</string>
     <string name="add_the_quick_settings_tile_to_your_device">クイック設定タイルを追加</string>
     <string name="adguard_dns">AdGuard DNS</string>
-    <string name="adns_adblock">ADNS広告ブロック</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNSは、NextDNS APIキーを自動的に作成するためにのみお客様の認証情報を使用し、作成されたAPIキーは暗号化された形式で保存されます。お客様のメールアドレスとパスワード自体は保存されません。</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNSはNextDNS APIキーを使用してプロファイルを取得および設定します。APIキーは暗号化された形式でデバイスに安全に保存されます。</string>
     <string name="allowlist">ホワイトリスト</string>

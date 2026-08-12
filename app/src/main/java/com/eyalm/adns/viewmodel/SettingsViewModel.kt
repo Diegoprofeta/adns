@@ -13,15 +13,15 @@ import com.eyalm.adns.R
 import com.eyalm.adns.data.DnsRepository
 import com.eyalm.adns.data.dns.DnsConfigurationResult
 import com.eyalm.adns.data.dns.DnsDisableBehavior
+import com.eyalm.adns.data.nextdns.api.NextDnsProfile
+import com.eyalm.adns.data.nextdns.auth.NextDnsManagementSession
+import com.eyalm.adns.data.nextdns.auth.NextDnsSessionManager
+import com.eyalm.adns.data.nextdns.profile.DEFAULT_NEXTDNS_DEVICE_NAME
+import com.eyalm.adns.data.nextdns.profile.NextDnsProfileRepository
+import com.eyalm.adns.data.nextdns.resources.NextDnsResourceSpec
 import com.eyalm.adns.data.provider.DnsProviderCatalog
 import com.eyalm.adns.data.provider.DnsProviderSelection
 import com.eyalm.adns.data.provider.ProviderId
-import com.eyalm.adns.data.nextdns.api.NextDnsProfile
-import com.eyalm.adns.data.nextdns.profile.NextDnsProfileRepository
-import com.eyalm.adns.data.nextdns.profile.DEFAULT_NEXTDNS_DEVICE_NAME
-import com.eyalm.adns.data.nextdns.resources.NextDnsResourceSpec
-import com.eyalm.adns.data.nextdns.auth.NextDnsManagementSession
-import com.eyalm.adns.data.nextdns.auth.NextDnsSessionManager
 import com.eyalm.adns.domain.nextdns.ApiResult
 import com.eyalm.adns.domain.nextdns.ProfileCapabilities
 import com.eyalm.adns.domain.nextdns.ProfileRole
@@ -217,7 +217,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                     getApplication(),
                     com.eyalm.adns.services.AdnsTileService::class.java
                 ),
-                getApplication<Application>().getString(R.string.adns_adblock),
+                getApplication<Application>().getString(R.string.app_name),
                 android.graphics.drawable.Icon.createWithResource(
                     getApplication(),
                     R.drawable.ic_launcher_foreground
