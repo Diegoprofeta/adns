@@ -24,10 +24,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.eyalm.adns.data.Locales
@@ -45,9 +51,32 @@ fun SettingsScreenScaffold(
     onRefresh: (() -> Unit)? = null,
     snackbarHostState: SnackbarHostState? = null,
     floatingActionButton: (@Composable () -> Unit)? = null,
+    innerPadding: PaddingValues = PaddingValues(0.dp),
+    onScrollVisibilityChange: (Boolean) -> Unit = {},
     content: LazyListScope.() -> Unit
 ) {
     val scrollState = rememberLazyListState()
+    val nestedScrollConnection = remember(onScrollVisibilityChange) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                val delta = available.y
+                if (delta < -4f) {
+                    onScrollVisibilityChange(false)
+                } else if (delta > 4f) {
+                    onScrollVisibilityChange(true)
+                }
+                return Offset.Zero
+            }
+        }
+    }
+
+    LaunchedEffect(scrollState) {
+        snapshotFlow { scrollState.firstVisibleItemIndex == 0 && scrollState.firstVisibleItemScrollOffset == 0 }
+            .collect { isAtTop ->
+                if (isAtTop) onScrollVisibilityChange(true)
+            }
+    }
+
     val showAppBarTitle by remember {
         derivedStateOf {
             scrollState.firstVisibleItemIndex > 0
@@ -63,14 +92,15 @@ fun SettingsScreenScaffold(
         onRefresh = onRefresh,
         snackbarHostState = snackbarHostState,
         floatingActionButton = floatingActionButton,
-    ) { innerPadding ->
+    ) { layoutPadding ->
         LazyColumn(
             state = scrollState,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = innerPadding.calculateTopPadding())
-                .padding(horizontal = 16.dp),
-            contentPadding = PaddingValues(bottom = innerPadding.calculateBottomPadding() + 24.dp)
+                .padding(top = layoutPadding.calculateTopPadding())
+                .padding(horizontal = 16.dp)
+                .nestedScroll(nestedScrollConnection),
+            contentPadding = PaddingValues(bottom = layoutPadding.calculateBottomPadding() + innerPadding.calculateBottomPadding() + 24.dp)
         ) {
                 item {
                     Text(

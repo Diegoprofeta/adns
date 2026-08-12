@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Insights
@@ -69,6 +71,7 @@ import com.eyalm.adns.ui.screens.HomeScreen
 import com.eyalm.adns.ui.screens.StatsScreen
 import com.eyalm.adns.ui.screens.UpdateDialog
 import com.eyalm.adns.ui.screens.forcedActivationExitPolicy
+import com.eyalm.adns.ui.screens.settings.LogsScreen
 import com.eyalm.adns.ui.screens.settings.SettingsTabRouter
 import com.eyalm.adns.ui.screens.updatedForcedActivationVisibility
 import com.eyalm.adns.ui.theme.AdnsTheme
@@ -222,17 +225,21 @@ fun Greeting(
     settingsPage: SettingsViewModel.Page = SettingsViewModel.Page.MAIN,
     capabilities: AppCapabilities,
 ) {
+    val settingsViewModel: SettingsViewModel = viewModel()
+    val profileSession by settingsViewModel.profileSessionState.collectAsState()
 
     var selectedItem by rememberSaveable(inputs = arrayOf(capabilities.defaultTab)) {
         mutableStateOf(capabilities.defaultTab)
     }
     val homeTab = stringResource(R.string.home)
     val statsTab = stringResource(R.string.stats)
+    val logsTab = stringResource(R.string.logs)
     val settingsTab = stringResource(R.string.settings)
-    val labels = remember(homeTab, statsTab, settingsTab) {
+    val labels = remember(homeTab, statsTab, logsTab, settingsTab) {
         mapOf(
             MainTab.Home to homeTab,
             MainTab.Stats to statsTab,
+            MainTab.Logs to logsTab,
             MainTab.Settings to settingsTab,
         )
     }
@@ -240,6 +247,7 @@ fun Greeting(
         mapOf(
             MainTab.Home to Icons.Filled.Home,
             MainTab.Stats to Icons.Filled.Insights,
+            MainTab.Logs to Icons.AutoMirrored.Filled.List,
             MainTab.Settings to Icons.Filled.Settings,
         )
     }
@@ -247,6 +255,7 @@ fun Greeting(
         mapOf(
             MainTab.Home to Icons.Outlined.Home,
             MainTab.Stats to Icons.Outlined.Insights,
+            MainTab.Logs to Icons.AutoMirrored.Outlined.List,
             MainTab.Settings to Icons.Outlined.Settings,
         )
     }
@@ -306,6 +315,12 @@ fun Greeting(
         selectedItem = capabilities.defaultTab
     }
 
+    var isFloatingMenuVisible by remember { mutableStateOf(true) }
+
+    LaunchedEffect(selectedItem, settingsPage) {
+        isFloatingMenuVisible = true
+    }
+
     val menuItems = remember(capabilities.visibleTabs, labels, selectedIcons, unselectedIcons) {
         capabilities.visibleTabs.map { tab ->
             FloatingMenuItem(
@@ -320,7 +335,7 @@ fun Greeting(
     Scaffold(
         bottomBar = {
             AnimatedVisibility(
-                visible = !(
+                visible = isFloatingMenuVisible && !(
                     settingsPage != SettingsViewModel.Page.MAIN &&
                         selectedItem == MainTab.Settings
                     ),
@@ -332,7 +347,7 @@ fun Greeting(
                     selectedItem = selectedItem,
                     onItemSelected = { item ->
                         if (
-                            item != MainTab.Stats ||
+                            (item != MainTab.Stats && item != MainTab.Logs) ||
                             nextDnsSessionManager.requestFeatureAccess()
                         ) {
                             selectedItem = item
@@ -386,13 +401,22 @@ fun Greeting(
                     }
 
                     MainTab.Stats -> StatsScreen(
-                        innerPadding
+                        innerPadding = innerPadding,
+                        onScrollVisibilityChange = { isVisible -> isFloatingMenuVisible = isVisible }
+                    )
+
+                    MainTab.Logs -> LogsScreen(
+                        onBack = null,
+                        profileState = profileSession,
+                        innerPadding = innerPadding,
+                        onScrollVisibilityChange = { isVisible -> isFloatingMenuVisible = isVisible }
                     )
 
                     MainTab.Settings -> {
                         SettingsTabRouter(
                             onNavigateToProvidersActivity = onNavigateToProviders,
-                            innerPadding = innerPadding
+                            innerPadding = innerPadding,
+                            onScrollVisibilityChange = { isVisible -> isFloatingMenuVisible = isVisible }
                         )
                     }
                 }
@@ -418,6 +442,7 @@ fun GreetingPreview() {
                 canManageNextDns = false,
                 showHome = true,
                 showStats = false,
+                showLogs = false,
                 showActivationWarning = false,
                 canRunRuntimeMonitor = true,
                 canUseWifiRules = true,

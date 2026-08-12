@@ -31,6 +31,7 @@ class AppCapabilitiesTest {
         assertTrue(capabilities.canUseDnsToggleSurfaces)
         assertTrue(capabilities.showHome)
         assertFalse(capabilities.showStats)
+        assertFalse(capabilities.showLogs)
         assertEquals(MainTab.Home, capabilities.defaultTab)
         assertEquals(AppDestination.Main(MainTab.Home), capabilities.startupDestination)
     }
@@ -75,10 +76,11 @@ class AppCapabilitiesTest {
         assertFalse(capabilities.canUseDnsToggleSurfaces)
         assertFalse(capabilities.showHome)
         assertTrue(capabilities.showStats)
+        assertTrue(capabilities.showLogs)
         assertTrue(capabilities.canManageNextDns)
         assertEquals(MainTab.Settings, capabilities.defaultTab)
         assertEquals(
-            listOf(MainTab.Settings, MainTab.Stats),
+            listOf(MainTab.Settings, MainTab.Stats, MainTab.Logs),
             capabilities.visibleTabs,
         )
         assertEquals(AppDestination.Main(MainTab.Settings), capabilities.startupDestination)

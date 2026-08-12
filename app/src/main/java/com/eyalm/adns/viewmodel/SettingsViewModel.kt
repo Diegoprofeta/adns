@@ -59,7 +59,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         PARENTAL_CONTROL,
         SETTINGS_PAGE,
         GENERIC_LIST,
-        LOGS,
         LANGUAGE,
         APPEARANCE,
     }
@@ -283,7 +282,6 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         Page.PARENTAL_CONTROL,
         Page.SETTINGS_PAGE,
         Page.GENERIC_LIST,
-        Page.LOGS,
         -> nextDnsSessionManager.requestFeatureAccess()
 
         Page.MAIN,

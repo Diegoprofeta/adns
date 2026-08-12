@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -100,8 +101,10 @@ import java.time.ZonedDateTime
 @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LogsScreen(
-    onBack: () -> Unit,
+    onBack: (() -> Unit)? = null,
     profileState: ProfileSessionState,
+    innerPadding: PaddingValues = PaddingValues(0.dp),
+    onScrollVisibilityChange: (Boolean) -> Unit = {},
 ) {
     val profileId = profileState.selectedProfileId ?: return
     val viewModel: LogsViewModel = viewModel(key = "logs-$profileId")
@@ -144,6 +147,8 @@ fun LogsScreen(
         title = stringResource(R.string.logs),
         refreshing = state.refreshing,
         onRefresh = viewModel::refresh,
+        innerPadding = innerPadding,
+        onScrollVisibilityChange = onScrollVisibilityChange,
     ) {
         item {
             Row(

@@ -43,13 +43,19 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -88,8 +94,29 @@ fun MainSettingsScreen(
     onPageChange: (Page) -> Unit = {},
     innerPadding: PaddingValues,
     state: LazyListState = rememberLazyListState(),
+    onScrollVisibilityChange: (Boolean) -> Unit = {},
 ) {
     val viewModel: SettingsViewModel = viewModel()
+    val nestedScrollConnection = remember(onScrollVisibilityChange) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                val delta = available.y
+                if (delta < -4f) {
+                    onScrollVisibilityChange(false)
+                } else if (delta > 4f) {
+                    onScrollVisibilityChange(true)
+                }
+                return Offset.Zero
+            }
+        }
+    }
+
+    LaunchedEffect(state) {
+        snapshotFlow { state.firstVisibleItemIndex == 0 && state.firstVisibleItemScrollOffset == 0 }
+            .collect { isAtTop ->
+                if (isAtTop) onScrollVisibilityChange(true)
+            }
+    }
     val provider by viewModel.selectedProvider.collectAsState()
     val disableBehavior by viewModel.disableBehavior.collectAsState()
     val context = LocalContext.current
@@ -147,7 +174,6 @@ fun MainSettingsScreen(
     val onSettingsPageClick = remember(onPageChange) { { onPageChange(Page.SETTINGS_PAGE) } }
     val onLanguagePageClick = remember(onPageChange) { { onPageChange(Page.LANGUAGE) } }
     val onAppearancePageClick = remember(onPageChange) { { onPageChange(Page.APPEARANCE) } }
-    val onLogsClick =   remember(onPageChange) { { onPageChange(Page.LOGS)} }
 
 
         LazyColumn(
@@ -155,7 +181,8 @@ fun MainSettingsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = innerPadding.calculateTopPadding())
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
+                .nestedScroll(nestedScrollConnection),
             contentPadding = PaddingValues(bottom = innerPadding.calculateBottomPadding() + 24.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
@@ -216,7 +243,6 @@ fun MainSettingsScreen(
                             SettingsNavigationEntry(stringResource(R.string.parental_control), stringResource(R.string.safesearch_blocked_apps_categories), Icons.Filled.FamilyRestroom, onParentalControlClick),
                             SettingsNavigationEntry(stringResource(R.string.allowlist), stringResource(R.string.add_specific_domains_to_the_allowlist), Icons.Filled.Check, onAllowlistClick),
                             SettingsNavigationEntry(stringResource(R.string.denylist), stringResource(R.string.add_specific_domains_to_the_denylist), Icons.Filled.Block, onDenylistClick),
-                            SettingsNavigationEntry(stringResource(R.string.logs), stringResource(R.string.view_your_dns_logs), Icons.AutoMirrored.Filled.List, onLogsClick),
                             SettingsNavigationEntry(stringResource(R.string.general_profile_settings), stringResource(R.string.logs_performance_block_page), Icons.Filled.Tune, onSettingsPageClick),
                         ),
                     )

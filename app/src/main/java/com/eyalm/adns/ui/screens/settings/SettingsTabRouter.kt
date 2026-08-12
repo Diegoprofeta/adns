@@ -43,7 +43,8 @@ import com.eyalm.adns.viewmodel.OnboardingViewModel
 fun SettingsTabRouter(
     modifier: Modifier = Modifier,
     onNavigateToProvidersActivity: (String) -> Unit,
-    innerPadding: PaddingValues
+    innerPadding: PaddingValues,
+    onScrollVisibilityChange: (Boolean) -> Unit = {},
 
 ) {
     val viewModel: SettingsViewModel = viewModel()
@@ -124,7 +125,8 @@ fun SettingsTabRouter(
                     currentPage = page,
                     onPageChange = viewModel::setPage,
                     innerPadding = innerPadding,
-                    state = mainListState
+                    state = mainListState,
+                    onScrollVisibilityChange = onScrollVisibilityChange,
                 )
             }
             SettingsViewModel.Page.PROVIDERS -> {
@@ -282,13 +284,6 @@ fun SettingsTabRouter(
                 BackHandler { viewModel.setPage(parentPage) }
                 GenericListScreen(
                     onBack = { viewModel.setPage(parentPage) },
-                    profileState = profileSession,
-                )
-            }
-            SettingsViewModel.Page.LOGS -> {
-                BackHandler { viewModel.setPage(SettingsViewModel.Page.MAIN) }
-                LogsScreen(
-                    onBack = { viewModel.setPage(SettingsViewModel.Page.MAIN) },
                     profileState = profileSession,
                 )
             }

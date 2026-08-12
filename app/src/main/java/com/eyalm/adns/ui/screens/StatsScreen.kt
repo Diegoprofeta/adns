@@ -19,6 +19,11 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -36,6 +41,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -80,8 +86,31 @@ fun StatsScreen(
     innerPadding: PaddingValues,
     modifier: Modifier = Modifier,
     statsViewModel: StatsViewModel = viewModel(),
+    onScrollVisibilityChange: (Boolean) -> Unit = {},
 ) {
     val uiState by statsViewModel.state.collectAsState()
+    val scrollState = rememberLazyListState()
+    val nestedScrollConnection = remember(onScrollVisibilityChange) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                val delta = available.y
+                if (delta < -4f) {
+                    onScrollVisibilityChange(false)
+                } else if (delta > 4f) {
+                    onScrollVisibilityChange(true)
+                }
+                return Offset.Zero
+            }
+        }
+    }
+
+    LaunchedEffect(scrollState) {
+        snapshotFlow { scrollState.firstVisibleItemIndex == 0 && scrollState.firstVisibleItemScrollOffset == 0 }
+            .collect { isAtTop ->
+                if (isAtTop) onScrollVisibilityChange(true)
+            }
+    }
+
     val filterOptions = remember {
         AnalyticsPeriod.entries.map { period ->
             Locales.getString("timeRangeSelector", "ranges", period.localeKey) to period
@@ -136,9 +165,11 @@ fun StatsScreen(
                     if (totalQueriesSum > 0) (blockedQueriesSum.toFloat() / totalQueriesSum * 100).toInt() else 0
 
                 LazyColumn(
+                    state = scrollState,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 16.dp),
+                        .padding(horizontal = 16.dp)
+                        .nestedScroll(nestedScrollConnection),
                     contentPadding = PaddingValues(bottom = innerPadding.calculateBottomPadding() + 24.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {

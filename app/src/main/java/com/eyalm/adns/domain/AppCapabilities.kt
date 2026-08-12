@@ -8,6 +8,7 @@ import com.eyalm.adns.data.provider.DnsProviderSelection
 enum class MainTab {
     Home,
     Stats,
+    Logs,
     Settings,
 }
 
@@ -30,6 +31,7 @@ data class AppCapabilities(
     val canManageNextDns: Boolean,
     val showHome: Boolean,
     val showStats: Boolean,
+    val showLogs: Boolean,
     val showActivationWarning: Boolean,
     val canRunRuntimeMonitor: Boolean,
     val canUseWifiRules: Boolean,
@@ -50,6 +52,7 @@ fun deriveAppCapabilities(inputs: AppCapabilityInputs): AppCapabilities {
     val showHome = activation.onboardingComplete &&
         activation.mode == ActivationMode.PrivilegedDnsControl
     val showStats = canManageNextDns
+    val showLogs = canManageNextDns
     val defaultTab = if (activation.mode == ActivationMode.NextDnsControlOnly) {
         MainTab.Settings
     } else {
@@ -59,11 +62,13 @@ fun deriveAppCapabilities(inputs: AppCapabilityInputs): AppCapabilities {
         buildList {
             add(MainTab.Settings)
             if (showStats) add(MainTab.Stats)
+            if (showLogs) add(MainTab.Logs)
         }
     } else {
         buildList {
             if (showHome) add(MainTab.Home)
             if (showStats) add(MainTab.Stats)
+            if (showLogs) add(MainTab.Logs)
             add(MainTab.Settings)
         }
     }
@@ -82,6 +87,7 @@ fun deriveAppCapabilities(inputs: AppCapabilityInputs): AppCapabilities {
         canManageNextDns = canManageNextDns,
         showHome = showHome,
         showStats = showStats,
+        showLogs = showLogs,
         showActivationWarning = requiresActivation,
         canRunRuntimeMonitor = activation.canControlPrivateDns,
         canUseWifiRules = activation.canControlPrivateDns,
