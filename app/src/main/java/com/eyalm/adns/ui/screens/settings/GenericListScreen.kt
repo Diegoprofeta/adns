@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -63,7 +63,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -97,6 +96,7 @@ import com.eyalm.adns.ui.theme.settingsLabel
 import com.eyalm.adns.viewmodel.ProfileSessionState
 import com.eyalm.adns.viewmodel.SettingsViewModel
 import com.eyalm.adns.viewmodel.nextdns.ResourceListViewModel
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 
 private sealed interface ResourceRow {
@@ -785,7 +785,9 @@ fun AddDialog(
     onConfirmation: (domain: String) -> Unit,
 ) {
     var domain by remember { mutableStateOf("") }
-    val valid = domain.isNotBlank() && Patterns.DOMAIN_NAME.matcher(domain).matches()
+    val valid = domain.isNotBlank() &&
+            Patterns.DOMAIN_NAME.matcher(domain).matches() &&
+            !Patterns.IP_ADDRESS.matcher(domain).matches()
 
     FormDialog(
         title = stringResource(R.string.add_item),
