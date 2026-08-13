@@ -1,0 +1,3 @@
+- Logs page moved to its own tab
+- Localization updates, including a new Bengali translation
+- Minor bug fixes
