@@ -149,6 +149,7 @@ fun LogsScreen(
         onRefresh = viewModel::refresh,
         innerPadding = innerPadding,
         onScrollVisibilityChange = onScrollVisibilityChange,
+        showTopBar = false
     ) {
         item {
             Row(

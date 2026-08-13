@@ -53,6 +53,7 @@ fun SettingsScreenScaffold(
     floatingActionButton: (@Composable () -> Unit)? = null,
     innerPadding: PaddingValues = PaddingValues(0.dp),
     onScrollVisibilityChange: (Boolean) -> Unit = {},
+    showTopBar: Boolean = true,
     content: LazyListScope.() -> Unit
 ) {
     val scrollState = rememberLazyListState()
@@ -91,6 +92,7 @@ fun SettingsScreenScaffold(
         refreshing = refreshing,
         onRefresh = onRefresh,
         snackbarHostState = snackbarHostState,
+        showTopBar = showTopBar,
         floatingActionButton = floatingActionButton,
     ) { layoutPadding ->
         LazyColumn(
@@ -107,7 +109,7 @@ fun SettingsScreenScaffold(
                         text = title,
                         style = MaterialTheme.typography.pageTitle,
                         color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier.padding(top = 24.dp),
+                        modifier = Modifier.padding(top = if (showTopBar) 24.dp else 82.dp),
                     )
                     Spacer(Modifier.height(12.dp))
                 }
@@ -134,6 +136,7 @@ fun SettingsScreenLayout(
     onBack: (() -> Unit)?,
     showAppBarTitle: Boolean,
     modifier: Modifier = Modifier,
+    showTopBar: Boolean = true,
     refreshing: Boolean = false,
     onRefresh: (() -> Unit)? = null,
     snackbarHostState: SnackbarHostState? = null,
@@ -146,35 +149,37 @@ fun SettingsScreenLayout(
             snackbarHost = { snackbarHostState?.let { SnackbarHost(it) } },
             floatingActionButton = { floatingActionButton?.invoke() },
             topBar = {
-                TopAppBar(
-                title = {
-                    AnimatedVisibility(
-                        visible = showAppBarTitle,
-                        enter = fadeIn(),
-                        exit = fadeOut()
-                    ) {
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onBackground
+                if (showTopBar) {
+                    TopAppBar(
+                        title = {
+                            AnimatedVisibility(
+                                visible = showAppBarTitle,
+                                enter = fadeIn(),
+                                exit = fadeOut()
+                            ) {
+                                Text(
+                                    text = title,
+                                    style = MaterialTheme.typography.titleLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onBackground
+                                )
+                            }
+                        },
+                        navigationIcon = {
+                            onBack?.let { navigateBack ->
+                                IconButton(onClick = navigateBack) {
+                                    Icon(
+                                        Icons.AutoMirrored.Filled.ArrowBack,
+                                        Locales.getString("global", "back"),
+                                    )
+                                }
+                            }
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.background
                         )
-                    }
-                },
-                navigationIcon = {
-                    onBack?.let { navigateBack ->
-                        IconButton(onClick = navigateBack) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                Locales.getString("global", "back"),
-                            )
-                        }
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-                )
+                    )
+                }
             },
             containerColor = MaterialTheme.colorScheme.background,
         ) { innerPadding -> content(innerPadding) }
