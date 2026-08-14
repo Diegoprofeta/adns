@@ -377,6 +377,15 @@
     <string name="from">from</string>
     <string name="root_domain_label">Root domain</string>
     <string name="query_type_label">Query type</string>
+    <string name="analytics_protocols_title">Protocols</string>
+    <string name="analytics_protocols_description">DNS protocols used to send queries to NextDNS.</string>
+    <string name="analytics_protocols_empty">No protocols yet.</string>
+    <string name="analytics_query_types_title">Query Types</string>
+    <string name="analytics_query_types_description">DNS record types requested.</string>
+    <string name="analytics_query_types_empty">No query types yet.</string>
+    <string name="analytics_ip_versions_title">IP Versions</string>
+    <string name="analytics_ip_versions_description">Internet Protocol versions used to make queries.</string>
+    <string name="analytics_ip_versions_empty">No IP versions yet.</string>
     <string name="just_now">just now</string>
     <string name="a_few_seconds_ago">a few seconds ago</string>
 </resources>

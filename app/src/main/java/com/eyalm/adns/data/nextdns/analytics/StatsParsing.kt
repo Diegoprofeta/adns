@@ -100,6 +100,36 @@ internal fun parseList(card: ListCard, data: JsonArray): List<StatRow> = when (c
         val (others, main) = rows.partition { it.id.lowercase() == "others" }
         main.sortedByDescending { it.value.replace(",", "").toIntOrNull() ?: 0 } + others
     }
+
+    ListKind.PROTOCOLS -> data.objs().map { o ->
+        val proto = o.str("protocol") ?: ""
+        StatRow(
+            id = proto,
+            title = proto,
+            value = fmt(o.int("queries")),
+        )
+    }
+
+    ListKind.QUERY_TYPES -> data.objs().map { o ->
+        val name = o.str("name")
+        val type = o.int("type")
+        val title = name ?: if (type > 0) "Type $type" else ""
+        StatRow(
+            id = name ?: type.toString(),
+            title = title,
+            value = fmt(o.int("queries")),
+        )
+    }
+
+    ListKind.IP_VERSIONS -> data.objs().map { o ->
+        val ver = o.int("version")
+        val title = if (ver > 0) "IPv$ver" else ""
+        StatRow(
+            id = title,
+            title = title,
+            value = fmt(o.int("queries")),
+        )
+    }
 }
 
 private fun companyDomain(companyKey: String): String? = when (companyKey.lowercase()) {
