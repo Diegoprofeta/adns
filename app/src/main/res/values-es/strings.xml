@@ -11,7 +11,7 @@
     <string name="adguard_dns">AdGuard</string>
     <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS utiliza tus credenciales sólo para crear automáticamente tu clave de API NextDNS, que posteriormente se almacena en un formato cifrado. Su correo electrónico y su contraseña nunca se guardan.</string>
     <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADNS utiliza su tecla NextDNS API para buscar y configurar sus perfiles. Su clave API se almacena de forma segura en un formato cifrado en su dispositivo.</string>
-    <string name="allowlist">Listado de permitidos</string>
+    <string name="allowlist">Lista blanca</string>
     <string name="api_key">Clave de API</string>
     <string name="api_key_account">Cuenta de Clave API</string>
     <string name="app_settings">AJUSTES APP</string>
@@ -35,7 +35,7 @@
     <string name="custom_dns_hostname">Nombre del host DNS personalizado</string>
     <string name="custom_hostname_advanced">Nombre de host personalizado (avanzado)</string>
     <string name="denylist">Lista negra</string>
-    <string name="device_name_for_logs">Nombre del dispositivo (para Bitácora)</string>
+    <string name="device_name_for_logs">Nombre del dispositivo (para registros)</string>
     <string name="device_name_is_not_set">El nombre del dispositivo no está establecido</string>
     <string name="disable_blocker">Deshabilitar DNS</string>
     <string name="done">¡Completado!</string>
@@ -57,7 +57,7 @@
     <string name="google_dns">DNS de Google</string>
     <string name="goooodbyenads">¡Adiooooos,\nAnuncios!</string>
     <string name="hide_password">Ocultar contraseña</string>
-    <string name="hint_to_remove_items_from_the_list_swipe_to_the_left">Para retirar elementos desde el listado, intercambie a la izquierda.</string>
+    <string name="hint_to_remove_items_from_the_list_swipe_to_the_left">Para retirar elementos desde el listado, deslice a la izquierda.</string>
     <string name="invalid_domain">Dominio No Válido</string>
     <string name="lets_set_up_blocking_for_your_browser_and_apps">Vamos a configurar el bloqueo para su navegador y aplicaciones.</string>
     <string name="loading">Cargando…</string>
@@ -66,7 +66,7 @@
     <string name="logged_in_as">ACCEDIDO COMO</string>
     <string name="login">Iniciar sesión</string>
     <string name="logout">Cerrar sesión</string>
-    <string name="logs">Bitácoras</string>
+    <string name="logs">Registros</string>
     <string name="logs_performance_block_page">Rendimiento, reescrituras, acceso</string>
     <string name="mynextdnsioaccount">my.nextdns.io/account</string>
     <string name="network_error_please_try_again">Error de red. Por favor, inténtalo de nuevo.</string>
@@ -108,9 +108,9 @@
     <string name="threat_protection_dns_rebinding_tlds">Protección de amenazas, re‐vincule DNS, y los TLD</string>
     <string name="tile_added">¡Azulejo añadió!</string>
     <string name="profile_duplicated">Perfil duplicado.</string>
-    <string name="logs_downloaded">Bitácoras descargadas.</string>
+    <string name="logs_downloaded">Registros descargados.</string>
     <string name="profile_renamed">Perfil renombrado.</string>
-    <string name="logs_cleared">Bitácoras purgadas.</string>
+    <string name="logs_cleared">Registros purgados.</string>
     <string name="rename_profile">Renombrar perfil</string>
     <string name="recreation_day_unknown">Día desconocido</string>
     <string name="waiting_for_permission">Esperado a permisos…</string>
@@ -135,7 +135,7 @@
     <string name="stats">Estadísticas</string>
     <string name="lists">LISTADOS</string>
     <string name="preferences">PREFERENCIAS</string>
-    <string name="failed_to_load_logs_check_your_connection">No fue posible cargar bitácoras. Compruebe su conexión.</string>
+    <string name="failed_to_load_logs_check_your_connection">No fue posible cargar registros. Compruebe su conexión.</string>
     <string name="added_to">Añadido %1$s a %2$s</string>
     <string name="view_your_dns_logs">Ver sus registros de DNS</string>
     <string name="blocked_only">Solo bloqueado</string>
@@ -145,8 +145,8 @@
     <string name="sort_by">Ordenar por</string>
     <string name="change_blocklist_sort_order">Cambia como están ordenados los listados de bloqueos</string>
     <string name="raw_mode">Modo en bruto</string>
-    <string name="show_raw_dns_logs">Muestra bitácoras de DNS en bruto</string>
-    <string name="filter_the_logs_to_a_certain_device">Filtra las bitácoras a un cierto dispositivo</string>
+    <string name="show_raw_dns_logs">Muestra registros de DNS en bruto</string>
+    <string name="filter_the_logs_to_a_certain_device">Filtra los registros a un cierto dispositivo</string>
     <string name="all_devices">Todos los dispositivos</string>
     <string name="unknown_devices">Dispositivos desconocidos</string>
     <string name="device">Dispositivo</string>
@@ -189,7 +189,7 @@
     <string name="setup_pfsense">pfSense</string>
     <string name="setup_mikrotik">MikroTik</string>
     <string name="setup_open_unbound_issue">Abrir incidencia Desatada</string>
-    <string name="no_logs_found">Sin bitácoras encontradas</string>
+    <string name="no_logs_found">Sin registros encontrados</string>
     <string name="remove">¿Retirar %1$s?</string>
     <string name="configure_the_time_window_for_each_day">Configure el tiempo de ventana por cada día.</string>
     <string name="recreation_time_disabled">No utilizado</string>
@@ -373,4 +373,7 @@
     <string name="root_domain_label">Dominio raíz</string>
     <string name="query_type_label">Tipo de consulta</string>
     <string name="just_now">en este momento</string>
+    <string name="logout_confirmation_title">Cerrar sesión</string>
+    <string name="logout_confirmation_message">¿Estás seguro que deseas cerrar sesión?</string>
+    <string name="theme_oled">OLED</string>
 </resources>

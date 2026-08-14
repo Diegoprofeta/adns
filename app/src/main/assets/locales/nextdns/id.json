@@ -145,10 +145,8 @@
                 "year": "per tahun"
             },
             "units": {
-                "business": "{{count, number}} karyawan",
-                "business_plural": "{{count, number}} karyawan",
-                "education": "{{count, number}} siswa",
-                "education_plural": "{{count, number}} siswa"
+                "business_0": "{{count, number}} karyawan",
+                "education_0": "{{count, number}} siswa"
             },
             "planFull": "{{plan}} ({{interval}})",
             "planFullWithUnits": "{{plan}} ({{units}}, {{interval}})",
@@ -217,7 +215,7 @@
             "form": {
                 "name": {
                     "label": "Nama",
-                    "placeholder": "PT. Mencari Cinta Sejati",
+                    "placeholder": "PT. Mencari Cinta Sejati.",
                     "errors": {
                         "required": "Masukkan nama bisnis Anda."
                     }
@@ -726,7 +724,7 @@
         "homograph": {
             "name": "Perlindungan Serangan Homograf IDN",
             "description": "Blokir domain yang meniru domain lain dengan menyalahgunakan kumpulan karakter besar yang tersedia dengan kedatangan Nama Domain Internasional (IDN) — misalnya mengganti huruf Latin \"e\" dengan huruf Sirilik \"е\".",
-            "enable": "Aktifkan Perlindungan Serangan Homograf IDN"
+            "enable": "Aktifkan Perlindungan Serangan Homograf"
         },
         "typosquatting": {
             "name": "Perlindungan Typosquatting",
@@ -774,8 +772,7 @@
             "name": "Daftar Blokir",
             "description": "Blokir iklan & pelacak menggunakan daftar blokir paling populer yang tersedia — semuanya diperbarui secara langsung.",
             "add": "Tambah daftar blokir",
-            "entries": "{{count, number}} daftar",
-            "entries_plural": "{{count, number}} daftar",
+            "entries_0": "{{count, number}} daftar",
             "updated": "Diperbarui <1>{{ago}}</1>",
             "blocklists": {
                 "nextdns-recommended": {
@@ -972,20 +969,16 @@
     },
     "analytics": {
         "counters": {
-            "all": "<0>{{count, number}}</0><1>kueri</1>",
-            "all_plural": "<0>{{count, number}}</0><1>kueri</1>",
-            "blocked": "<0>{{count, number}}</0><1>kueri yang diblokir</1>",
-            "blocked_plural": "<0>{{count, number}}</0><1>kueri yang diblokir</1>",
+            "all_0": "<0>{{count, number}}</0><1>kueri</1>",
+            "blocked_0": "<0>{{count, number}}</0><1>kueri yang diblokir</1>",
             "percentBlocked": "<0>{{percent, percentage}}</0><1><0> </0><1>dari kueri yang diblokir</1></1>"
         },
         "queries": {
             "name": "Kueri",
             "description": "Evolusi kueri dari waktu ke waktu.",
             "queries": {
-                "all": "<0>{{count, number}}</0><1> kueri</1>",
-                "all_plural": "<0>{{count, number}}</0><1> kueri</1>",
-                "blocked": "<0>{{count, number}}</0><1> kueri yang diblokir</1>",
-                "blocked_plural": "<0>{{count, number}}</0><1> kueri yang diblokir</1>"
+                "all_0": "<0>{{count, number}}</0><1> kueri</1>",
+                "blocked_0": "<0>{{count, number}}</0><1> kueri yang diblokir</1>"
             }
         },
         "domains": {
@@ -1024,8 +1017,7 @@
         "gafam": {
             "name": "Dominasi GAFAM",
             "description": "\"GAFAM\" (Google, Amazon, Facebook, Apple dan Microsoft) adalah 5 perusahaan Internet dominan yang memiliki banyak layanan populer, seringkali beroperasi dengan nama yang berbeda, misalnya, WhatsApp dan Instagram dari Facebook.",
-            "queries": "{{count, number}} kueri",
-            "queries_plural": "{{count, number}} kueri",
+            "queries_0": "{{count, number}} kueri",
             "companies": {
                 "google": {
                     "name": "Google"
@@ -1061,8 +1053,7 @@
             "name": "Tujuan Lalu Lintas",
             "description": "Negara tujuan lalu lintas Internet Anda.",
             "empty": "Belum ada kueri.",
-            "queries": "{{count, number}} kueri",
-            "queries_plural": "{{count, number}} kueri",
+            "queries_0": "{{count, number}} kueri",
             "topDomains": "Domain Teratas"
         }
     },
@@ -1211,7 +1202,7 @@
                     },
                     "gb": {
                         "name": "United Kingdom",
-                        "description": "Logs will be stored in London, United Kingdom."
+                        "description": "Log akan disimpan di London, Britania Raya."
                     },
                     "ch": {
                         "name": "Swiss",
