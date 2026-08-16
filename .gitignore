@@ -20,9 +20,9 @@ inspections.xml
 /captures
 .externalNativeBuild
 .cxx
-local.properties
-
-.idea/deploymentTargetSelector.xml
-
 /app/release
 /app/debug
+.secrets
+*.apk
+*.idsig
+

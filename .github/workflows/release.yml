@@ -1,0 +1,80 @@
+name: Release APK
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'latest.md'
+  workflow_dispatch:
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Extract Version
+        id: check_version
+        run: |
+          CURRENT_VER=$(grep 'versionName' app/build.gradle.kts | cut -d '"' -f2)
+          echo "Version: $CURRENT_VER"
+          echo "version_tag=v$CURRENT_VER" >> $GITHUB_OUTPUT
+          [ -f latest.md ] || touch latest.md
+
+      - name: Set up OpenJDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Build Release APKs
+        run: |
+          chmod +x gradlew
+          ./gradlew clean assembleRelease --no-daemon
+
+      - name: Sign Release APKs
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          BUILD_TOOLS_DIR=$(ls -d ${ANDROID_HOME}/build-tools/* | sort -V | tail -n 1)
+          APKSIGNER="$BUILD_TOOLS_DIR/apksigner"
+          
+          KEYSTORE_FILE="/tmp/signingKey.jks"
+          echo "${KEYSTORE_BASE64}" | base64 -d > "$KEYSTORE_FILE"
+          KEY_PASS="${KEY_PASSWORD:-$KEYSTORE_PASSWORD}"
+
+          for FLAVOR in foss normal; do
+            APK=$(ls app/build/outputs/apk/${FLAVOR}/release/*.apk | head -n 1)
+            OUT="app-${FLAVOR}-release.apk"
+            "$APKSIGNER" sign --ks "$KEYSTORE_FILE" \
+              --ks-key-alias "${KEY_ALIAS}" \
+              --ks-pass "pass:${KEYSTORE_PASSWORD}" \
+              --key-pass "pass:${KEY_PASS}" \
+              --out "$OUT" "$APK"
+            "$APKSIGNER" verify "$OUT"
+          done
+          rm -f "$KEYSTORE_FILE"
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.check_version.outputs.version_tag }}
+          name: ${{ steps.check_version.outputs.version_tag }}
+          body_path: latest.md
+          files: |
+            app-foss-release.apk
+            app-normal-release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
