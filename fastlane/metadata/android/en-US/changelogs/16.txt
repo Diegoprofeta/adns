@@ -1,5 +1,5 @@
 - Reworked Stats page with expanded screens and advanced graphs
-- Added Queries, Protocols, and Query Types stats categories
+- Added IP Versions, Protocols, and Query Types stats categories
 - Tracker insights and copy actions for stats and logs items
 - Long pressing the quick tile will now open the app
 - Updated localization, including a new Polish translation
