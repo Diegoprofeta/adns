@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.Icons
@@ -316,10 +317,16 @@ fun Greeting(
     }
 
     var isFloatingMenuVisible by remember { mutableStateOf(true) }
+    var isStatsCardExpanded by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(selectedItem, settingsPage) {
         isFloatingMenuVisible = true
+        if (selectedItem != MainTab.Stats) {
+            isStatsCardExpanded = false
+        }
     }
+
+    val statsScrollState = rememberLazyListState()
 
     val menuItems = remember(capabilities.visibleTabs, labels, selectedIcons, unselectedIcons) {
         capabilities.visibleTabs.map { tab ->
@@ -338,6 +345,9 @@ fun Greeting(
                 visible = isFloatingMenuVisible && !(
                     settingsPage != SettingsViewModel.Page.MAIN &&
                         selectedItem == MainTab.Settings
+                    ) && !(
+                    isStatsCardExpanded &&
+                        selectedItem == MainTab.Stats
                     ),
                 enter = slideInVertically { it } + fadeIn(),
                 exit = slideOutVertically { it } + fadeOut()
@@ -402,7 +412,9 @@ fun Greeting(
 
                     MainTab.Stats -> StatsScreen(
                         innerPadding = innerPadding,
-                        onScrollVisibilityChange = { isVisible -> isFloatingMenuVisible = isVisible }
+                        scrollState = statsScrollState,
+                        onScrollVisibilityChange = { isVisible -> isFloatingMenuVisible = isVisible },
+                        onExpandedChange = { isExpanded -> isStatsCardExpanded = isExpanded }
                     )
 
                     MainTab.Logs -> LogsScreen(

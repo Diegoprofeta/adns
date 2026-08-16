@@ -18,6 +18,8 @@ import com.eyalm.adns.data.nextdns.analytics.parseList
 import com.eyalm.adns.data.nextdns.analytics.parsePercent
 import com.eyalm.adns.data.nextdns.auth.NextDnsManagementSession
 import com.eyalm.adns.data.nextdns.auth.NextDnsSessionManager
+import com.eyalm.adns.data.nextdns.api.TrackerInfo
+import com.eyalm.adns.data.nextdns.trackers.NextDnsTrackerRepository
 import com.eyalm.adns.data.nextdns.profile.NextDnsProfileRepository
 import com.eyalm.adns.domain.nextdns.ApiResult
 import kotlinx.coroutines.Job
@@ -41,6 +43,9 @@ data class StatsUiState(
     val graph: NextDnsStatsGraphResponse? = null,
     val cards: Map<String, CardState> = emptyMap(),
     val devices: List<NextDnsDeviceItem> = emptyList(),
+    val selectedItem: StatRow? = null,
+    val selectedTrackerInfo: TrackerInfo? = null,
+    val trackerLoading: Boolean = false,
     val initialLoading: Boolean = false,
     val graphLoading: Boolean = false,
     val devicesLoading: Boolean = false,
@@ -52,6 +57,7 @@ class StatsViewModel(application: Application) : AndroidViewModel(application) {
     private val profileRepository = NextDnsProfileRepository(application)
     private val dnsRepository = DnsRepository(application)
     private val analyticsRepository = NextDnsAnalyticsRepository()
+    private val trackerRepository = NextDnsTrackerRepository()
     private val sessionManager = NextDnsSessionManager.getInstance(application)
 
     private val _state = MutableStateFlow(StatsUiState())
@@ -142,6 +148,29 @@ class StatsViewModel(application: Application) : AndroidViewModel(application) {
             force = true,
             refreshing = true,
         )
+    }
+
+    fun selectItem(item: StatRow?) {
+        _state.update { it.copy(selectedItem = item, selectedTrackerInfo = null, trackerLoading = item?.tracker != null) }
+        val trackerId = item?.tracker ?: return
+        viewModelScope.launch {
+            when (val result = trackerRepository.getTrackerInfo(trackerId)) {
+                is ApiResult.Success -> {
+                    _state.update {
+                        if (it.selectedItem?.id == item.id) {
+                            it.copy(selectedTrackerInfo = result.value, trackerLoading = false)
+                        } else it
+                    }
+                }
+                else -> {
+                    _state.update {
+                        if (it.selectedItem?.id == item.id) {
+                            it.copy(trackerLoading = false)
+                        } else it
+                    }
+                }
+            }
+        }
     }
 
     private fun activateProfile(profileId: String) {

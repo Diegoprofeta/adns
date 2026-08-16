@@ -27,6 +27,7 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
@@ -89,6 +90,7 @@ fun SegmentedSettingRow(
     modifier: Modifier = Modifier,
     description: String? = null,
     position: SegmentPosition = SegmentPosition.Single,
+    shape: Shape? = null,
     enabled: Boolean = true,
     selected: Boolean = false,
     isBeta: Boolean = false,
@@ -98,17 +100,18 @@ fun SegmentedSettingRow(
     titleContent: (@Composable () -> Unit)? = null,
     alignment: Alignment.Vertical = ListItemDefaults.verticalAlignment(),
     indicatorColor: Color? = null,
-    selectedColor: Color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.65f),
+    selectedColor: Color? = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.65f),
     onClick: () -> Unit = {},
 ) {
-    val shape = position.shape()
+    val rowShape = shape ?: position.shape()
     val containerColor = MaterialTheme.colorScheme.surfaceContainer
-    val itemColors = ListItemDefaults.colors(containerColor = containerColor, selectedContainerColor = selectedColor)
+    val itemColors = ListItemDefaults.colors(containerColor = containerColor,
+        selectedContainerColor = selectedColor ?: MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.65f))
 
     SegmentedListItem(
         selected = selected,
         onClick = { if (enabled) onClick() },
-        shapes = ListItemDefaults.shapes(shape = shape, selectedShape = shape),
+        shapes = ListItemDefaults.shapes(shape = rowShape, selectedShape = rowShape),
         colors = itemColors,
         leadingContent = leading,
         trailingContent = trailing,
@@ -132,7 +135,7 @@ fun SegmentedSettingRow(
         modifier = modifier.then(
             if (indicatorColor != null) {
                 Modifier
-                    .clip(shape)
+                    .clip(rowShape)
                     .drawWithContent {
                         drawContent()
                         val widthPx = 4.dp.toPx()
@@ -309,6 +312,7 @@ fun ResourceSettingRow(
     title: String,
     description: String? = null,
     position: SegmentPosition = SegmentPosition.Single,
+    shape: Shape? = null,
     enabled: Boolean = true,
     selected: Boolean = false,
     isBeta: Boolean = false,
@@ -318,11 +322,13 @@ fun ResourceSettingRow(
     titleContent: (@Composable () -> Unit)? = null,
     alignment: Alignment.Vertical = ListItemDefaults.verticalAlignment(),
     indicatorColor: Color? = null,
+    selectedColor: Color? = null,
     onClick: () -> Unit = {},
 ) = SegmentedSettingRow(
     title = title,
     description = description,
     position = position,
+    shape = shape,
     enabled = enabled,
     selected = selected,
     isBeta = isBeta,
@@ -332,6 +338,7 @@ fun ResourceSettingRow(
     supporting = supporting,
     titleContent = titleContent,
     indicatorColor = indicatorColor,
+    selectedColor = selectedColor,
     onClick = onClick,
 )
 

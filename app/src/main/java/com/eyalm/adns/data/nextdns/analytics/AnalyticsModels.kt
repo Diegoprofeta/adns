@@ -16,3 +16,21 @@ data class AnalyticsScope(
     val period: AnalyticsPeriod = AnalyticsPeriod.Days30,
     val deviceId: String? = null,
 )
+
+data class AnalyticsPaginatedResult(
+    val rows: List<StatRow>,
+    val cursor: String? = null,
+)
+
+data class NamedSeries(
+    val name: String,
+    val points: List<Float>,
+    val totalQueries: Int,
+)
+
+data class AnalyticsSeriesResult(
+    val points: List<Float> = emptyList(),
+    val totalQueries: Int = 0,
+    val seriesList: List<NamedSeries> = emptyList(),
+)
+

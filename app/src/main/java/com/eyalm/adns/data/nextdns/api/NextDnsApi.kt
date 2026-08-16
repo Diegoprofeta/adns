@@ -140,6 +140,13 @@ interface NextDnsApi {
         @QueryMap params: Map<String, String>
     ): Response<JsonObject>
 
+    @GET("profiles/{profileId}/analytics/{feature};series")
+    suspend fun getAnalyticsFeatureSeries(
+        @Path("profileId") profileId: String,
+        @Path("feature") feature: String,
+        @QueryMap params: Map<String, String>
+    ): Response<JsonObject>
+
     @GET("profiles/{profileId}/logs")
     suspend fun getLogs(
         @Path("profileId") profileId: String,
@@ -222,4 +229,9 @@ interface NextDnsApi {
     suspend fun getSetup(
         @Path("profileId") profileId: String,
     ): Response<JsonObject>
+
+    @GET("trackers/{trackerId}")
+    suspend fun getTrackerInfo(
+        @Path("trackerId") trackerId: String,
+    ): Response<TrackerInfo>
 }

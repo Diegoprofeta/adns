@@ -388,4 +388,23 @@
     <string name="analytics_ip_versions_empty">No IP versions yet.</string>
     <string name="just_now">just now</string>
     <string name="a_few_seconds_ago">a few seconds ago</string>
+    <string name="show_on_graph">Show on Graph</string>
+    <string name="in_graph">In Graph</string>
+    <string name="top_domains">Top Domains</string>
+    <string name="queries_label">Queries</string>
+    <string name="percentage">Percentage</string>
+    <string name="location">Location</string>
+    <string name="isp">ISP</string>
+    <string name="country">Country</string>
+    <string name="country_code">Country Code</string>
+    <string name="network">Network</string>
+    <string name="cellular">Cellular</string>
+    <string name="wifi_broadband">Wi-Fi / Broadband</string>
+    <string name="tracker">Tracker</string>
+    <string name="id_label">ID</string>
+    <string name="max_graph_items_reached">Maximum 6 items can be displayed on the graph</string>
+    <string name="owned_by">Owned by %1$s</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="prevalence_tracks_summary">%1$s (tracks %2$s of web traffic)</string>
+    <string name="prevalent_format">%1$s prevalent</string>
 </resources>

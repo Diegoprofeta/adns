@@ -21,7 +21,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Block
 import androidx.compose.material.icons.filled.Check
@@ -30,6 +32,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.RawOn
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.Code
+import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.LockOpen
@@ -62,24 +65,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.eyalm.adns.R
 import com.eyalm.adns.data.nextdns.api.NextDnsLogEntry
+import com.eyalm.adns.data.nextdns.api.TrackerInfo
 import com.eyalm.adns.data.nextdns.logs.DomainRuleList
 import com.eyalm.adns.data.nextdns.model.ListIcon
 import com.eyalm.adns.data.nextdns.model.nextDnsFaviconUrl
+import com.eyalm.adns.data.nextdns.trackers.NextDnsTrackerRepository
+import com.eyalm.adns.domain.nextdns.ApiResult
+import com.eyalm.adns.ui.components.BottomSheetDetailRow
+import com.eyalm.adns.ui.components.DomainTitleText
 import com.eyalm.adns.ui.components.ExpressiveCard
 import com.eyalm.adns.ui.components.ExpressiveIcon
 import com.eyalm.adns.ui.components.ListIconView
@@ -87,6 +91,7 @@ import com.eyalm.adns.ui.components.NavigationSettingRow
 import com.eyalm.adns.ui.components.ResourceSettingRow
 import com.eyalm.adns.ui.components.SegmentPosition
 import com.eyalm.adns.ui.components.ToggleSettingRow
+import com.eyalm.adns.ui.components.TrackerInsightsCard
 import com.eyalm.adns.ui.components.segmentPosition
 import com.eyalm.adns.viewmodel.ProfileSessionState
 import com.eyalm.adns.viewmodel.nextdns.LogsEffect
@@ -429,55 +434,6 @@ fun formatRelativeTime(context: Context, timestamp: String, nowMilli: Long = Sys
     }
 }
 
-@Composable
-fun DomainTitleText(
-    domain: String,
-    root: String?,
-    modifier: Modifier = Modifier,
-    style: TextStyle = MaterialTheme.typography.titleMedium,
-    color: Color = MaterialTheme.colorScheme.onSurface,
-) {
-    val annotatedString = remember(domain, root, color) {
-        buildAnnotatedString {
-            if (root != null && domain.endsWith(root) && domain != root) {
-                val prefix = domain.substring(0, domain.length - root.length)
-                withStyle(
-                    SpanStyle(
-                        fontWeight = FontWeight.Normal,
-                        color = color.copy(alpha = 0.6f)
-                    )
-                ) {
-                    append(prefix)
-                }
-                withStyle(
-                    SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        color = color
-                    )
-                ) {
-                    append(root)
-                }
-            } else {
-                withStyle(
-                    SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        color = color
-                    )
-                ) {
-                    append(domain)
-                }
-            }
-        }
-    }
-    Text(
-        text = annotatedString,
-        style = style,
-        modifier = modifier,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LogDetailsBottomSheet(
@@ -491,8 +447,32 @@ fun LogDetailsBottomSheet(
 ) {
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState()
+    val scrollState = rememberScrollState()
     val domain = log.domain?.trim()?.takeIf(String::isNotEmpty)
     val relativeTime = formatRelativeTime(context, log.timestamp)
+
+    var trackerInfo by remember(log.tracker) { mutableStateOf<TrackerInfo?>(null) }
+    var trackerLoading by remember(log.tracker) { mutableStateOf(!log.tracker.isNullOrBlank()) }
+    val trackerRepository = remember { NextDnsTrackerRepository() }
+
+    LaunchedEffect(log.tracker) {
+        val tId = log.tracker
+        if (!tId.isNullOrBlank()) {
+            trackerLoading = true
+            when (val res = trackerRepository.getTrackerInfo(tId)) {
+                is ApiResult.Success -> {
+                    trackerInfo = res.value
+                    trackerLoading = false
+                }
+                else -> {
+                    trackerLoading = false
+                }
+            }
+        } else {
+            trackerInfo = null
+            trackerLoading = false
+        }
+    }
 
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
@@ -503,8 +483,9 @@ fun LogDetailsBottomSheet(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
-                .padding(bottom = 32.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .padding(bottom = 32.dp)
+                .verticalScroll(scrollState),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Row(
                 verticalAlignment = CenterVertically,
@@ -534,6 +515,8 @@ fun LogDetailsBottomSheet(
                     )
                 }
             }
+
+            Spacer(Modifier.height(4.dp))
 
             ExpressiveCard(
                 modifier = Modifier.fillMaxWidth(),
@@ -576,32 +559,17 @@ fun LogDetailsBottomSheet(
                         text = protocolAnnotated
                     )
 
-                    val timeAnnotated = buildAnnotatedString {
-                        append(resolvedLabel)
-                        append(" ")
-                        withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append(relativeTime)
-                        }
-                    }
                     BottomSheetDetailRow(
                         icon = Icons.Outlined.Schedule,
-                        text = timeAnnotated
+                        label = resolvedLabel,
+                        value = relativeTime
                     )
 
                     log.root?.takeIf(String::isNotBlank)?.let { rootDom ->
-                        val rootDomainLabel = stringResource(R.string.root_domain_label)
-                        val rootAnnotated = remember(rootDom, rootDomainLabel) {
-                            buildAnnotatedString {
-                                append(rootDomainLabel)
-                                append(" ")
-                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append(rootDom)
-                                }
-                            }
-                        }
                         BottomSheetDetailRow(
                             icon = Icons.Outlined.Language,
-                            text = rootAnnotated
+                            label = stringResource(R.string.root_domain_label),
+                            value = rootDom
                         )
                     }
 
@@ -609,64 +577,47 @@ fun LogDetailsBottomSheet(
                         val devName = dev.name.orEmpty()
                         val devModel = dev.model?.let { " ($it)" }.orEmpty()
                         if (devName.isNotEmpty() || devModel.isNotEmpty()) {
-                            val deviceLabel = stringResource(R.string.device)
-                            val deviceAnnotated = remember(devName, devModel, deviceLabel) {
-                                buildAnnotatedString {
-                                    append(deviceLabel)
-                                    append(" ")
-                                    withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                        append("$devName$devModel")
-                                    }
-                                }
-                            }
                             BottomSheetDetailRow(
                                 icon = Icons.Filled.Devices,
-                                text = deviceAnnotated
+                                label = stringResource(R.string.device),
+                                value = "$devName$devModel"
                             )
                         }
                     }
 
                     if (log.status == "blocked" && log.reasons.isNotEmpty()) {
-                        val blockedByLabel = stringResource(R.string.blocked_by)
-                        val reasonsStr = log.reasons.joinToString(", ") { it.name }
-                        val errorColor = MaterialTheme.colorScheme.error
-                        val blockedAnnotated = remember(reasonsStr, blockedByLabel, errorColor) {
-                            buildAnnotatedString {
-                                append(blockedByLabel)
-                                append(" ")
-                                withStyle(
-                                    SpanStyle(
-                                        fontWeight = FontWeight.Bold,
-                                        color = errorColor
-                                    )
-                                ) {
-                                    append(reasonsStr)
-                                }
-                            }
-                        }
                         BottomSheetDetailRow(
                             icon = Icons.Outlined.Shield,
-                            text = blockedAnnotated
+                            label = stringResource(R.string.blocked_by),
+                            value = log.reasons.joinToString(", ") { it.name },
+                            valueColor = MaterialTheme.colorScheme.error
                         )
                     }
 
                     if (isRawMode && !log.type.isNullOrBlank()) {
-                        val queryTypeLabel = stringResource(R.string.query_type_label)
-                        val typeAnnotated = remember(log.type, queryTypeLabel) {
-                            buildAnnotatedString {
-                                append(queryTypeLabel)
-                                append(" ")
-                                withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                                    append(log.type)
-                                }
-                            }
-                        }
                         BottomSheetDetailRow(
                             icon = Icons.Outlined.Code,
-                            text = typeAnnotated
+                            label = stringResource(R.string.query_type_label),
+                            value = log.type
                         )
                     }
                 }
+            }
+
+            if (trackerLoading) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        strokeWidth = 2.dp
+                    )
+                }
+            } else {
+                trackerInfo?.let { TrackerInsightsCard(tracker = it) }
             }
 
             domain?.let { availableDomain ->
@@ -737,33 +688,30 @@ fun LogDetailsBottomSheet(
                             }
                         }
                     }
+
+                    Button(
+                        onClick = { onCopyDomain(availableDomain) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.ContentCopy,
+                            contentDescription = null
+                        )
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            text = stringResource(R.string.copy),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun BottomSheetDetailRow(
-    icon: ImageVector,
-    iconTint: Color = MaterialTheme.colorScheme.onSurfaceVariant,
-    text: AnnotatedString
-) {
-    Row(
-        verticalAlignment = CenterVertically,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = null,
-            tint = iconTint,
-            modifier = Modifier.size(20.dp)
-        )
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(
-            text = text,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurface
-        )
     }
 }

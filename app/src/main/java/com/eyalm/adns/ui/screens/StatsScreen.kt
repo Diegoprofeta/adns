@@ -1,8 +1,22 @@
 package com.eyalm.adns.ui.screens
 
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.icu.text.NumberFormat
-import androidx.compose.foundation.Canvas
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.SizeTransform
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,13 +31,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -47,22 +58,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.StrokeJoin
-import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -75,6 +81,8 @@ import com.eyalm.adns.data.nextdns.analytics.StatsRegistry
 import com.eyalm.adns.data.nextdns.api.NextDnsDeviceItem
 import com.eyalm.adns.ui.components.GenericStatsListCard
 import com.eyalm.adns.ui.components.GenericStatsPercentCard
+import com.eyalm.adns.ui.components.StatItemDetailsBottomSheet
+import com.eyalm.adns.ui.components.WavyLineChart
 import com.eyalm.adns.ui.components.refresh.AdnsPullToRefresh
 import com.eyalm.adns.viewmodel.nextdns.CardState
 import com.eyalm.adns.viewmodel.nextdns.StatsViewModel
@@ -86,10 +94,84 @@ fun StatsScreen(
     innerPadding: PaddingValues,
     modifier: Modifier = Modifier,
     statsViewModel: StatsViewModel = viewModel(),
+    scrollState: LazyListState = rememberLazyListState(),
     onScrollVisibilityChange: (Boolean) -> Unit = {},
+    onExpandedChange: (Boolean) -> Unit = {},
 ) {
     val uiState by statsViewModel.state.collectAsState()
-    val scrollState = rememberLazyListState()
+    var selectedExpandedCard by remember { mutableStateOf<ListCard?>(null) }
+
+    LaunchedEffect(selectedExpandedCard) {
+        onExpandedChange(selectedExpandedCard != null)
+    }
+
+    BackHandler(enabled = selectedExpandedCard != null) {
+        selectedExpandedCard = null
+    }
+
+    AnimatedContent(
+        targetState = selectedExpandedCard,
+        transitionSpec = {
+            if (targetState != null) {
+                (fadeIn(animationSpec = tween(220, delayMillis = 90)) +
+                    scaleIn(initialScale = 0.92f, animationSpec = tween(300)) +
+                    slideIntoContainer(
+                        towards = AnimatedContentTransitionScope.SlideDirection.Up,
+                        animationSpec = tween(300, easing = FastOutSlowInEasing),
+                        initialOffset = { it / 8 }
+                    )) togetherWith
+                    (fadeOut(animationSpec = tween(90)) +
+                        scaleOut(targetScale = 1.08f, animationSpec = tween(300)))
+            } else {
+                (fadeIn(animationSpec = tween(220, delayMillis = 90)) +
+                    scaleIn(initialScale = 1.08f, animationSpec = tween(300))) togetherWith
+                    (fadeOut(animationSpec = tween(90)) +
+                        scaleOut(targetScale = 0.92f, animationSpec = tween(300)) +
+                        slideOutOfContainer(
+                            towards = AnimatedContentTransitionScope.SlideDirection.Down,
+                            animationSpec = tween(300, easing = FastOutSlowInEasing),
+                            targetOffset = { it / 8 }
+                        ))
+            }.using(SizeTransform(clip = false))
+        },
+        label = "StatsScreenDetailTransition",
+        modifier = modifier
+    ) { expandedCard ->
+        if (expandedCard != null) {
+            StatsCardDetailScreen(
+                profileId = uiState.profileId ?: "",
+                card = expandedCard,
+                scope = uiState.scope,
+                onBack = { selectedExpandedCard = null },
+                innerPadding = innerPadding,
+                onScrollVisibilityChange = onScrollVisibilityChange,
+            )
+        } else {
+            StatsOverviewContent(
+                innerPadding = innerPadding,
+                uiState = uiState,
+                statsViewModel = statsViewModel,
+                onCardClick = { card -> selectedExpandedCard = card },
+                onScrollVisibilityChange = onScrollVisibilityChange,
+                scrollState = scrollState,
+            )
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3ExpressiveApi::class)
+@Composable
+private fun StatsOverviewContent(
+    innerPadding: PaddingValues,
+    uiState: com.eyalm.adns.viewmodel.nextdns.StatsUiState,
+    statsViewModel: StatsViewModel,
+    onCardClick: (ListCard) -> Unit,
+    onScrollVisibilityChange: (Boolean) -> Unit,
+    scrollState: LazyListState,
+    modifier: Modifier = Modifier,
+) {
+    val context = LocalContext.current
+    val copiedMessage = stringResource(R.string.copied_to_clipboard)
     val nestedScrollConnection = remember(onScrollVisibilityChange) {
         object : NestedScrollConnection {
             override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
@@ -201,7 +283,12 @@ fun StatsScreen(
                     items(StatsRegistry.cards, key = { it.key }) { card ->
                         val state = cardStates[card.key] ?: CardState.Loading
                         when (card) {
-                            is ListCard -> GenericStatsListCard(card, state)
+                            is ListCard -> GenericStatsListCard(
+                                card = card,
+                                state = state,
+                                onItemClick = { row -> statsViewModel.selectItem(row) },
+                                onClick = { onCardClick(card) }
+                            )
                             is PercentCard -> GenericStatsPercentCard(card, state)
                         }
                     }
@@ -212,6 +299,20 @@ fun StatsScreen(
         }
     }
 
+    uiState.selectedItem?.let { item ->
+        StatItemDetailsBottomSheet(
+            item = item,
+            trackerInfo = uiState.selectedTrackerInfo,
+            trackerLoading = uiState.trackerLoading,
+            canToggleGraph = false,
+            onCopy = {
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboard.setPrimaryClip(ClipData.newPlainText("stat_value", it))
+                Toast.makeText(context, copiedMessage, Toast.LENGTH_SHORT).show()
+            },
+            onDismissRequest = { statsViewModel.selectItem(null) }
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
@@ -232,7 +333,7 @@ fun TotalQueriesCard(
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.7f))
     ) {
         Column(modifier = Modifier.fillMaxWidth().padding(24.dp)) {
@@ -417,95 +518,11 @@ private fun AnalyticsDeviceSelector(
                     onSelected("__UNIDENTIFIED__")
                 },
             )
-
         }
-    }
-}
-
-@Composable
-internal fun HighlightedDomainText(domain: String) {
-    val parts = domain.split(".")
-    val annotatedString = if (parts.size >= 2) {
-        val baseDomain = parts.takeLast(2).joinToString(".")
-        val subdomain = domain.removeSuffix(baseDomain)
-
-        buildAnnotatedString {
-            withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.onSurfaceVariant)) {
-                append(subdomain)
-            }
-            withStyle(style = SpanStyle(
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            ) {
-                append(baseDomain)
-            }
-        }
-    } else {
-        buildAnnotatedString {
-            withStyle(style = SpanStyle(
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            ) {
-                append(domain)
-            }
-        }
-    }
-
-    Text(
-        text = annotatedString,
-        style = MaterialTheme.typography.bodyLarge,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
-}
-
-@Composable
-fun WavyLineChart(
-    points: List<Float>,
-    lineColor: Color,
-    modifier: Modifier = Modifier,
-    strokeWidth: Dp = 3.dp,
-    maxY: Float? = null
-) {
-    Canvas(modifier = modifier) {
-        if (points.size < 2) return@Canvas
-        val width = size.width
-        val height = size.height
-        val maxVal = maxY ?: points.maxOrNull() ?: 1f
-        val minVal = if (maxY != null) 0f else (points.minOrNull() ?: 0f)
-        val range = (maxVal - minVal).coerceAtLeast(1f)
-
-        val path = Path()
-        val stepX = width / (points.size - 1)
-
-        val coords = points.mapIndexed { index, value ->
-            val x = index * stepX
-            val y = height - ((value - minVal) / range) * height
-            Offset(x, y)
-        }
-
-        path.moveTo(coords[0].x, coords[0].y)
-        for (i in 0 until coords.size - 1) {
-            val p0 = coords[i]
-            val p1 = coords[i + 1]
-            val controlPointX = (p0.x + p1.x) / 2
-            path.cubicTo(controlPointX, p0.y, controlPointX, p1.y, p1.x, p1.y)
-        }
-
-        drawPath(
-            path = path,
-            color = lineColor,
-            style = Stroke(
-                width = strokeWidth.toPx(),
-                cap = StrokeCap.Round,
-                join = StrokeJoin.Round
-            )
-        )
     }
 }
 
 private fun formatInteger(number: Int): String {
     return NumberFormat.getNumberInstance(Locale.US).format(number)
 }
+

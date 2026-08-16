@@ -11,10 +11,17 @@ import com.eyalm.adns.data.nextdns.model.ListIcon
 data class StatRow(
     val id: String,
     val title: String,
-    val subtitle: String? = null,
     val value: String,
     val icon: ListIcon = ListIcon.None,
-    val highlightDomain: Boolean = false
+    val highlightDomain: Boolean = false,
+    val tracker: String? = null,
+    val rawQueries: Int = 0,
+    val percentage: Float? = null,
+    val isp: String? = null,
+    val location: String? = null,
+    val countryCode: String? = null,
+    val topDomains: List<String> = emptyList(),
+    val isCellular: Boolean? = null,
 )
 
 sealed class StatCard {

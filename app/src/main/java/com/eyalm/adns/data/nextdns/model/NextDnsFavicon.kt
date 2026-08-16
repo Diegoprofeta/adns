@@ -8,7 +8,13 @@ import java.util.Locale
 
 fun nextDnsFaviconUrl(hostname: String): String? = buildNextDnsFaviconUrl(
     hostname = hostname,
-    isValidDomain = { Patterns.DOMAIN_NAME.matcher(it).matches() },
+    isValidDomain = { domain ->
+        runCatching {
+            Patterns.DOMAIN_NAME?.matcher(domain)?.matches() == true
+        }.getOrElse {
+            domain.isNotEmpty() && domain.contains('.') && !domain.startsWith('.') && !domain.endsWith('.')
+        }
+    },
 )
 
 internal fun buildNextDnsFaviconUrl(
