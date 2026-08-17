@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="a_dnsbased_ad_blocker_for_android">強化版的私人DNS</string>
+    <string name="activation">啟動</string>
+    <string name="adb_shell">ADB Shell</string>
+    <string name="add_item">新增項目</string>
+    <string name="add_specific_domains_to_the_allowlist">新增、移除和編輯允許的域名</string>
+    <string name="add_specific_domains_to_the_denylist">新增、移除和編輯阻擋的域名</string>
+    <string name="add_the_quick_settings_tile">新增快速設定方塊</string>
+    <string name="add_the_quick_settings_tile_to_your_device">新增快速設定方塊</string>
+    <string name="adguard_dns">AdGuard</string>
+    <string name="adns_uses_your_credentials_only_to_automatically_create_your_nextdns_api_key_which_is_then_stored">ADNS 對您的登入權證只用於自動生成 NextDNS API key，此 API key 會以加密格式儲存。不會保存您的電子郵件與密碼。</string>
+    <string name="adns_uses_your_nextdns_api_key_to_fetch_and_configure_your_profiles_your_api_key_is_stored_securel">ADS 使用您的 NextDNS API key 來獲取和設定您的設定檔。您的 API key 將以加密格式安全儲存於裝置上。</string>
+    <string name="allowlist">白名單</string>
+    <string name="api_key">API Key</string>
+    <string name="api_key_account">API Key 帳號</string>
+    <string name="app_settings">應用程式設定</string>
+    <string name="application_activated_successfully">程式已順利啟動。</string>
 </resources>
