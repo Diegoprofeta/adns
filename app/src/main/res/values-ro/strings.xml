@@ -18,7 +18,7 @@
     <string name="application_activated_successfully">Aplicație activată cu succes.</string>
     <string name="automatically_bypass_age_verification_checks_used_by_certain_websites_such_as_adult_content_sites">Treci automat peste verificările de vârstă folosite de anumite siteuri, ca siteurile cu conținut pentru adulți, pentru a verifica vârsta vizitatorului înainte de a valida accesul.</string>
     <string name="blocked">%1$s (%2$s%%) blocat</string>
-    <string name="blockerndisabled">Blocator\nDezactivat</string>
+    <string name="blockerndisabled">Blocker\nDezactivat</string>
     <string name="blocklists_trackers_affiliate_links">Listă Neagră, urmăritoare, linkuri</string>
     <string name="bypass_age_verification">Treci peste verificarea vârstei</string>
     <string name="cannot_load_stats">Nu s-au putut încărca statisticile</string>
@@ -56,7 +56,7 @@
     <string name="finish">Termină</string>
     <string name="general_profile_settings">Setări generale Profil</string>
     <string name="google_dns">DNS Google</string>
-    <string name="goooodbyenads">La Revedereeeeeeeee,\nReclame!</string>
+    <string name="goooodbyenads">La Revedereeee,\nReclame!</string>
     <string name="hide_password">Ascunde parola</string>
     <string name="hint_to_remove_items_from_the_list_swipe_to_the_left">Pentru a scoate elementul din listă, dă swipe spre stânga.</string>
     <string name="invalid_domain">Domeniu Invalid</string>
@@ -174,4 +174,28 @@
     <string name="secured">Securizat</string>
     <string name="blocks_malware_and_phishing">Blochează virușii și înșelătoriile</string>
     <string name="secured_with_ecs">Securizat cu ECS</string>
+    <string name="setup_open_configuration_profile">Deschide generatorul de profiluri de configurații</string>
+    <string name="setup_open_ios_app_store">Deschide NextDNS pentru iOS</string>
+    <string name="setup_download_windows">Descarcă NextDNS pentru Windows</string>
+    <string name="setup_open_cli_wiki">Deschide ghidul NextDNS CLI</string>
+    <string name="setup_yogadns">Configurați YogaDNS</string>
+    <string name="setup_download_yogadns">Descarcă YogaDNS</string>
+    <string name="setup_open_yogadns_instructions">Deschide instrucțiunile YogaDNS</string>
+    <string name="setup_open_mac_app_store">Deschide NextDNS pentru macOS</string>
+    <string name="setup_tailscale">Configurează Tailscale</string>
+    <string name="setup_open_tailscale_guide">Deschide ghidul Tailscale</string>
+    <string name="setup_systemd_resolved">systemd-resolved</string>
+    <string name="setup_dnsmasq">dnsmasq</string>
+    <string name="setup_stubby">Stubby</string>
+    <string name="setup_knot_resolver">Knot-Resolver</string>
+    <string name="setup_cloudflared">Cloudflared</string>
+    <string name="setup_unbound">UnBound</string>
+    <string name="setup_pfsense">pfSense</string>
+    <string name="setup_mikrotik">MikroTik</string>
+    <string name="setup_open_unbound_issue">Deschide eroarea UnBound</string>
+    <string name="no_logs_found">Niciun jurnal găsit</string>
+    <string name="configure_the_time_window_for_each_day">Configurează zona de timp pentru fiecare zi.</string>
+    <string name="recreation_time_disabled">Nefolosit</string>
+    <string name="paused">Pe pauză</string>
+    <string name="blocking_enabled">Blocarea este activată</string>
 </resources>
