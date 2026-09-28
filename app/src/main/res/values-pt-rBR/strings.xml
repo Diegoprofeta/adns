@@ -421,4 +421,13 @@
     <string name="provider_preset_dnsforge_blank">Vazio</string>
     <string name="provider_preset_dnsforge_blank_description">Resolução DNS não filtrada sem bloqueio.</string>
     <string name="hagezi_dns">HaGeZi DNS</string>
+    <string name="the_public_hagezi_dns_server">Os servidores de DNS públicos do HaGeZi hospedados na Europa.</string>
+    <string name="provider_preset_hagezi_root">Root (Falkenstein)</string>
+    <string name="provider_preset_hagezi_root_description">Bloqueia propagandas, rastreadores e malwares (hospesado em Falkenstein, Alemanha).</string>
+    <string name="provider_preset_hagezi_wurzn">Wurzn (Nuremberg)</string>
+    <string name="provider_preset_hagezi_wurzn_description">Bloqueia propagandas, rastreadores e malwares (hospesado em Nuremberg, Alemanha).</string>
+    <string name="provider_preset_hagezi_juuri">Juuri (Helsinki)</string>
+    <string name="provider_preset_hagezi_juuri_description">Bloqueia propagandas, rastreadores e malwares (hospedado em Helsinki, Finlândia).</string>
+    <string name="provider_preset_hagezi_ctif">Apenas Ameaças (Nuremberg)</string>
+    <string name="provider_preset_hagezi_ctif_description">Bloqueia domínios de phishing, malware e scam sem bloquear propagandas ou rastreadores (hospedado em Nuremberg, Alemanha).</string>
 </resources>

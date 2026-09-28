@@ -289,4 +289,20 @@
     <string name="unsecured">Nesecurizat</string>
     <string name="standard_dns_resolution">Rezoluție DNS Standard</string>
     <string name="opendns">Serviciul OpenDNS</string>
+    <string name="the_public_opendns_dns_server">Serverul public DNS OpenDNS din Cisco Umbrella</string>
+    <string name="provider_preset_opendns_standard">Standard</string>
+    <string name="provider_preset_opendns_family_description">Blochează conținutul pentru Adulți.</string>
+    <string name="dnsforge">DNSForge</string>
+    <string name="the_public_dnsforge_dns_server">Serverul DNS Public dnsforge.de găzduit în Germania.</string>
+    <string name="provider_preset_dnsforge_normal">Normal</string>
+    <string name="provider_preset_dnsforge_normal_description">Blochează reclame, urmăritori, și Viruși.</string>
+    <string name="provider_preset_dnsforge_clean">Curat</string>
+    <string name="provider_preset_dnsforge_hard">Strict</string>
+    <string name="provider_preset_dnsforge_hard_description">Blocare strictă a reclamelor, urmăritoarelor și a virușilor cu liste negre suplimentare.</string>
+    <string name="provider_preset_dnsforge_blank">Gol</string>
+    <string name="provider_preset_dnsforge_blank_description">Rezoluții DNS Nefiltrate fără blocare.</string>
+    <string name="hagezi_dns">DNS HaGeZi</string>
+    <string name="the_public_hagezi_dns_server">Serverul DNS public HaGeZi găzduit în UE (Uniunea Europeană).</string>
+    <string name="provider_preset_hagezi_root">Rădacină/Root (Falkenstein)</string>
+    <string name="provider_preset_hagezi_root_description">Blochează reclame, urmăritori și viruși (găzduit în Falkenstein, Germania).</string>
 </resources>

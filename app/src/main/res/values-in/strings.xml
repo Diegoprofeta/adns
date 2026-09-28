@@ -410,4 +410,24 @@
     <string name="unreleased_warning_title">Fitur yang Belum Dirilis</string>
     <string name="unreleased_warning_description">Pengaturan ini merupakan fitur internal eksperimental yang belum diluncurkan secara resmi oleh NextDNS. Mengaktifkannya dapat menyebabkan gangguan tak terduga pada situs web, tingginya tingkat false positive, atau kegagalan resolusi DNS. NextDNS dapat mengubah atau menghapusnya kapan saja.</string>
     <string name="unreleased_warning_enable">Saya Memahami Risikonya, Aktifkan</string>
+    <string name="dnsforge">DNSforge</string>
+    <string name="the_public_dnsforge_dns_server">Server DNS publik dnsforge.de yang di-host di Jerman.</string>
+    <string name="provider_preset_dnsforge_normal">Normal</string>
+    <string name="provider_preset_dnsforge_normal_description">Memblokir iklan, pelacak, dan malware.</string>
+    <string name="provider_preset_dnsforge_clean">Clean</string>
+    <string name="provider_preset_dnsforge_clean_description">Memblokir iklan, pelacak, malware, dan konten dewasa, serta mengaktifkan Safe Search jika memungkinkan.</string>
+    <string name="provider_preset_dnsforge_hard">Hard</string>
+    <string name="provider_preset_dnsforge_hard_description">Pemblokiran ketat terhadap iklan, pelacak, dan malware dengan daftar blokir yang luas.</string>
+    <string name="provider_preset_dnsforge_blank">Blank</string>
+    <string name="provider_preset_dnsforge_blank_description">Resolusi DNS tanpa pemfilteran dan tanpa pemblokiran.</string>
+    <string name="hagezi_dns">HaGeZi DNS</string>
+    <string name="the_public_hagezi_dns_server">Server DNS publik HaGeZi yang di-host di Uni Eropa.</string>
+    <string name="provider_preset_hagezi_root">Root (Falkenstein)</string>
+    <string name="provider_preset_hagezi_root_description">Memblokir iklan, pelacak, dan malware (di-host di Falkenstein, Jerman).</string>
+    <string name="provider_preset_hagezi_wurzn">Wurzn (Nuremberg)</string>
+    <string name="provider_preset_hagezi_wurzn_description">Memblokir iklan, pelacak, dan malware (di-host di Nuremberg, Jerman).</string>
+    <string name="provider_preset_hagezi_juuri">Juuri (Helsinki)</string>
+    <string name="provider_preset_hagezi_juuri_description">Memblokir iklan, pelacak, dan malware (di-host di Helsinki, Finlandia).</string>
+    <string name="provider_preset_hagezi_ctif">Hanya Ancaman (Nuremberg)</string>
+    <string name="provider_preset_hagezi_ctif_description">Memblokir domain phishing, malware, dan penipuan tanpa memblokir iklan atau pelacak (di-host di Nuremberg, Jerman).</string>
 </resources>
