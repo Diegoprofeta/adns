@@ -91,7 +91,7 @@
     <string name="recommended">(Empfohlen)</string>
     <string name="requires_adb_shell_access_for_advanced_users">Erfordert Zugriff auf die ADB-Shell. Für fortgeschrittene Benutzer.</string>
     <string name="requires_shizuku_or_sui_installed_and_set_up">Shizuku oder Sui muss installiert und eingerichtet sein.</string>
-    <string name="running">Laufen</string>
+    <string name="running">Läuft</string>
     <string name="safesearch_blocked_apps_categories">SafeSearch, blockierte Apps, Kategorien</string>
     <string name="search">Suchen…</string>
     <string name="security">Sicherheit</string>
@@ -146,4 +146,7 @@
     <string name="unknown_devices">Unbekannte Geräte</string>
     <string name="device">Gerät</string>
     <string name="client">Client</string>
+    <string name="dns_disable_off">privates DNS ausschalten</string>
+    <string name="dns_disable_off_description">Android nutzt Privates DNS erst wieder, wenn ADNS es erneut aktiviert.</string>
+    <string name="control_only_mode_description">NextDNS verwalten, ohne die Geräteenstellungen am privaten DNS zu ändern.</string>
 </resources>
