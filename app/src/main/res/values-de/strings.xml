@@ -149,4 +149,18 @@
     <string name="dns_disable_off">privates DNS ausschalten</string>
     <string name="dns_disable_off_description">Android nutzt Privates DNS erst wieder, wenn ADNS es erneut aktiviert.</string>
     <string name="control_only_mode_description">NextDNS verwalten, ohne die Geräteenstellungen am privaten DNS zu ändern.</string>
+    <string name="failed_to_load_logs_check_your_connection">Laden der Protokolle fehlgeschlagen, überprüfe die Internetverbindung.</string>
+    <string name="blocked_by">Blockiert durch</string>
+    <string name="allow">Erlauben</string>
+    <string name="copy">Kopieren</string>
+    <string name="copied_to_clipboard">In die Zwischenablage kopiert.</string>
+    <string name="retry">Wiederholen</string>
+    <string name="ipv4">IPv4</string>
+    <string name="ipv6">IPv6</string>
+    <string name="not_linked">Nicht verknüpft</string>
+    <string name="setup_profile_required">Wähle ein Profil, bevor du mit der Einrichtung beginnst.</string>
+    <string name="select_profile">Profil wählen</string>
+    <string name="setup_adns_shizuku">ADNS + Shizuku</string>
+    <string name="setup_adns_shizuku_requirements">Android 9 oder höher, mit aktiviertem Shizuku oder ADB-Zugriff</string>
+    <string name="setup_adns_shizuku_step_1">1. Installieren ADNS und aktivire es.</string>
 </resources>
