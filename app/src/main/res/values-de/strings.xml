@@ -208,4 +208,23 @@
     <string name="wifi_rules_enable_description">DNS in bestimmten Netzwerken deaktivieren</string>
     <string name="runtime_notification_channel_description">Zeigt den Status von ADNS Private DNS an und hält aktivierte WLAN-Regeln aufrecht.</string>
     <string name="wifi_rules">WLAN Regeln</string>
+    <string name="wifi_rules_description">Bei Übereinstimmung eines vom Benutzer definierten WLAN-Namens, wird Privates DNS deaktiviert.</string>
+    <string name="wifi_rules_enable">WLAN Regeln aktivieren</string>
+    <string name="wifi_rules_add_manual">WLAN Name eingeben</string>
+    <string name="wifi_rules_ssid_label">WLAN Name (SSID)</string>
+    <string name="wifi_rules_duplicate">Dieser WLAN Name ist bereits in der Liste.</string>
+    <string name="wifi_rules_invalid_ssid">Gib einen WLAN Namen ein.</string>
+    <string name="wifi_rules_remove">WLAN Regel entfernen</string>
+    <string name="runtime_notification_wifi_monitoring">WLAN-Regeln überwachen das verbundene Netzwerk.</string>
+    <string name="wifi_rules_suspended">Privates DNS ist in einem ausgewählten WLAN-Netzwerk pausiert.</string>
+    <string name="runtime_notification_wifi_suspended">Privates DNS ist durch eine WLAN-Regel pausiert.</string>
+    <string name="runtime_notification_wifi_external_change">Privates DNS wurde außerhalb von ADNS geändert, diese WLAN-Regel ist bis zum Wechsel des Netzwerks deaktiviert.</string>
+    <string name="runtime_service_wifi_reason">Der Laufzeitservice ist aktiv, da WLAN-Regeln aktiviert sind.</string>
+    <string name="wifi_rules_remove_message">Privates DNS wird für diesen WLAN-Namen nicht mehr deaktiviert.</string>
+    <string name="wifi_rules_permission_needed">Standortberechtigung wird ausschließlich zum Auslesen des Namens des verbundenen WLAN-Netzwerks benötigt.</string>
+    <string name="wifi_rules_location_disabled">Aktiviere die Standortbestimmung, um den Namen des verbundenen WLAN-Netzwerks verfügbar zu machen.</string>
+    <string name="wifi_rules_identity_unavailable">Android blendet den Namen des verbundenen WLAN aus. Es wurden keine Änderungen am DNS vorgenommen.</string>
+    <string name="wifi_rules_already_disabled">Dieses WLAN stimmt überein, aber „Privates DNS“ war bereits deaktiviert. ADNS hat dies nicht angefordert.</string>
+    <string name="wifi_rules_inactive">WLAN-Regeln sind deaktiviert.</string>
+    <string name="wifi_rules_external_change">Privates DNS wurde außerhalb von ADNS geändert. ADNS wird bis zum Verlassen des WLAN Netzwerks keine Änderungen vornehmen.</string>
 </resources>
