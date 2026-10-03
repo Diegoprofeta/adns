@@ -1,7 +1,5 @@
 package com.eyalm.adns.data.nextdns.settings
 
-import com.eyalm.adns.R
-
 object NextDnsSettingRegistry {
     val security = SettingsPageSpec(
         page = "security",
@@ -10,6 +8,7 @@ object NextDnsSettingRegistry {
             booleanSetting("security", "aiThreatDetection", "security", "ai"),
             booleanSetting("security", "googleSafeBrowsing", "security", "googleSafeBrowsing"),
             booleanSetting("security", "nrd", "security", "nrd"),
+            booleanSetting("security", "newlyActiveDomains", "security", "newlyActiveDomains", FeatureMaturity.EARLY_ACCESS),
             booleanSetting("security", "freeHostingDomains", "security", "freeHostingDomains", FeatureMaturity.EARLY_ACCESS),
             booleanSetting("security", "ddns", "security", "ddns"),
             booleanSetting("security", "tunnelingEndpoints", "security", "tunnelingEndpoints", FeatureMaturity.EARLY_ACCESS),
