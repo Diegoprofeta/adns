@@ -45,8 +45,8 @@ android {
         applicationId = "com.eyalm.adns"
         minSdk = 27
         targetSdk = 36
-        versionCode = 21
-        versionName = "2.1.7"
+        versionCode = 22
+        versionName = "2.1.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

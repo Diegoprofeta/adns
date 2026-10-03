@@ -1,0 +1,2 @@
+- Added Newly Active Domains NextDNS security setting
+- Updated translations
