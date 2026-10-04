@@ -29,7 +29,7 @@
     <string name="cloudflare_dns">Cloudflare DNS</string>
     <string name="confirm">Bestätigen</string>
     <string name="congratulations">Herzlichen Glückwunsch!</string>
-    <string name="connect_your_account_to_use_nextdns_as_a_dns_provider">Verbinden dein Konto, um NextDNS als DNS-Anbieter zu nutzen.</string>
+    <string name="connect_your_account_to_use_nextdns_as_a_dns_provider">Verbinde dein Konto, um NextDNS als DNS-Anbieter zu nutzen.</string>
     <string name="create">Erstellen</string>
     <string name="create_new_profile">Neues Profil erstellen</string>
     <string name="create_profile">Profil erstellen</string>
