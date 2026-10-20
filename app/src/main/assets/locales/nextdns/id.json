@@ -18,7 +18,17 @@
     "disable": "Nonaktifkan",
     "unnamedDevice": "Perangkat #{{id}}",
     "firstConfiguration": "Konfigurasi Pertama Saya",
-    "preview": "Akses Awal"
+    "preview": "Akses Awal",
+    "error": "Kesalahan",
+    "networkError": "Kesalahan jaringan",
+    "requestFailed": "Permintaan gagal",
+    "noProfiles": "Belum ada profil.",
+    "search": "Cari",
+    "clearSearch": "Hapus pencarian",
+    "copy": "Salin",
+    "actions": "Tindakan",
+    "expand": "Perluas",
+    "collapse": "Ciutkan"
   },
   "theme": {
     "label": "Tema",
@@ -63,8 +73,8 @@
     "noAccountYet": "Belum punya akun? <1>Daftar</1>",
     "signup": "Daftar",
     "alreadyHaveAnAccount": "Sudah memiliki akun? <1>Masuk</1>",
-    "convertingNotice": "Anda mengubah akun sementara menjadi akun permanen, semua pengaturan Anda akan disimpan.",
-    "convertingDeviceOnlyNotice": "Anda sedang mengubah akun khusus perangkat menjadi akun penuh, semua pengaturan Anda akan disimpan.",
+    "convertingNotice": "Anda sedang mengubah akun sementara menjadi akun permanen. Semua pengaturan Anda akan disimpan.",
+    "convertingDeviceOnlyNotice": "Anda sedang mengubah akun khusus perangkat menjadi akun penuh. Semua pengaturan Anda akan disimpan.",
     "logout": "Keluar",
     "errors": {
       "email": {
@@ -91,7 +101,7 @@
     },
     "affiliation": {
       "name": "Afiliasi",
-      "description": "Bantu kami menyebarkan berita dengan membagikan <1>{{link}}</1> dan menerima <3>{{share, percentage}}</3> dari semua langganan untuk <5>{{months, number}} bulan pertama</5>.",
+      "description": "Bantu kami memperkenalkan layanan ini dengan membagikan <1>{{link}}</1> dan dapatkan <3>{{share, percentage}}</3> dari pembayaran langganan orang yang Anda referensikan selama <5>{{months, number}} bulan</5> pertama sejak langganan berbayar pertama mereka dimulai.",
       "balance": {
         "name": "Saldo"
       },
@@ -199,9 +209,13 @@
         "bitpay": {
           "text": "Klik tombol Lanjutkan ke BitPay untuk membayar dengan mata uang kripto.",
           "toYearly": "Kami tidak menerima pembayaran dengan mata uang kripto untuk paket bulanan. <1>Dengan melanjutkan, Anda akan secara otomatis dialihkan ke paket tahunan.</1>",
-          "remainder": "Langganan Anda saat ini sudah dibayar hingga {{date, date}}. Anda akan ditagih sekarang dan sisanya akan ditambahkan secara otomatis ke tanggal kedaluwarsa yang baru."
+          "remainder": "Langganan Anda saat ini sudah dibayar hingga {{date, date}}. Anda akan ditagih sekarang, dan sisa masa langganan akan otomatis ditambahkan ke tanggal kedaluwarsa yang baru."
         },
-        "continueTo": "Lanjutkan ke <1></1>"
+        "continueTo": "Lanjutkan ke <1></1>",
+        "unitsLabel": {
+          "business": "Jumlah karyawan",
+          "education": "Jumlah siswa"
+        }
       }
     },
     "business": {
@@ -261,7 +275,7 @@
     },
     "changePassword": {
       "name": "Kata Sandi",
-      "description": "Ubah kata sandi yang digunakan untuk masuk ke akun Anda dan ditanyakan saat melakukan tindakan sensitif.",
+      "description": "Ubah kata sandi yang digunakan untuk masuk ke akun Anda dan mengonfirmasi tindakan sensitif.",
       "button": "Ubah kata sandi"
     },
     "2fa": {
@@ -272,7 +286,8 @@
         "button": "Aktifkan 2FA",
         "modal": {
           "howto": "Gunakan aplikasi pengautentikasi seperti <1>Pengesah Google</1> atau pengelola kata sandi yang mendukung 2FA. Anda juga dapat memindai kode QR berikut ini, ketuk di atasnya untuk membuka tautan <3>{{otpauth}}</3> atau salin & tempel kode rahasia Anda secara manual."
-        }
+        },
+        "secret": "Kunci rahasia autentikasi dua faktor"
       },
       "recovery": {
         "button": "Kode pemulihan",
@@ -290,7 +305,9 @@
       "description": "Buat dan kelola profil Anda secara terprogram. Baca dokumentasinya di <1>{{link}}</1>.",
       "create": {
         "button": "Buat kunci API"
-      }
+      },
+      "copy": "Salin kunci API",
+      "remove": "Hapus kunci API"
     },
     "delete": {
       "button": "Hapus akun",
@@ -303,7 +320,7 @@
       "expired": {
         "modal": {
           "title": "Kedaluwarsa",
-          "text": "Akun sementara Anda telah kedaluwarsa. Daftar sekarang untuk menyimpan pengaturan Anda dan terus menggunakan NextDNS, gratis."
+          "text": "Akun sementara Anda telah kedaluwarsa. Daftar sekarang untuk menyimpan pengaturan Anda dan terus menggunakan NextDNS. Gratis."
         }
       }
     }
@@ -344,14 +361,14 @@
         "withConfiguration": {
           "primary": "Perangkat ini menggunakan NextDNS dengan konfigurasi lain.",
           "secondary": {
-            "sameAccount": "Perangkat ini sedang menggunakan \"{{name}}\".",
+            "sameAccount": "Perangkat ini sedang menggunakan “{{name}}”.",
             "otherAccount": "Pastikan Anda menggunakan salah satu titik akhir yang tercantum di halaman ini."
           }
         }
       },
       "unconfigured": {
         "primary": "Perangkat ini tidak menggunakan NextDNS.",
-        "secondary": "Perangkat ini sedang menggunakan ”{{resolver}}” sebagai resolver DNS."
+        "secondary": "Perangkat ini sedang menggunakan “{{resolver}}” sebagai resolver DNS."
       },
       "error": {
         "primary": "Terjadi kesalahan saat memeriksa status saat ini.",
@@ -360,7 +377,7 @@
       "apr": {
         "ok": {
           "primary": "Perangkat ini menggunakan NextDNS bersama iCloud Private Relay.",
-          "secondary": "Features like SafeSearch, Youtube Restricted Mode and Rewrites are not compatible with iCloud Private Relay."
+          "secondary": "Fitur seperti SafeSearch, Mode Terbatas YouTube, dan penulisan ulang DNS tidak kompatibel dengan iCloud Private Relay."
         },
         "blockpage": {
           "primary": "Perangkat ini menggunakan NextDNS bersama iCloud Private Relay.",
@@ -387,7 +404,7 @@
       "ddns": {
         "explanation": "Anda dapat menggunakan DNS Dinamis (DDNS) agar IP tertaut Anda diperbarui secara otomatis.",
         "set": "Konfigurasi DDNS",
-        "status": "Anda saat ini menggunakan <1>{{hostname}}</1> sebagai nama host DDNS, IP Anda akan diperbarui secara otomatis setiap menit.",
+        "status": "Anda sedang menggunakan <1>{{hostname}}</1> sebagai nama host DDNS. Alamat IP Anda akan diperbarui secara otomatis setiap menit.",
         "unset": "Hapus",
         "form": {
           "hostname": {
@@ -430,7 +447,7 @@
               "title": "DNS Pribadi",
               "requirements": "Android 9 atau lebih tinggi",
               "steps": {
-                "1": "1. Buka Setelan → Jaringan & internet → Lanjutan → DNS Pribadi.",
+                "1": "1. Buka Setelan → Jaringan & internet → DNS Pribadi (di bagian Lanjutan pada beberapa versi).",
                 "2": "2. Pilih opsi Hostname penyedia DNS Pribadi.",
                 "3": "3. Masukkan <1>{{endpoint}}</1> dan tekan Simpan."
               }
@@ -446,7 +463,10 @@
               "step": "Gunakan pembuat profil konfigurasi Apple kami yang tersedia di <1>{{link}}</1>."
             },
             "app": {
-              "title": "NextDNS untuk iOS"
+              "title": "NextDNS untuk iOS",
+              "qrAlt": "Kode App Clip untuk menginstal dan mengonfigurasi NextDNS di iPhone atau iPad",
+              "qrText": "Pindai kode ini untuk menginstal dan mengonfigurasi NextDNS di iPhone atau iPad Anda",
+              "qrTextIos": "Pindai kode ini dengan ponsel lain, atau <1>ketuk di sini untuk menyiapkan NextDNS di perangkat ini</1>."
             }
           }
         },
@@ -473,19 +493,19 @@
               "title": "NextDNS untuk Windows",
               "steps": {
                 "1": "1. Unduh penginstal <1>di sini</1>.",
-                "2": "2. Setelah menginstal, klik kanan ikon NextDNS di Systray lalu buka Settings. Setel <1>{{id}}</1> sebagai ID Konfigurasi.",
-                "3": "3. Klik kanan ikon NextDNS di Systray, lalu klik Enable."
+                "2": "2. Setelah menginstal, klik kanan ikon NextDNS di baki sistem, lalu buka \"Pengaturan...\". Tetapkan <1>{{id}}</1> sebagai ID Konfigurasi.",
+                "3": "3. Klik kanan ikon NextDNS di baki sistem, lalu klik Aktifkan."
               }
             },
             "ip": {
               "steps": {
-                "1": "1. Klik pada menu Start, lalu klik Control Panel.",
+                "1": "1. Buka Mulai, cari Panel Kontrol, lalu buka.",
                 "2": "2. Klik Jaringan dan Internet, lalu Network and Sharing Center.",
                 "3": "3. Klik Change adapter settings.",
-                "4": "4. Klik kanan pada jaringan Wi-Fi yang Anda sambungkan, lalu klik Properties.",
+                "4": "4. Klik kanan jaringan Wi-Fi yang terhubung dengan perangkat Anda, lalu klik Properti.",
                 "5": "5. Pilih Internet Protocol Version {{version}}.",
                 "6": "6. Klik Properties.",
-                "7": "7. Klik Use the following DNS server addresses.",
+                "7": "7. Pilih Gunakan alamat server DNS berikut.",
                 "8": "8. Ganti alamat saat ini (jika ada) dengan <1>{{dns1}}</1> dan <3>{{dns2}}</3>.",
                 "9": "9. Klik OK, lalu Tutup. Anda mungkin perlu memulai ulang peramban Anda."
               }
@@ -504,9 +524,9 @@
             "app": {
               "title": "NextDNS untuk macOS",
               "steps": {
-                "1": "1. Instal aplikasi resmi kami dari Mac App Store.",
-                "2": "2. Klik Preferences di menu bilah status aplikasi dan buka tab Configuration.",
-                "3": "3. Centang \"Use Custom Configuration\" dan masukkan <1>{{id}}</1> sebagai ID Konfigurasi."
+                "1": "1. <1>Unduh</1> dan instal aplikasi resmi kami.",
+                "2": "2. Ikuti petunjuknya.",
+                "3": "3. Saat diminta memasukkan ID Profil, masukkan <1>{{id}}</1>."
               }
             },
             "profile": {
@@ -514,11 +534,11 @@
             },
             "ip": {
               "steps": {
-                "1": "1. Buka System Preferences, lalu klik Network.",
-                "2": "2. Pilih jaringan tempat Anda terhubung, lalu klik tombol Advanced.",
+                "1": "1. Buka Pengaturan Sistem (Preferensi Sistem pada versi macOS yang lebih lama), lalu klik Jaringan.",
+                "2": "2. Pilih koneksi jaringan yang aktif, lalu klik Detail (Lanjutan pada versi macOS yang lebih lama).",
                 "3": "3. Buka seksi DNS.",
                 "4": "4. Dalam daftar Server DNS, hapus semua alamat (jika ada) lalu tambahkan <1>{{dns1}}</1> dan <3>{{dns2}}</3>.",
-                "5": "5. Klik OK, lalu klik Apply."
+                "5": "5. Klik OK, lalu klik Terapkan jika ditampilkan."
               }
             },
             "cli": {
@@ -562,7 +582,7 @@
                 "Buka aplikasi <1>Pengaturan</1>.",
                 "Buka <1>Privasi dan keamanan</1>.",
                 "Aktifkan <1>Gunakan koneksi aman untuk mengakses situs</1>.",
-                "Pilih opsi <1>Dengan: Sesuaikan</1>, lalu masukkan <3>{{endpoint}}</3>."
+                "Pilih <1>Tambahkan penyedia layanan DNS khusus</1>, lalu masukkan <3>{{endpoint}}</3>."
               ]
             },
             "ip": {
@@ -579,18 +599,18 @@
                 "1": "1. Buka Setelan.",
                 "2": "2. Di bagian Privasi dan keamanan, klik Keamanan.",
                 "3": "3. Di bagian Lanjutan, aktifkan Gunakan DNS aman.",
-                "4": "4. Pilih Dengan: Sesuaikan, lalu masukkan <1>{{endpoint}}</1>."
+                "4": "4. Pilih Tambahkan penyedia layanan DNS khusus, lalu masukkan <1>{{endpoint}}</1>."
               }
             },
             "firefox": {
               "title": "Firefox",
               "requirements": "Khusus Windows, macOS dan Linux",
               "steps": {
-                "1": "1. Buka Preferensi.",
-                "2": "2. Klik Privasi & Keamanan.",
-                "3": "3. Gulir ke bawah untuk Mengaktifkan DNS melalui HTTPS.",
-                "4": "4. Pilih Perlindungan Lebih atau Perlindungan Maksimum.",
-                "5": "5. Pilih Kustom di menu.",
+                "1": "1. Buka Pengaturan (Preferensi pada beberapa versi).",
+                "2": "2. Klik Privasi dan keamanan (Privasi & Keamanan pada beberapa versi).",
+                "3": "3. Gulir ke bawah ke DNS over HTTPS dan buka Pengaturan lanjutan jika ditampilkan.",
+                "4": "4. Pilih Khusus (Perlindungan Ditingkatkan atau Perlindungan Maksimal pada beberapa versi).",
+                "5": "5. Pilih Khusus di menu penyedia.",
                 "6": "6. Masukkan <1>{{endpoint}}</1>."
               }
             },
@@ -599,7 +619,7 @@
               "steps": {
                 "1": "1. Buka Pengaturan.",
                 "2": "2. Buka bagian Privasi, pencarian, dan layanan.",
-                "3": "3. Di bagian Keamanan, aktifkan Gunakan DNS aman untuk menentukan cara mencari alamat jaringan situs web.",
+                "3": "3. Di bagian Keamanan, aktifkan Gunakan DNS aman.",
                 "4": "4. Pilih opsi Pilih penyedia layanan, lalu masukkan <1>{{endpoint}}</1>."
               }
             },
@@ -607,9 +627,9 @@
               "title": "Brave",
               "steps": {
                 "1": "1. Buka Pengaturan.",
-                "2": "2. Pada bagian Privasi dan keamanan (di bawah Setelan tambahan), buka Keamanan.",
+                "2": "2. Di bagian Privasi dan keamanan, buka Keamanan.",
                 "3": "3. Pada bagian Lanjutan, aktifkan Gunakan DNS aman.",
-                "4": "4. Pilih opsi Dengan: Sesuaikan, lalu masukkan <1>{{endpoint}}</1>."
+                "4": "4. Pilih Tambahkan penyedia layanan DNS khusus, lalu masukkan <1>{{endpoint}}</1>."
               }
             }
           }
@@ -635,7 +655,7 @@
             },
             "pfsense": {
               "steps": {
-                "1": "1. Buka Services → DNS Resolver dan pada tab General Settings gulir ke bawah ke kotak Custom Options.",
+                "1": "1. Buka Layanan → Resolver DNS. Pada tab Pengaturan Umum, gulir ke bawah dan klik Tampilkan Opsi Khusus jika diperlukan untuk menampilkan kotak Opsi khusus.",
                 "2": "2. Masukkan baris berikut:"
               }
             },
@@ -658,7 +678,7 @@
       "description": "Ikuti petunjuk di bawah ini untuk mengidentifikasi perangkat Anda di Analitik dan Log.",
       "apps": {
         "name": "Aplikasi",
-        "instructions": "Aktifkan \"Kirim Nama Perangkat\" di setelan aplikasi."
+        "instructions": "Aktifkan \"Kirim Nama Perangkat\" (atau \"Laporkan Nama Perangkat\" di Windows) di pengaturan aplikasi."
       },
       "dot": {
         "instructions": "Tambahkan nama ke domain yang disediakan (nama hanya boleh berisi <1>a-z</1>, <3>A-Z</3>, <5>0-9</5> dan <7>-</7>). Gunakan <9>--</9> untuk spasi.",
@@ -673,43 +693,43 @@
   "security": {
     "feeds": {
       "name": "Umpan Intelijen Ancaman",
-      "description": "Blokir domain yang diketahui mendistribusikan malware, meluncurkan serangan phishing dan menghosting server perintah dan kontrol menggunakan perpaduan umpan intelijen ancaman paling terkemuka — semuanya diperbarui secara langsung.",
+      "description": "Blokir domain yang diketahui menyebarkan malware, melancarkan serangan phishing, dan menjadi host server command-and-control menggunakan gabungan sumber intelijen ancaman paling tepercaya — semuanya diperbarui secara real time.",
       "enable": "Gunakan Umpan Intelijen Ancaman"
     },
     "ai": {
       "name": "Deteksi Ancaman Berbasis AI",
-      "description": "Blokir jutaan ancaman yang terdeteksi oleh teknologi AI kami — mesin AI eksklusif kami yang dirancang sejak awal untuk DNS dengan ratusan sinyal, data pelatihan berukuran terabyte dan pengambilan keputusan secara real-time.",
+      "description": "Blokir jutaan ancaman yang terdeteksi oleh teknologi AI kami — mesin AI milik kami yang dirancang dari awal khusus untuk DNS dengan ratusan sinyal, terabita data pelatihan, dan pengambilan keputusan secara real time. Mencakup homograf IDN, typosquatting, combosquatting, domain DGA, penyamaran merek, pencurian kredensial, penyebaran malware, dan situs web umpan yang digunakan untuk menyembunyikan infrastruktur berbahaya.",
       "enable": "Aktifkan Deteksi Ancaman Berbasis AI"
     },
     "googleSafeBrowsing": {
       "name": "Google Safe Browsing",
-      "description": "Blokir malware dan domain phishing menggunakan Google Safe Browsing — teknologi yang memeriksa miliaran URL setiap hari untuk mencari situs web yang tidak aman. Tidak seperti versi yang disematkan di beberapa browser, ini tidak mengaitkan alamat IP publik Anda untuk ancaman dan tidak memungkinkan untuk melewati pemblokiran.",
+      "description": "Blokir domain malware dan phishing menggunakan Google Safe Browsing — teknologi yang memeriksa miliaran URL setiap hari untuk mencari situs web yang tidak aman. Berbeda dengan versi yang terintegrasi dalam beberapa peramban, fitur ini tidak mengaitkan alamat IP publik Anda dengan ancaman dan tidak mengizinkan pemblokiran dilewati.",
       "enable": "Aktifkan Google Safe Browsing"
     },
     "cryptojacking": {
-      "name": "Perlindungan Pembajakan Kripto",
-      "description": "Cegah penggunaan yang tidak sah untuk menambang mata uang kripto di perangkat Anda.",
-      "enable": "Aktifkan Perlindungan Pembajakan Kripto"
+      "name": "Penambangan Mata Uang Kripto",
+      "description": "Blokir domain penambangan mata uang kripto untuk membantu mencegah cryptojacking—penggunaan perangkat Anda tanpa izin untuk menambang mata uang kripto.",
+      "enable": "Blokir Penambangan Mata Uang Kripto"
     },
     "dnsRebinding": {
-      "name": "Perlindungan Pengikatan Ulang DNS",
-      "description": "Cegah penyerang mengambil kendali perangkat lokal Anda melalui Internet dengan secara otomatis memblokir tanggapan DNS yang berisi alamat IP pribadi.",
-      "enable": "Aktifkan Perlindungan Pengikatan Ulang DNS"
+      "name": "Alamat Jaringan Lokal",
+      "description": "Blokir respons DNS yang berisi alamat jaringan lokal untuk membantu melindungi perangkat Anda dari serangan DNS rebinding.",
+      "enable": "Blokir Alamat Jaringan Lokal"
     },
     "homograph": {
-      "name": "Perlindungan Serangan Homograf IDN",
-      "description": "Blokir domain yang meniru domain lain dengan menyalahgunakan kumpulan karakter besar yang tersedia dengan kedatangan Nama Domain Internasional (IDN) — misalnya mengganti huruf Latin \"e\" dengan huruf Sirilik \"е\".",
-      "enable": "Aktifkan Perlindungan Serangan Homograf"
+      "name": "Homograf IDN",
+      "description": "Blokir nama domain internasional (IDN) yang menyamar sebagai domain lain menggunakan karakter yang tampak serupa — misalnya, mengganti huruf Latin “e” dengan huruf Kiril “е”.",
+      "enable": "Blokir Homograf IDN"
     },
     "typosquatting": {
-      "name": "Perlindungan Typosquatting",
-      "description": "Blokir domain yang didaftarkan oleh pelaku jahat yang menargetkan pengguna yang salah mengetik alamat situs web ke dalam peramban mereka — mis. gooogle.co.id bukan google.co.id.",
-      "enable": "Aktifkan Perlindungan Typosquatting"
+      "name": "Typosquatting",
+      "description": "Blokir domain yang didaftarkan oleh pelaku kejahatan untuk menargetkan pengguna yang salah mengetik alamat situs web di peramban — misalnya, gooogle.com alih-alih google.com.",
+      "enable": "Blokir Typosquatting"
     },
     "dga": {
       "name": "Algoritma Pembuatan Domain",
-      "description": "Blokir domain yang dihasilkan oleh Domain Generation Algorithms (DGAs) yang terlihat di berbagai keluarga malware yang dapat digunakan sebagai titik pertemuan dengan server perintah dan kontrol mereka.",
-      "enable": "Aktifkan Perlindungan DGA"
+      "description": "Blokir domain yang dihasilkan oleh Domain Generation Algorithms (DGA) dan digunakan oleh berbagai keluarga malware sebagai titik penghubung ke server command-and-control mereka.",
+      "enable": "Blokir Domain DGA"
     },
     "nrd": {
       "name": "Domain Baru Terdaftar",
@@ -717,18 +737,18 @@
       "enable": "Blokir Domain Baru Terdaftar"
     },
     "ddns": {
-      "name": "Blokir Dynamic DNS Hostnames",
-      "description": "Layanan DNS dinamis (atau DDNS) memungkinkan pelaku kejahatan dengan cepat mengatur nama host secara gratis dan tanpa validasi atau verifikasi identitas. Sementara nama host DDNS yang sah jarang diakses dalam penggunaan sehari-hari, rekan-rekan jahat mereka banyak digunakan dalam kampanye phishing — misalnya paypal‑login.duckdns.org.",
+      "name": "Nama Host DNS Dinamis",
+      "description": "Layanan DNS Dinamis (atau DDNS) memungkinkan pelaku kejahatan membuat nama host dengan cepat, gratis, dan tanpa validasi atau verifikasi identitas apa pun. Meskipun nama host DDNS yang sah jarang diakses dalam penggunaan sehari-hari, nama host DDNS berbahaya banyak digunakan dalam kampanye phishing.",
       "disclaimer": "Jika Anda menggunakan DDNS, perhatikan bahwa pengaturan ini tidak akan memblokir situs web layanan DDNS itu sendiri atau API pembaruannya.",
       "enable": "Blokir Dynamic DNS Hostnames"
     },
     "parked": {
-      "name": "Blokir Domain Terparkir",
-      "description": "Domain terparkir adalah situs web satu halaman yang sering sarat dengan iklan dan tanpa nilai apa pun. Monetisasi domain terparkir terkadang dapat tercampur dengan praktik mencurigakan dan konten berbahaya.",
+      "name": "Domain Parkir",
+      "description": "Domain parkir adalah situs web satu halaman yang sering kali dipenuhi iklan dan tidak memberikan manfaat apa pun. Monetisasi domain parkir dapat membuat pengunjung terpapar penipuan, halaman phishing, dan unduhan berbahaya melalui jaringan periklanan dan pengalihan.",
       "enable": "Blokir Domain Terparkir"
     },
     "tld": {
-      "name": "Blokir Domain Tingkat Atas (TLD)",
+      "name": "Domain Tingkat Atas (TLD)",
       "description": "Blokir semua domain dan subdomain milik TLD tertentu.",
       "add": "Tambah TLD",
       "sections": {
@@ -737,15 +757,70 @@
       }
     },
     "csam": {
-      "name": "Blokir Materi Pelecehan Seksual Anak",
+      "name": "Materi Pelecehan Seksual terhadap Anak (CSAM)",
       "description": "Blokir domain yang menghosting materi pelecehan seksual terhadap anak dengan bantuan Project Arachnid, yang dioperasikan oleh Pusat Perlindungan Anak Kanada. Tidak ada informasi yang dikirim kembali ke Project Arachnid ketika domain diblokir.",
       "enable": "Blokir Materi Pelecehan Seksual Anak"
+    },
+    "newlyActiveDomains": {
+      "name": "Domain yang Baru Aktif",
+      "description": "Blokir domain yang baru pertama kali diakses atau memiliki riwayat aktivitas yang rendah. Fitur ini mencegah serangan zero-day dan ancaman \"dorman\" dengan mensyaratkan rekam jejak penggunaan sah yang terbukti sebelum suatu domain dipercaya, sehingga secara efektif menggagalkan upaya untuk \"memanaskan\" domain berbahaya terlebih dahulu.",
+      "enable": "Blokir Domain yang Baru Aktif"
+    },
+    "freeHostingDomains": {
+      "name": "Domain Hosting Gratis",
+      "description": "Blokir subdomain bawaan yang disediakan oleh layanan hosting web gratis (misalnya, *.pages.dev, *.vercel.app, *.netlify.app). \"Domain Hosting Gratis\" (FHD) ini banyak disalahgunakan oleh penyerang untuk menghosting situs phishing dan melewati filter reputasi. Pengaturan ini tidak memengaruhi situs web sah yang menggunakan penyedia tersebut dengan nama domain khusus.",
+      "enable": "Blokir Domain Hosting Gratis"
+    },
+    "tunnelingEndpoints": {
+      "name": "Endpoint Tunneling",
+      "description": "Blokir layanan yang meneruskan lalu lintas lokal ke internet publik melalui tunnel (misalnya, ngrok, Cloudflare Tunnel). Alat ini sering digunakan oleh penyerang untuk melewati firewall dan menghosting halaman phishing pada subdomain acak sambil menyembunyikan infrastruktur yang mendasarinya.",
+      "enable": "Blokir Endpoint Tunneling"
+    },
+    "dataDropServices": {
+      "name": "Layanan Penampungan Data",
+      "description": "Blokir akses ke layanan khusus untuk berbagi teks, file, dan data JSON/konfigurasi atau mengumpulkan data masuk, termasuk permintaan webhook, kueri DNS, dan email. Pemblokiran ini juga mencakup penggunaan sah layanan tersebut.",
+      "enable": "Blokir Layanan Penampungan Data"
+    },
+    "residentialHosting": {
+      "name": "Hosting di Jaringan Rumah",
+      "description": "Blokir domain yang diresolusikan ke rentang IP jaringan rumah (ISP), bukan ke pusat data komersial. Layanan web yang sah jarang dihosting pada koneksi konsumen, sedangkan server C2 botnet dan proksi phishing sering dijalankan pada router rumah yang telah disusupi.",
+      "enable": "Blokir Hosting di Jaringan Rumah"
+    },
+    "untrustedCertificates": {
+      "name": "Sertifikat Tidak Tepercaya",
+      "description": "Blokir domain yang menyajikan sertifikat SSL/TLS yang ditandatangani oleh Otoritas Sertifikat yang tidak tepercaya atau tidak dikenal (misalnya, sertifikat yang ditandatangani sendiri). Meskipun situs web yang sah hampir selalu menggunakan sertifikat tepercaya, hampir 60% server Command-and-Control (C2) malware yang tersedia secara umum mengandalkan sertifikat yang ditandatangani sendiri atau sertifikat yang diterbitkan oleh otoritas tidak tepercaya untuk mengenkripsi lalu lintas mereka tanpa meninggalkan jejak dokumentasi.",
+      "enable": "Blokir Sertifikat Tidak Tepercaya"
+    },
+    "fastFluxNetworks": {
+      "name": "Jaringan Fast Flux",
+      "description": "Blokir domain yang mengganti alamat IP secara cepat di seluruh jaringan terdistribusi perangkat yang telah disusupi (botnet) untuk menghindari deteksi. Heuristik ini mengidentifikasi anomali tertentu pada Time-To-Live (TTL) DNS dan keragaman IP yang menjadi ciri infrastruktur berbahaya serta membedakannya dari Content Delivery Networks (CDN) yang sah.",
+      "enable": "Blokir Jaringan Fast Flux"
+    },
+    "dnsDataExfiltration": {
+      "name": "Eksfiltrasi Data melalui DNS",
+      "description": "Blokir domain yang menggunakan protokol DNS untuk menyelundupkan data keluar dari jaringan Anda atau menerima perintah tersembunyi (C2). Heuristik ini menganalisis pola kueri DNS secara real time—seperti subdomain yang sangat panjang, entropi tinggi, dan jenis permintaan yang tidak lazim (misalnya, TXT)—untuk mendeteksi dan menghentikan pencurian data secara perlahan dengan volume rendah serta beacon malware (seperti Cobalt Strike) yang lolos dari firewall tradisional.",
+      "enable": "Blokir Eksfiltrasi Data melalui DNS"
+    },
+    "dnsPayloadDelivery": {
+      "name": "Pengiriman Payload melalui DNS",
+      "description": "Batasi data yang dapat dimuat dalam respons DNS untuk menghambat pengiriman perintah tersembunyi atau payload ke perangkat Anda, tanpa mengganggu penjelajahan sehari-hari.",
+      "enable": "Hambat Pengiriman Payload melalui DNS"
+    },
+    "decentralizedWebGateways": {
+      "name": "Gateway Web Terdesentralisasi",
+      "description": "Blokir gateway publik yang menghubungkan web terdesentralisasi (misalnya, IPFS) dengan peramban standar. Penyerang banyak menyalahgunakan layanan ini untuk menghosting halaman phishing dan malware yang \"tidak dapat diubah\", sehingga ancaman dapat bertahan dengan menghindari mekanisme penonaktifan tradisional dan filter reputasi.",
+      "enable": "Blokir Gateway Web Terdesentralisasi"
+    },
+    "highRiskTlds": {
+      "name": "TLD Berisiko Tinggi",
+      "description": "Blokir secara otomatis Domain Tingkat Atas (TLD) yang secara statistik didominasi oleh aktivitas berbahaya — misalnya, .zip, .mov, .top. Daftar ini diperbarui secara real time berdasarkan data reputasi penyalahgunaan global, sehingga melindungi Anda dari jaringan luas domain murah sekali pakai yang digunakan untuk phishing dan spam tanpa memerlukan konfigurasi manual.",
+      "enable": "Blokir TLD Berisiko Tinggi"
     }
   },
   "privacy": {
     "blocklists": {
       "name": "Daftar Blokir",
-      "description": "Blokir iklan & pelacak menggunakan daftar blokir paling populer yang tersedia — semuanya diperbarui secara langsung.",
+      "description": "Blokir iklan & pelacak menggunakan daftar blokir paling populer yang tersedia — semuanya diperbarui secara real time.",
       "add": "Tambah daftar blokir",
       "updated": "Diperbarui <1></1>",
       "blocklists": {
@@ -765,7 +840,7 @@
     },
     "native": {
       "name": "Perlindungan Native Tracking",
-      "description": "Blokir pelacak spektrum luas — sering kali beroperasi di tingkat sistem operasi — yang melacak aktivitas Anda di perangkat. Ini dapat mencakup semua situs web yang Anda kunjungi, semua yang Anda ketik atau lokasi Anda setiap saat.",
+      "description": "Blokir pelacak — yang sering beroperasi pada tingkat sistem operasi — yang memantau berbagai aktivitas Anda di perangkat. Aktivitas ini dapat mencakup semua situs web yang Anda kunjungi, semua yang Anda ketik, atau lokasi Anda setiap saat.",
       "add": "Tambah",
       "systems": {
         "xiaomi": {
@@ -781,7 +856,7 @@
           "devices": "Ponsel, Tablet, Smart TV"
         },
         "alexa": {
-          "name": "Amazon Alexa",
+          "name": "Alexa",
           "devices": "Perangkat dengan Alexa yang diaktifkan"
         },
         "windows": {
@@ -804,7 +879,7 @@
     },
     "disguised": {
       "name": "Blokir Pelacak Pihak Ketiga Tersamar",
-      "description": "Secara otomatis mendeteksi dan memblokir pelacak pihak ketiga yang menyamar sebagai pihak pertama untuk menghindari perlindungan privasi peramban terbaru seperti ITP.",
+      "description": "Deteksi dan blokir secara otomatis pelacak pihak ketiga yang menyamar sebagai pihak pertama untuk menghindari perlindungan privasi peramban seperti ITP.",
       "enable": "Blokir Pelacak Pihak Ketiga Tersamar"
     },
     "affiliate": {
@@ -856,11 +931,11 @@
         "tinder": "Tinder",
         "tumblr": "Tumblr",
         "twitch": "Twitch",
-        "twitter": "Twitter",
+        "twitter": "X",
         "vimeo": "Vimeo",
         "vk": "VK",
         "whatsapp": "WhatsApp",
-        "xboxlive": "Xbox Live",
+        "xboxlive": "Xbox",
         "youtube": "YouTube",
         "zoom": "Zoom"
       }
@@ -880,7 +955,7 @@
         },
         "gaming": {
           "name": "Game Online",
-          "description": "Blokir situs game online, aplikasi game online dan jaringan game online (Xbox Live, PlayStation Network, dll.)."
+          "description": "Memblokir situs web, aplikasi, dan jaringan gim daring (Xbox, PlayStation Network, dll.)."
         },
         "piracy": {
           "name": "Pembajakan",
@@ -892,7 +967,7 @@
         },
         "social-networks": {
           "name": "Jejaring Sosial",
-          "description": "Blokir semua situs dan aplikasi jejaring sosial (Facebook, Instagram, TikTok, Reddit, dll.). Tidak memblokir aplikasi perpesanan."
+          "description": "Memblokir semua situs dan aplikasi jejaring sosial (Facebook, Instagram, TikTok, Reddit, dll.). Tidak memblokir aplikasi perpesanan."
         },
         "video-streaming": {
           "name": "Streaming Video",
@@ -902,9 +977,11 @@
     },
     "recreation": {
       "name": "Waktu Rekreasi",
-      "description": "Mengatur periode pada hari tertentu atau setiap hari di mana beberapa situs web, aplikasi, permainan atau kategori di atas tidak akan diblokir — misalnya, mengizinkan Facebook pada hari Senin dan Selasa antara pukul 18.00 dan 20.00.",
+      "description": "Tetapkan rentang waktu untuk setiap hari dalam seminggu saat beberapa situs web, aplikasi, gim, atau kategori di atas tidak diblokir — misalnya, izinkan Facebook pada hari Senin dan Selasa antara pukul 18.00 dan 20.00.",
       "set": "Atur Waktu Rekreasi",
-      "howto": "Gunakan tombol <1></1> di bagian atas untuk mengaktifkan Waktu Rekreasi."
+      "howto": "Gunakan tombol <1></1> di bagian atas untuk mengaktifkan Waktu Rekreasi.",
+      "start": "Waktu mulai",
+      "end": "Waktu berakhir"
     },
     "safesearch": {
       "name": "SafeSearch",
@@ -928,7 +1005,7 @@
       "required": "Masukkan domain.",
       "ip": "Masukkan domain, bukan alamat IP.",
       "invalid": "Masukkan domain yang valid.",
-      "tld": "Sepertinya Anda mencoba memblokir seluruh TLD, harap gunakan fitur Blokir TLD di bagian Keamanan.",
+      "tld": "Sepertinya Anda mencoba memblokir seluruh TLD. Gunakan fitur Domain Tingkat Atas (TLD) di bagian Keamanan.",
       "exists": "Domain ini sudah ditambahkan."
     },
     "empty": "Belum ada domain.",
@@ -941,7 +1018,7 @@
   },
   "analytics": {
     "counters": {
-      "percentBlocked": "<0>{{percent, percentage}}</0><1><0> </0><1>dari kueri yang diblokir</1></1>",
+      "percentBlocked": "<0>{{percent, percentage}}</0><1><0> </0><1>kueri diblokir</1></1>",
       "all_one": "<0>{{count, number}}</0><1>kueri</1>",
       "all_other": "<0>{{count, number}}</0><1>kueri</1>",
       "blocked_one": "<0>{{count, number}}</0><1>kueri yang diblokir</1>",
@@ -973,7 +1050,7 @@
       "empty": "Belum ada domain."
     },
     "reasons": {
-      "name": "Alasan Diblokir",
+      "name": "Alasan Pemblokiran",
       "description": "Pengaturan Keamanan, Privasi dan/atau Kontrol Orang Tua yang memblokir sebagian besar kueri.",
       "empty": "Belum ada domain yang diblokir."
     },
@@ -992,7 +1069,7 @@
     },
     "gafam": {
       "name": "Dominasi GAFAM",
-      "description": "\"GAFAM\" (Google, Amazon, Facebook, Apple dan Microsoft) adalah 5 perusahaan Internet dominan yang memiliki banyak layanan populer, seringkali beroperasi dengan nama yang berbeda, misalnya, WhatsApp dan Instagram dari Facebook.",
+      "description": "\"GAFAM\" (Google, Amazon, Facebook (kini Meta), Apple, dan Microsoft) adalah 5 perusahaan internet dominan yang memiliki banyak layanan populer, yang sering beroperasi dengan nama berbeda, misalnya WhatsApp dan Instagram milik Meta.",
       "companies": {
         "google": {
           "name": "Google"
@@ -1001,7 +1078,7 @@
           "name": "Amazon"
         },
         "facebook": {
-          "name": "Facebook"
+          "name": "Meta"
         },
         "apple": {
           "name": "Apple"
@@ -1018,7 +1095,7 @@
     },
     "encrypted": {
       "name": "DNS Terenkripsi",
-      "description": "Persentase kueri yang dibuat menggunakan transportasi terenkripsi (DNS-over-HTTPS, DNS-over-TLS atau aplikasi resmi NextDNS).",
+      "description": "Persentase kueri yang dikirim menggunakan transport terenkripsi (DNS-over-HTTPS, DNS-over-TLS, atau aplikasi resmi NextDNS).",
       "empty": "Belum ada kueri."
     },
     "dnssec": {
@@ -1028,7 +1105,7 @@
     },
     "destination": {
       "name": "Tujuan Lalu Lintas",
-      "description": "Negara tujuan lalu lintas Internet Anda.",
+      "description": "Perkiraan negara tujuan berdasarkan kueri DNS Anda.",
       "topDomains": "Domain Teratas",
       "queries_one": "{{count, number}} kueri",
       "queries_other": "{{count, number}} kueri"
@@ -1048,15 +1125,17 @@
         "nextdns-macos": "NextDNS untuk macOS",
         "nextdns-windows": "NextDNS untuk Windows",
         "nextdns-cli": "Klien CLI NextDNS",
-        "nextdns-chromeos": "NextDNS untuk Chrome OS",
+        "nextdns-chromeos": "NextDNS untuk ChromeOS",
         "firefox": "Firefox",
         "google-chrome": "Google Chrome",
         "dnscrypt": "DNSCrypt",
         "intra": "Intra",
         "surge": "Surge",
         "https-dns-proxy": "https_dns_proxy",
-        "mikrotik": "Mikrotik",
-        "apple-profile": "Profil Konfigurasi Apple"
+        "mikrotik": "MikroTik",
+        "apple-profile": "Profil Konfigurasi Apple",
+        "yogadns": "YogaDNS",
+        "tailscale": "Tailscale"
       },
       "blockedBy": "Diblokir oleh <1>{{lists,list}}</1>.",
       "allowedBy": "Diizinkan oleh <1>{{lists,list}}</1>.",
@@ -1096,7 +1175,7 @@
             "description": "Jaringan pengiriman konten yang memberikan sumber daya untuk penggunaan situs yang berbeda dan biasanya untuk banyak pelanggan yang berbeda."
           },
           "misc": {
-            "description": "Pelacak ini tidak sesuai dengan kategori lain atau belum diberi label."
+            "description": "Pelacak ini tidak termasuk dalam kategori lain atau belum diberi label."
           },
           "pornvertising": {
             "description": "Memberikan iklan yang umumnya muncul di situs konten dewasa."
@@ -1105,7 +1184,7 @@
             "description": "Ini adalah layanan yang digunakan oleh penyedia konten atau pemilik situs."
           },
           "extensions": {
-            "description": "Perangkat lunak pada perangkat pengguna yang dapat mencegat dan menganalisis lalu lintas peramban (man in the middle)."
+            "description": "Perangkat lunak pada perangkat pengguna yang dapat menyadap dan menganalisis lalu lintas peramban (man in the middle)."
           }
         },
         "prevalence": {
@@ -1116,12 +1195,15 @@
             "commonly": "Umum terjadi",
             "relatively": "Relatif lazim"
           },
-          "summary": "{{prevalence}} <3>(melacak {{percent, percentage}} dari lalu lintas web)</3>"
+          "summary": "{{prevalence}} <2>(melacak {{percent, percentage}} lalu lintas web)</2>"
         },
         "ownedBy": "<0>Dimiliki oleh </0><1>{{company}}</1>",
         "source": "Wawasan Pelacak dari"
       }
-    }
+    },
+    "settings": "Opsi log",
+    "streaming": "Pembaruan log langsung",
+    "toggleTimeFormat": "Alihkan format stempel waktu"
   },
   "deviceSelector": {
     "all": "Semua perangkat",
@@ -1144,11 +1226,11 @@
     },
     "logs": {
       "name": "Log",
-      "description": "Sempurnakan pengaturan Log Anda.",
+      "description": "Sesuaikan pengaturan Log Anda secara terperinci.",
       "enable": "Aktifkan Log",
       "privacy": {
         "name": "Penyesuaian privasi",
-        "ip": "Log IP klien",
+        "ip": "Catat alamat IP klien",
         "domains": "Log domain"
       },
       "retention": {
@@ -1221,14 +1303,14 @@
       },
       "flatten": {
         "name": "CNAME Flattening",
-        "description": "Cegah resolver pengejar CNAME membuat kueri yang tidak perlu dan mencemari log dengan domain perantara.",
+        "description": "Cegah resolver yang menelusuri rantai CNAME membuat kueri yang tidak perlu dan memenuhi log dengan domain perantara.",
         "enable": "Aktifkan CNAME Flattening"
       }
     },
     "web3": {
       "name": "Web3",
-      "description": "Web3 mengacu pada ekosistem online yang terdesentralisasi dan tahan sensor yang terdiri dari teknologi inovatif seperti pendaftar domain berbasis blockchain (misalnya Ethereum Name Service) dan jaringan penyimpanan dan pengiriman konten terdistribusi (misalnya IPFS). Saat diaktifkan, NextDNS akan bertindak sebagai gerbang tanpa filter ke Web baru ini, memungkinkan Anda mengalaminya secara langsung tanpa perlu menginstal apa pun.",
-      "tips": "Karena sebagian besar peramban saat ini hanya mendukung domain tingkat atas klasik, Anda harus menambahkan garis miring (\"<1>/</1>\") ketika mencoba mengakses domain Web3 secara langsung (mis. \"<3>vitalik.eth/</3>\" bukan \"<5>vitalik.eth</5>\").",
+      "description": "Web3 merujuk pada ekosistem daring terdesentralisasi dan tahan sensor yang mencakup teknologi inovatif seperti registri domain berbasis blockchain (misalnya, Ethereum Name Service) serta jaringan penyimpanan dan distribusi konten terdistribusi (misalnya, IPFS). Saat fitur ini diaktifkan, NextDNS akan bertindak sebagai gateway tanpa penyaringan ke Web baru ini, sehingga Anda dapat menggunakannya secara langsung tanpa perlu menginstal apa pun.",
+      "tips": "Karena sebagian besar peramban saat ini hanya mendukung domain tingkat atas konvensional, Anda perlu menambahkan garis miring di akhir (\"<1>/</1>\") saat mencoba mengakses domain Web3 secara langsung (misalnya, \"<3>vitalik.eth/</3>\" alih-alih \"<5>vitalik.eth</5>\").",
       "enable": "Aktifkan Web3"
     },
     "rewrites": {
@@ -1268,7 +1350,7 @@
         "email": {
           "label": "Email",
           "errors": {
-            "required": "Masukkan email.",
+            "required": "Masukkan alamat email.",
             "invalid": "Masukkan alamat email yang valid.",
             "duplicate": "Email ini telah diundang."
           }
@@ -1306,6 +1388,11 @@
       "confirm": {
         "text": "Apakah Anda yakin ingin keluar dari <1>{{name}}</1>? Tindakan ini tidak bisa dibatalkan."
       }
+    },
+    "ageVerification": {
+      "name": "Lewati Verifikasi Usia",
+      "description": "Lewati secara otomatis pemeriksaan verifikasi usia yang digunakan oleh situs web tertentu, seperti situs konten dewasa, untuk memverifikasi usia pengunjung sebelum mengizinkan akses.",
+      "acknowledgment": "Dengan mengaktifkan fitur ini, Anda menyatakan bahwa usia Anda telah memenuhi batas minimum yang ditetapkan secara hukum untuk mengakses konten tersebut."
     }
   }
 }

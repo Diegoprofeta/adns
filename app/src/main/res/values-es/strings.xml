@@ -405,4 +405,7 @@
     <string name="privacy_policy">Política de privacidad</string>
     <string name="prevalence_tracks_summary">%1$s (rastrea %2$s del tráfico web)</string>
     <string name="prevalent_format">%1$s prevalentes</string>
+    <string name="provider_preset_dnsforge_clean_description">Bloquea anuncios, rastreadores, malware, y contenido adulto, y activa la Búsqueda Segura cuando es posible.</string>
+    <string name="provider_preset_dnsforge_hard_description">Bloqueo estricto de anuncios, rastreadores, y malware con listas de bloqueo extensas.</string>
+    <string name="provider_preset_dnsforge_blank">Vacio</string>
 </resources>
