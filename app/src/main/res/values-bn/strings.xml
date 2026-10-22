@@ -405,4 +405,7 @@
     <string name="privacy_policy">প্রাইভেসী পলিসি</string>
     <string name="prevalence_tracks_summary">%1$s (tracks %2$s of web traffic)</string>
     <string name="prevalent_format">%1$s prevalent</string>
+    <string name="client">ক্লিন্ট</string>
+    <string name="dnsforge">DNSforge</string>
+    <string name="the_public_dnsforge_dns_server">একটা পাবলিক dnsforge.de DNS সারভার যা জার্মানি তে হোস্ট করা।</string>
 </resources>
